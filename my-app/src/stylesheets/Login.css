@@ -1,0 +1,34 @@
+label, .inputs-container input {
+  font-size: 30px;
+}
+
+.Login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.inputs-container {
+  margin-top: 200px;
+}
+
+.inputs-container input {
+  margin-left: 15px;
+}
+
+.username-container {
+  margin-bottom: 15px;
+}
+
+#login-button {
+  max-width: 300px;
+  margin-top: 50px;
+  font-size: 30px;
+  height: 50px;
+  width: 150px;
+}
+
+#login-advice {
+  text-align: center;
+}

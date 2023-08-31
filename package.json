@@ -1,0 +1,30 @@
+{
+  "name": "control-agrupaciones-dim",
+  "version": "1.0.0",
+  "description": "Sistema de Control de Actividades y Agrupaciones de Identidad y Misión -UCAB-Gy",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server/server.js",
+    "client": "npm run electron-react --prefix my-app",
+    "dev": "concurrently \"npm run start-server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eliasgit32/Control-Agrupaciones-DIM.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eliasgit32/Control-Agrupaciones-DIM/issues"
+  },
+  "homepage": "https://github.com/eliasgit32/Control-Agrupaciones-DIM#readme",
+  "dependencies": {
+    "concurrently": "^8.2.1",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "nodemon": "^3.0.1"
+  }
+}
