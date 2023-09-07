@@ -1,20 +1,21 @@
 body {
   margin: 0;
+  padding-top: 120px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(46, 46, 46);
-  color: rgb(219, 211, 211);
+  background-color: #222;
+  color: #fff;
 }
 
 :focus {
   outline: 2px solid blue;
 }
 
-button {
-  background-color: rgb(56, 82, 230);
+#login-button {
+  background-color: #375a7f;
   border: none;
   border-radius: 10px;
 }
@@ -29,4 +30,13 @@ footer {
   width: 100%;
   height: 60px;
   background-color: rgb(56, 82, 230);
+}
+
+/* Estilos para todos los formularios */
+.form-label {
+  font-size: 22px;
+}
+
+textarea {
+  resize: none;
 }

@@ -1,7 +1,22 @@
 import React from 'react';
+import NavBar from '../components/NavBar';
+import PageHeader from '../components/PageHeader';
+import PlusButton from '../components/PlusButton';
+import NewGroup from '../components/NewGroup';
+import GroupList from '../components/GroupList';
 
 export default function HomePage() {
+
   return (
-    <div>HomePage</div>
+    <>
+      <NavBar />
+      <div className='container'>
+        <PageHeader pageTitle='Agrupaciones' />
+        <GroupList />
+        <PlusButton />
+        <NewGroup />
+      </div>
+    </>
   );
 }
+ 

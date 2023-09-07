@@ -21,10 +21,14 @@
   },
   "homepage": "https://github.com/eliasgit32/Control-Agrupaciones-DIM#readme",
   "dependencies": {
+    "bootstrap-icons": "^1.10.5",
     "concurrently": "^8.2.1",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "morgan": "^1.10.0",
-    "mysql": "^2.18.1",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
     "nodemon": "^3.0.1"
   }
 }
