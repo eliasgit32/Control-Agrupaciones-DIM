@@ -44,6 +44,7 @@ export default function NewGroup() {
       publico: publico
     } 
     addGroupMutation.mutate(newGroup);
+    handleClose();
   }
 
   return(

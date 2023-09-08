@@ -1,7 +1,6 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getGroups } from '../API/group';
-import { useState } from 'react';
 import GroupCard from './GroupCard';
 
 export default function GroupList() {
@@ -14,15 +13,19 @@ if (isLoading) {
 
 return (
   <div className='container'>
-    {data.map((group) => (
-      <GroupCard 
-      key={group.id}
-      name={group.nombre}
-      description={group.descripcion}
-      publico={group.publico} 
-      />
-    ))}
+    <div className='container card-group d-flex flex-row justify-content-start flex-wrap'>
+      {data.map((group) => (
+        <GroupCard 
+        key={group.id}
+        name={group.nombre}
+        description={group.descripcion}
+        publico={group.publico} 
+        />
+      ))}
+    </div>
   </div>
+    
+  
 );
 
 }
