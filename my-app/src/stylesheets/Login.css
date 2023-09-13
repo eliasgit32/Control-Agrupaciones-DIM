@@ -23,10 +23,8 @@ label, .inputs-container input {
 }
 
 #login-button {
-  max-width: 300px;
   margin-top: 50px;
   font-size: 30px;
-  height: 50px;
   width: 150px;
 }
 

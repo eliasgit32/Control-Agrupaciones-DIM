@@ -64,7 +64,7 @@ export default function Login () {
         </div>
       </div>
       
-      <button id='login-button'>Ingresar</button>
+      <button className='btn btn-primary' id='login-button'>Ingresar</button>
       
       {/* Nota a pie de pagina */}
       <footer>

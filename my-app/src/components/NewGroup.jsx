@@ -84,7 +84,7 @@ export default function NewGroup() {
           </div>
           {/* Cupos */}
           <div className='mb-3 row'>
-            <label htmlFor='newGroupLimit' className='form-label col-sm-2'>Cupos</label>
+            <label htmlFor='newGroupLimit' className='form-label col-sm-3'>Cupos</label>
             <div className='col-sm-3'>
               <input 
               type='number' 

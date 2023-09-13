@@ -17,15 +17,13 @@ return (
       {data.map((group) => (
         <GroupCard 
         key={group.id}
+        id={group.id}
         name={group.nombre}
         description={group.descripcion}
         publico={group.publico} 
         />
       ))}
     </div>
-  </div>
-    
-  
+  </div>   
 );
-
 }

@@ -24,11 +24,13 @@ export default function GroupCard(props) {
       style={{width: '18rem'}}>
         <div className='card-header text-info'>{props.publico}</div>
         <div className='card-body'>
-          <h4 className='card-title'>{props.name}</h4>
-          <p 
-          className='card-text' >
-            {props.description}
-          </p>
+          <Link to={`/group/${props.id}`} className='link'>
+            <h4 className='card-title'>{props.name}</h4>
+            <p 
+            className='card-text' >
+              {props.description}
+            </p>
+          </Link>
           <div className='text-center'>
             <Link to={''} className='btn btn-primary' >Generar gráfica</Link>
           </div>

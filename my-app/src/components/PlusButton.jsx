@@ -3,7 +3,7 @@ import '../stylesheets/PlusButton.css'
 
 export default function PlusButton() {
   return(
-    <div className='bs-component'>
+    <div className='bs-component position-fixed bottom-0 end-0 px-5 py-3'>
       <button 
       type='button' 
       className='btn btn-primary' 

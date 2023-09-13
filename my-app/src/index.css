@@ -14,16 +14,6 @@ body {
   outline: 2px solid blue;
 }
 
-#login-button {
-  background-color: #375a7f;
-  border: none;
-  border-radius: 10px;
-}
-
-button:hover {
-  cursor: pointer;
-}
-
 footer {
   position: absolute;
   bottom: 0;

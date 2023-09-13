@@ -22,7 +22,28 @@ router.get('/', (req, res) => {
       return;
     }
   })
-  
+})
+
+//Solicitar info de solo un grupo
+router.get('/:id', (req, res) => {
+  const {id} =  req.params;
+
+  const sql = `SELECT * FROM agrupaciones WHERE id = ${id}`; 
+  conn.query(sql, (error, results) => {
+    if(error) {
+      res.statusCode = 500;
+      res.send(error.sqlMessage);
+      return;
+    } else if(results.length > 0) {
+      res.statusCode = 200;
+      res.json(results);
+      return;
+    } else {
+      res.statusCode = 204;
+      res.send('No group found');
+      return;
+    }
+  })
 })
 
 //PETICIONES POST
@@ -47,5 +68,35 @@ router.post('/', (req, res) => {
     }
   })
 })
+
+//PETICIONES PUT
+//Actualizar datos de un grupo
+router.put('/', (req, res) => {
+  const group = {
+    id: req.body.id,
+    nombre: req.body.name,
+    descripcion: req.body.description,
+    cupos: req.body.limit,
+    publico: req.body.publico
+  }
+  const sql = 'UPDATE agrupaciones SET '  +
+  `nombre='${group.nombre}'` +
+  `descripcion='${group.descripcion}'` +
+  `cupos='${group.cupos}'` +
+  `publico='${group.publico}'` +
+  `WHERE id='${id}'`;
+
+  conn.query(sql, error => {
+    if(error){
+      res.statusCode = 500;
+      res.send(error.sqlMessage);
+      return;
+    } else {
+      res.statusCode = 200;
+      res.send('Group Added');
+      return;
+    }
+  })
+});
 
 module.exports = router;

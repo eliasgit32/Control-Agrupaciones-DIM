@@ -1,0 +1,9 @@
+.info-bar {
+  position: fixed;
+  left: 0;
+  background-color: #303030;
+  color: #fff;
+  width: 350px;
+  height: 100%;
+  margin-top: -48px;
+}

@@ -1,0 +1,15 @@
+input[dark='true'], textarea[dark='true'], select[dark='true'] {
+  background-color: #303030;
+  color: #fff;
+}
+
+#groupName {
+  font-size: 25px;
+  text-align: center;
+}
+
+
+
+.form-label {
+  font-size: 17px;
+}

@@ -6,3 +6,12 @@
   white-space: pre-wrap; /* let the text wrap preserving spaces */
   overflow: hidden;
 }
+
+.link {
+  text-decoration: none;
+  color: #fff;
+}
+
+.btn {
+  margin: 10px;
+}
