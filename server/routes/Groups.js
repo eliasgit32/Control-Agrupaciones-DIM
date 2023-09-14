@@ -80,11 +80,11 @@ router.put('/', (req, res) => {
     publico: req.body.publico
   }
   const sql = 'UPDATE agrupaciones SET '  +
-  `nombre='${group.nombre}'` +
-  `descripcion='${group.descripcion}'` +
-  `cupos='${group.cupos}'` +
-  `publico='${group.publico}'` +
-  `WHERE id='${id}'`;
+  `nombre='${group.nombre}', ` +
+  `descripcion='${group.descripcion}', ` +
+  `cupos=${group.cupos}, ` +
+  `publico='${group.publico}' ` +
+  `WHERE id=${group.id}`;
 
   conn.query(sql, error => {
     if(error){

@@ -16,17 +16,24 @@ export default function Group() {
 
   //Funciones del manejo de inputs
   const changeName = e => setName(e.target.value) 
-    
   const changeDescription = e => setDescription(e.target.value)
   const changeLimit = e => setLimit(parseInt(e.target.value))
   const changePublico = e => setPublico(e.target.value)
 
   const params = useParams();
 
+  const { isLoading, data } = useQuery(['group', params.id], () => getOneGroup(params.id));
+
   //Cliente para funcion de actualizacion de grupo
   const queryClient = useQueryClient();
 
-  const { isLoading, data } = useQuery(['group', params.id], () => getOneGroup(params.id));
+  //Mutacion actualizar agrupacion
+  const updateGroupMutation = useMutation({
+    mutationFn: updateGroup,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['group', params.id]);
+    }
+  })
 
   if (isLoading) {
     return (
@@ -43,33 +50,30 @@ export default function Group() {
   && (limit === null || limit === data[0].cupos) 
   && (publico === null || publico === data[0].publico));
 
-  //Mutacion actualizar agrupacion
-  const updateGroupMutation = useMutation({
-    mutationFn: updateGroup,
-    onSuccess: () => {
-      queryClient.invalidateQueries(['group', params.id]);
-    }
-  })
+ 
 
   //Cancelar actualizar info de grupo
   const handleCancel = () => {
-
+    //Reinicializar cada input en null para volver reestablecer
+    //valores de data[0] en ellos
+    setName(null);
+    setDescription(null);
+    setLimit(null);
+    setPublico(null);  
   }
 
-  //Guardar actualizacion de grupo
+  //Guardar actualización de grupo
   const handleUpdate = () => {
     const group = {
-      id: params.id,
-      name: name,
-      description: description,
-      limit: limit,
-      publico: publico
+      id: parseInt(params.id),
+      name: document.getElementById('groupName').value,
+      description: document.getElementById('groupDesc').value,
+      limit: parseInt(document.getElementById('groupLimit').value),
+      publico: document.getElementById('groupPublic').value
     }
     updateGroupMutation.mutate(group);
   }
 
-  //REPENSAR LA LOGICA PARA INICIALIZAR TODOS
-  //CON LOS VALORES DE DATA???
   return (
     <div>
       <NavBar></NavBar>
@@ -111,6 +115,20 @@ export default function Group() {
             value={limit || (limit !== 0 ? data[0].cupos : 0)}/>
           </div>
         </div>
+        {/* Total Inscritos */}
+        <div className='mb-3 row'>
+          <label className='form-label col-sm-6'>Total inscritos: </label>
+          <p className='col-sm-5' id='groupTotalSigned'>*Falta agregar*</p>
+        </div>
+        {/* Coordinador */}
+        <div className='mb-3 row'>
+          <label htmlFor='groupCoord' className='form-label col-sm-5'>Coordinador:</label>
+          <div className='col-sm-6'>
+            <select className='form-select' id="groupCoord" dark='true'>
+              <option value="">*Falta agregar*</option>
+            </select>
+          </div>
+        </div>
         {/* Publico */}
         <div className='mb-3 row'>
           <label htmlFor='groupPublic' className='form-label col-sm-4'>Dirigido a:</label>
@@ -131,7 +149,6 @@ export default function Group() {
         </div>
 
         {/* Botones de guardado y cancelacion */}
-        {/* SOLUCIONAR BOTONES NO SE ACTIVAN */}
         <div className='text-center'>
           <button
           type='button'

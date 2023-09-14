@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import {QueryClientProvider, QueryClient} from '@tanstack/react-query';
-import {ReactQueryDevtools} from '@tanstack/react-query-devtools';
+// import {ReactQueryDevtools} from '@tanstack/react-query-devtools';
 import "bootstrap-icons/font/bootstrap-icons.css";
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
@@ -15,7 +15,7 @@ root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <App />
-      <ReactQueryDevtools />
+      {/* <ReactQueryDevtools /> */}
     </QueryClientProvider>
   </React.StrictMode>
 );
