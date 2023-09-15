@@ -6,6 +6,9 @@ import { getOneGroup, updateGroup } from '../API/group';
 import InfoSideBar from '../components/InfoSideBar';
 import NavBar from '../components/NavBar';
 import '../stylesheets/Group.css';
+import TermSelect from '../components/TermSelect';
+import PlusButton from '../components/PlusButton';
+import ActList from '../components/ActList';
 
 export default function Group() {
   //Inputs
@@ -159,8 +162,30 @@ export default function Group() {
           className={invalidInputs ? 'btn btn-success disabled' : 'btn btn-success'}
           onClick={handleUpdate}>Guardar Cambios</button>
         </div>
-        
       </InfoSideBar>
+
+      {/* Select de períodos académicos */}
+      <div className='term-container'>
+        <div className='text-center justify-content-center row mt-4'>
+          <label htmlFor="selectTerms" className='form-label col-sm-2'>Períodos</label>
+          <div className='col-sm-4'>
+            <TermSelect />
+          </div>
+        </div>
+      </div>
+
+      {/* Lista de Actividades de la agrupación */}
+      <ActList />
+
+      {/* Botones opciones de agrupación */}
+      <div className='buttons-container text-center d-flex justify-content-center'>
+        <button type='button' className='btn btn-success'>Inscribir Participantes</button>
+        <button type='button' className='btn btn-info'>Exportar Cronograma Actividades</button>
+        <PlusButton 
+        type='Act' 
+        font='17px' 
+        styleClass=''/>
+      </div>
     </div>
   );
 }

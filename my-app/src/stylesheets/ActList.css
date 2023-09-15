@@ -1,0 +1,14 @@
+.act-container {
+  position: fixed;
+  bottom: 60px;
+  right: 0;
+  width: 1016px;
+  height: calc(100% - 212px);
+  overflow-y: scroll;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

@@ -8,8 +8,24 @@ input[dark='true'], textarea[dark='true'], select[dark='true'] {
   text-align: center;
 }
 
-
-
 .form-label {
   font-size: 17px;
+}
+
+.term-container {
+  width: calc(100% - 350px);
+  height: 80px;
+  position: fixed;
+  top: 72px;
+  right: 0;
+}
+
+.buttons-container {
+  background-color: #303030;
+  width: 1016px;
+  height: 60px;
+  position: fixed;
+  z-index: -1;
+  bottom: 0;
+  right: 0;
 }
