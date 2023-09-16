@@ -91,7 +91,7 @@ export default function Group() {
             onChange={changeName}
             value={name || (name !== '' ? data[0].nombre : '')} />
         </div>
-        {/* Descripcion */}
+        {/* Descripción */}
         <div className='mb-3'>
           <label htmlFor='groupDesc' className='form-label'>Descripcion</label>
           <textarea 

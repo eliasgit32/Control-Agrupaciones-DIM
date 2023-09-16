@@ -1,5 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import '../stylesheets/ActCard.css';
 
 export default function ActCard(props) {
   //Estado del mouse sobre el componente
@@ -19,12 +21,14 @@ export default function ActCard(props) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       style={{ width: '700px' }}>
-        <div className='card-header'>{`${props.start} - ${props.end}`}
-        </div>
-        <div className='card-body'>
-          <h4 className='card-title'>{props.name}</h4>
-          <p className='card-text'>{props.description}</p>
-        </div>
+        <Link to = {`/group/${props.groupID}/${props.id}`} className='link'>
+          <div className='card-header'>{`${props.start} - ${props.end}`}</div>
+          <div className='card-body'>
+            <h4 className='card-title'>{props.name}</h4>
+            <p className='card-text'>{props.description}</p>
+          </div>
+        </Link>
+        
       </div>
     </div>
       

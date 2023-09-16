@@ -1,0 +1,7 @@
+#actName {
+  font-size: 20px;
+}
+
+label[act-label='true'] {
+  font-size: 17px;
+}

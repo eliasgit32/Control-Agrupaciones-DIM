@@ -18,7 +18,7 @@ export default function GroupCard(props) {
   return(
     <div className='bs-component col-md-4'>
       <div 
-      className={`card border-${hover ? 'primary' : 'secondary'} mb-2 mx-3`}
+      className={`card border-${hover ? 'primary' : 'secondary'} my-3 mx-3`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave} 
       style={{width: '18rem'}}>

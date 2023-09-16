@@ -29,7 +29,6 @@ export default function Login () {
     if(isLoading){
       return
     }
-    console.log(data);
     if(data.user === 1) {
       //Ingreso a la HomePage del sistema
       navigate('/homepage');
