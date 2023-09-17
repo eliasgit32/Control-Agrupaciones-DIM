@@ -1,11 +1,16 @@
 import React from 'react';
 import { useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import InfoSideBar from '../components/InfoSideBar';
 import NavBar from '../components/NavBar';
 import '../stylesheets/Activity.css';
 import TermSelect from '../components/TermSelect';
+import TableParticipants from '../components/TableParticipants';
+import '../stylesheets/Group.css';
 
 export default function Activity() {
+  const params = useParams();
+  console.log(params);
   //Inputs
   const[name, setName] = useState(null);
   const[description, setDescription] = useState(null);
@@ -20,7 +25,12 @@ export default function Activity() {
 
   //Cancelar actualización de datos
   const handleCancel = () => {
-
+    //Reinicializar cada input en null para volver reestablecer
+    //valores de data[0] en ellos
+    setName(null);
+    setDescription(null);
+    setStartDate(null);
+    setEndDate(null);  
   }
 
   //Actualizar datos
@@ -47,16 +57,19 @@ export default function Activity() {
         </div>
         {/* Nombre de Agrupación */}
         <div className='mb-3 row'>
-          <label className='form-label col-sm-6 col align-self-center' act-label='true'>
+          <label className='form-label col-sm-6' act-label='true'>
             Nombre Agrupación:
           </label>
           <div className='col-sm-5'>
-            <input 
-            type="text"
-            className='form-control'
-            readOnly={true} 
-            dark='true'
-            defaultValue='Grupo 1...'/>
+            <Link to={`/group/${params.id}`} className='link'>
+              <p>Grupo 1...</p>
+              {/* <input 
+              type="text"
+              className='form-control'
+              readOnly={true} 
+              dark='true'
+              defaultValue='Grupo 1...'/> */}
+            </Link>
           </div>
         </div>
         {/* Descripción */}
@@ -150,6 +163,16 @@ export default function Activity() {
             <TermSelect />
           </div>
         </div>
+      </div>
+
+      {/* Tabla de participantes */}
+      <div className='participants-container px-3'>
+        <TableParticipants />
+      </div>
+
+      {/* Botones opciones de agrupación */}
+      <div className='buttons-container text-center d-flex justify-content-center'>
+        <button type='button' className='btn btn-info'>Exportar Lista de Participantes</button>
       </div>
     </div>
   )

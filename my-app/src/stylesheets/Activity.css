@@ -5,3 +5,12 @@
 label[act-label='true'] {
   font-size: 17px;
 }
+
+.participants-container {
+  position: fixed;
+  bottom: 60px;
+  right: 0;
+  width: 1016px;
+  height: calc(100% - 212px);
+  overflow-y: auto;
+}

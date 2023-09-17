@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/eliasgit32/Control-Agrupaciones-DIM#readme",
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
     "bootstrap-icons": "^1.10.5",
     "concurrently": "^8.2.1",
     "cors": "^2.8.5",

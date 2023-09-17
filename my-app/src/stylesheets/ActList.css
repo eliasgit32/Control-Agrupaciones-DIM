@@ -4,7 +4,7 @@
   right: 0;
   width: 1016px;
   height: calc(100% - 212px);
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .list {
