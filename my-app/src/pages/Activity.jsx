@@ -10,7 +10,6 @@ import '../stylesheets/Group.css';
 
 export default function Activity() {
   const params = useParams();
-  console.log(params);
   //Inputs
   const[name, setName] = useState(null);
   const[description, setDescription] = useState(null);
@@ -63,12 +62,6 @@ export default function Activity() {
           <div className='col-sm-5'>
             <Link to={`/group/${params.id}`} className='link'>
               <p>Grupo 1...</p>
-              {/* <input 
-              type="text"
-              className='form-control'
-              readOnly={true} 
-              dark='true'
-              defaultValue='Grupo 1...'/> */}
             </Link>
           </div>
         </div>
@@ -166,7 +159,7 @@ export default function Activity() {
       </div>
 
       {/* Tabla de participantes */}
-      <div className='participants-container px-3'>
+      <div className='participants-container'>
         <TableParticipants />
       </div>
 

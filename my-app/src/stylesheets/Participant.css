@@ -1,0 +1,15 @@
+label[part-field='true'] {
+  font-size: 16px;
+}
+
+input[part-field='true'], span[part-field='true'], select[part-field='true'] {
+  font-size: 14px;
+}
+
+#partEmail {
+  margin-left: -30px;
+}
+
+#partTerm {
+  margin-left: -30px;
+}

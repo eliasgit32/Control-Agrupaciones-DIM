@@ -13,4 +13,6 @@ label[act-label='true'] {
   width: 1016px;
   height: calc(100% - 212px);
   overflow-y: auto;
+  padding-right: 10px;
+  padding-left: 25px;
 }

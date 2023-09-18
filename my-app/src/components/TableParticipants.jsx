@@ -16,7 +16,7 @@ export default function TableParticipants() {
     name:'Cédula',
     options: {
       customBodyRender: (value, tableMeta, updateValue) => {
-        return <Link to={`/participants/${value}`}>{value}</Link>
+        return <Link to={`/participant/${value}`}>{value}</Link>
       }
     }
   }, 
