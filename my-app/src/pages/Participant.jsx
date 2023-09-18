@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import InfoSideBar from '../components/InfoSideBar';
 import LetterAvatar from '../components/LetterAvatar';
 import NavBar from '../components/NavBar';
+import ParticipationHistory from '../components/ParticipationHistory';
 import '../stylesheets/Participant.css'
 
 export default function Participant() {
@@ -263,6 +264,11 @@ export default function Participant() {
             onClick={handleUpdate}>Guardar Cambios</button>
         </div>
       </InfoSideBar>
+
+      {/* Acordión de historial */}
+      <div className='history-container'>
+        <ParticipationHistory />
+      </div>
     </>
   );
 }
