@@ -13,9 +13,9 @@ export default function HomePage() {
     <>
       <NavBar />
       <div className='container'>
-        <PageHeader pageTitle='Agrupaciones' />
+        <PageHeader pageTitle='Público/Agrupaciones' />
         <GroupList />
-        <PlusButton type='Group' styleClass={buttonStyle} font='50px'/>
+        <PlusButton type='NewGroup' styleClass={buttonStyle} font='50px'/>
         <NewGroup />
       </div>
     </>

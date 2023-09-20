@@ -9,6 +9,9 @@ import '../stylesheets/Group.css';
 import TermSelect from '../components/TermSelect';
 import PlusButton from '../components/PlusButton';
 import ActList from '../components/ActList';
+import AddActivity from '../components/AddActivity';
+import NewActivity from '../components/NewActivity';
+import SignUpParticipants from '../components/SignUpParticipants';
 
 export default function Group() {
   //Inputs
@@ -179,13 +182,25 @@ export default function Group() {
 
       {/* Botones opciones de agrupación */}
       <div className='buttons-container text-center d-flex justify-content-center'>
-        <button type='button' className='btn btn-success'>Inscribir Participantes</button>
+        <button 
+        type='button' 
+        className='btn btn-success'
+        data-bs-toggle='modal'
+        data-bs-target='#modalSignUpParticipants'>
+          Inscribir Participantes
+        </button>
         <button type='button' className='btn btn-info'>Exportar Cronograma Actividades</button>
         <PlusButton 
-        type='Act' 
+        type='AddActivity' 
         font='17px' 
         styleClass=''/>
       </div>
+
+      {/* Modal de nueva actividad */}
+      <AddActivity />
+      <NewActivity />
+      {/* Modal de inscribir participante */}
+      <SignUpParticipants />
     </div>
   );
 }

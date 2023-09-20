@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage';
 import Group from './pages/Group';
 import Activity from './pages/Activity';
 import Participant from './pages/Participant';
+import RegParticipant from './pages/RegParticipant';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path='/group/:id/' element={<Group />}></Route>
         <Route path='/group/:id/:idAct' element={<Activity />}></Route>
         <Route path='/participant/:cedula' element={<Participant />}></Route>
+        <Route path='/RegParticipant/' element={<RegParticipant type='Estudiantes' />}></Route>
       </Routes>
     </Router>
   );

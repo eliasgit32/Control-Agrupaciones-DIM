@@ -10,7 +10,7 @@ export default function PlusButton(props) {
         className='btn btn-primary'
         aria-label='Add New'
         data-bs-toggle='modal'
-        data-bs-target={`#modalNew${props.type}`}>
+        data-bs-target={`#modal${props.type}`}>
         <i className="bi bi-plus" style={{...fontSize, ...iconStyle}}></i>
       </button>
     </div>

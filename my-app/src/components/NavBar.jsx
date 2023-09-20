@@ -6,7 +6,7 @@ export default function NavBar() {
   return(
     <div className='navbar navbar-expand-lg fixed-top bg-primary' data-bs-theme='dark'>
       <div className='container'>
-        <NavLink to={'/homepage'} className='navbar-brand'>Agrupaciones DIM</NavLink>
+        <NavLink to={'/homepage'} className='navbar-brand'>Dirección de Identidad y Misión -Guayana</NavLink>
         {/* Boton en caso de colapso de navbar */}
         <button 
           // Propiedades de configuracion bootstrap
@@ -34,14 +34,13 @@ export default function NavBar() {
                 Participantes
               </NavLink>
               <div className='dropdown-menu'>
-                <Link className='dropdown-item'>Estudiantes</Link>
+                <Link className='dropdown-item' to={'/RegParticipant/'}>Estudiantes</Link>
                 <Link className='dropdown-item'>Docentes</Link>
                 <Link className='dropdown-item'>Personal</Link>
                 <Link className='dropdown-item'>Miembros de comunidad</Link>
                 <Link className='dropdown-item'>Importar lista de estudiantes</Link>
                 <Link className='dropdown-item'>Importar lista de docentes</Link>
                 <Link className='dropdown-item'>Importar lista de personal</Link>
-                <Link className='dropdown-item'>Importar lista de miembros de comunidad</Link>
               </div>
             </li>
             <li className='nav-item'>
