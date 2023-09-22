@@ -8,6 +8,7 @@ import Group from './pages/Group';
 import Activity from './pages/Activity';
 import Participant from './pages/Participant';
 import RegParticipant from './pages/RegParticipant';
+import ChartsReport from './pages/ChartsReport';
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
         <Route path='/group/:id/' element={<Group />}></Route>
         <Route path='/group/:id/:idAct' element={<Activity />}></Route>
         <Route path='/participant/:cedula' element={<Participant />}></Route>
-        <Route path='/RegParticipant/' element={<RegParticipant type='Estudiantes' />}></Route>
+        <Route path='/RegParticipant' element={<RegParticipant type='Estudiantes' />}></Route>
+        <Route path='/ChartsReport' element={<ChartsReport />}></Route>
       </Routes>
     </Router>
   );

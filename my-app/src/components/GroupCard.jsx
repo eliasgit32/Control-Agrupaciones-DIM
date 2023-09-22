@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import '../stylesheets/GroupCard.css'
 
 export default function GroupCard(props) {
+  const handleButtonClick = () => {
+    props.setSelectedGroup(props.id)
+  }
   //Estado del mouse sobre el componente
   const [hover, setHover] = useState(false);
 
@@ -32,7 +35,13 @@ export default function GroupCard(props) {
             </p>
           </Link>
           <div className='text-center'>
-            <Link to={''} className='btn btn-primary' >Generar gráfica</Link>
+            <button
+              data-bs-toggle='modal' 
+              data-bs-target='#modalNewGraph'
+              className='btn btn-primary'
+              onClick={handleButtonClick} >
+                Generar gráfica
+            </button>
           </div>
         </div>
       </div>

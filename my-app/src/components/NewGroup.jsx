@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 import { useState } from 'react';
 import { createGroup } from '../API/group';
-import '../stylesheets/NewGroup.css'
+import '../stylesheets/NewGroup.css';
 
 export default function NewGroup() {
   //Inputs
@@ -10,12 +10,14 @@ export default function NewGroup() {
   const[description, setDescription] = useState('');
   const[limit, setLimit] = useState(0);
   const[publico, setPublico] = useState('Estudiantes');
+  const[academic, setAcademic] = useState(false);
 
   //Funciones del manejo de inputs
   const changeName = e => setName(e.target.value)
   const changeDescription = e => setDescription(e.target.value)
   const changeLimit = e => setLimit(e.target.value)
   const changePublico = e => setPublico(e.target.value)
+  const changeAcademic = () => setAcademic(!academic)
 
   //Reinicializar los inputs al cerrar el modal
   const handleClose = () => {
@@ -23,6 +25,7 @@ export default function NewGroup() {
     setDescription('');
     setLimit(0);
     setPublico('Estudiantes');
+    setAcademic(false);
   }
 
   const queryClient = useQueryClient();
@@ -41,7 +44,8 @@ export default function NewGroup() {
       name: name,
       description: description,
       limit: limit,
-      publico: publico
+      publico: publico, 
+      academic: academic
     } 
     addGroupMutation.mutate(newGroup);
     handleClose();
@@ -112,6 +116,36 @@ export default function NewGroup() {
               </select>
             </div> 
           </div>
+          {/* Select de Coordinadores
+          <div className='mb-3 row'>
+            <label htmlFor="newGroupCoordinator" className='form-label col-sm-4'>Coordinador:</label>
+            <div className='col-sm-5'>
+              <select
+                className='form-select'
+                id='newGroupCoordinator'
+                onCanChange={changeCoordinator}
+              >
+                <CoordinatorList />
+              </select>
+            </div>
+          </div> */}
+          {/* Cátedra */}
+          <div className='mb-3 row'>
+            <label htmlFor="newGroupAcademic" className='form-check-label form-label col-sm-3'>
+              Cátedra
+            </label>
+            <div className='col-sm-5 d-flex align-items-center justify-content-start'>
+              <input 
+                type="checkbox"
+                id="newGroupAcademic" 
+                className='form-check-input'
+                checked={academic}
+                onChange={changeAcademic}
+                style={{transform: 'scale(1.5)', marginLeft: '-10px'}}
+              />
+            </div>
+          </div>
+          
             
           </div>
           <div className='modal-footer'>

@@ -8,6 +8,10 @@ export default function TermSelect() {
   if (isLoading) {
     return <div>Cargando...</div>;
   }
+  // Si no hay períodos registrados en la bd
+  if (data === '') {
+    return <div>No data</div>
+  }
 
   return (
     <>

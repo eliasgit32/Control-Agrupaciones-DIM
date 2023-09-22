@@ -3,7 +3,8 @@ CREATE TABLE `agrupaciones` (
   `nombre` varchar(25) UNIQUE NOT NULL,
   `descripcion` varchar(255),
   `cupos` tinyint unsigned NOT NULL DEFAULT 0,
-  `publico` varchar(25) NOT NULL
+  `publico` varchar(25) NOT NULL,
+  `catedra` tinyint(1) NOT NULL DEFAULT 0
 );
 
 CREATE TABLE `actividades` (
@@ -25,7 +26,8 @@ CREATE TABLE `conformaciones_agrupaciones` (
 );
 
 CREATE TABLE `participantes` (
-  `cedula` int unsigned PRIMARY KEY,
+  `id` int unsigned PRIMARY KEY AUTO_INCREMENT,
+  `cedula` int unsigned UNIQUE,
   `primerNombre` varchar(25) NOT NULL,
   `segundoNombre` varchar(25),
   `primerApellido` varchar(25) NOT NULL,
@@ -38,6 +40,21 @@ CREATE TABLE `participantes` (
   `telefono` varchar(15) NOT NULL,
   `periodoIngreso` varchar(10),
   `emailInst` varchar(150) UNIQUE
+);
+
+CREATE TABLE `estudiantes` (
+  `id` int unsigned PRIMARY KEY AUTO_INCREMENT,
+  `cedula` int unsigned UNIQUE
+);
+
+CREATE TABLE `docentes` (
+  `id` int unsigned PRIMARY KEY AUTO_INCREMENT,
+  `cedula` int unsigned UNIQUE
+);
+
+CREATE TABLE `personal` (
+  `id` int unsigned PRIMARY KEY AUTO_INCREMENT,
+  `cedula` int unsigned UNIQUE
 );
 
 CREATE TABLE `participaciones` (
@@ -56,22 +73,22 @@ CREATE TABLE `inscripciones` (
   PRIMARY KEY (`agrupacion`, `participante`, `periodo`)
 );
 
+CREATE TABLE `acompannantes` (
+  `agrupacion` int unsigned,
+  `actividad` int unsigned,
+  `acompannantes` int unsigned,
+  PRIMARY KEY (`agrupacion`, `actividad`, `acompannantes`)
+);
+
 CREATE TABLE `coordinadores` (
-  `cedula` int unsigned PRIMARY KEY,
-  `primerNombre` varchar(25) NOT NULL,
-  `segundoNombre` varchar(25),
-  `primerApellido` varchar(25) NOT NULL,
-  `segundoApellido` varchar(25) NOT NULL,
-  `escuelaUnidad` smallint unsigned NOT NULL,
-  `emailPersonal` varchar(150) UNIQUE NOT NULL,
-  `emailInst` varchar(150) UNIQUE NOT NULL,
-  `telefono` varchar(15) NOT NULL
+  `cedula` int unsigned PRIMARY KEY
 );
 
 CREATE TABLE `supervisiones` (
   `coordinador` int unsigned,
   `agrupacion` int unsigned,
   `periodo` varchar(10),
+  `docente` int unsigned,
   PRIMARY KEY (`coordinador`, `agrupacion`, `periodo`)
 );
 
@@ -98,6 +115,12 @@ ALTER TABLE `participantes` ADD FOREIGN KEY (`comunidad`) REFERENCES `comunidade
 
 ALTER TABLE `participantes` ADD FOREIGN KEY (`periodoIngreso`) REFERENCES `periodos` (`id`);
 
+ALTER TABLE `estudiantes` ADD FOREIGN KEY (`cedula`) REFERENCES `participantes` (`cedula`);
+
+ALTER TABLE `docentes` ADD FOREIGN KEY (`cedula`) REFERENCES `participantes` (`cedula`);
+
+ALTER TABLE `personal` ADD FOREIGN KEY (`cedula`) REFERENCES `participantes` (`cedula`);
+
 ALTER TABLE `participaciones` ADD FOREIGN KEY (`agrupacion`) REFERENCES `agrupaciones` (`id`);
 
 ALTER TABLE `participaciones` ADD FOREIGN KEY (`actividad`) REFERENCES `actividades` (`id`);
@@ -112,10 +135,18 @@ ALTER TABLE `inscripciones` ADD FOREIGN KEY (`participante`) REFERENCES `partici
 
 ALTER TABLE `inscripciones` ADD FOREIGN KEY (`periodo`) REFERENCES `periodos` (`id`);
 
-ALTER TABLE `coordinadores` ADD FOREIGN KEY (`escuelaUnidad`) REFERENCES `comunidades` (`id`);
+ALTER TABLE `acompannantes` ADD FOREIGN KEY (`agrupacion`) REFERENCES `agrupaciones` (`id`);
+
+ALTER TABLE `acompannantes` ADD FOREIGN KEY (`actividad`) REFERENCES `actividades` (`id`);
+
+ALTER TABLE `acompannantes` ADD FOREIGN KEY (`acompannantes`) REFERENCES `participantes` (`cedula`);
+
+ALTER TABLE `coordinadores` ADD FOREIGN KEY (`cedula`) REFERENCES `participantes` (`cedula`);
 
 ALTER TABLE `supervisiones` ADD FOREIGN KEY (`coordinador`) REFERENCES `coordinadores` (`cedula`);
 
 ALTER TABLE `supervisiones` ADD FOREIGN KEY (`agrupacion`) REFERENCES `agrupaciones` (`id`);
 
 ALTER TABLE `supervisiones` ADD FOREIGN KEY (`periodo`) REFERENCES `periodos` (`id`);
+
+ALTER TABLE `supervisiones` ADD FOREIGN KEY (`docente`) REFERENCES `docentes` (`cedula`);

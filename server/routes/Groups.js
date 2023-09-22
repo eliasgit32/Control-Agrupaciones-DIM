@@ -5,7 +5,7 @@ const conn =  require('../connection');
 //PETICIONES GET
 //Solicitar todos los grupos
 router.get('/', (req, res) => {
-  const sql = 'SELECT * FROM agrupaciones';
+  const sql = 'SELECT * FROM agrupaciones ORDER BY id DESC';
 
   conn.query(sql, (error, results) => {
     if(error) {
@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
       return;
     } else {
       res.statusCode = 204;
-      res.send('No groups found');
+      res.send('No Content');
       return;
     }
   })
@@ -50,12 +50,15 @@ router.get('/:id', (req, res) => {
 //Agregar grupo
 router.post('/', (req, res) => {
   const sql = 'INSERT INTO agrupaciones SET ?';
+  
   const group = {
     nombre: req.body.name,
     descripcion: req.body.description,
     cupos: req.body.limit,
-    publico: req.body.publico
+    publico: req.body.publico,
+    catedra: req.body.academic
   }
+  console.log(group);
 
   conn.query(sql, group, error => {
     if(error){
