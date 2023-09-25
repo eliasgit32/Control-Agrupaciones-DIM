@@ -5,7 +5,7 @@ import InfoSideBar from '../components/InfoSideBar';
 import NavBar from '../components/NavBar';
 import '../stylesheets/Activity.css';
 import TermSelect from '../components/TermSelect';
-import TableParticipants from '../components/TableParticipants';
+import TableParticipants from '../components/Tables/TableParticipants';
 import '../stylesheets/Group.css';
 
 export default function Activity() {

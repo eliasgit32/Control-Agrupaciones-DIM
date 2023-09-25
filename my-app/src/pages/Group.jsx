@@ -9,9 +9,9 @@ import '../stylesheets/Group.css';
 import TermSelect from '../components/TermSelect';
 import PlusButton from '../components/PlusButton';
 import ActList from '../components/ActList';
-import AddActivity from '../components/AddActivity';
-import NewActivity from '../components/NewActivity';
-import SignUpParticipants from '../components/SignUpParticipants';
+import AddActivity from '../components/Modals/AddActivity';
+import NewActivity from '../components/Modals/NewActivity';
+import SignUpParticipants from '../components/Modals/SignUpParticipants';
 
 export default function Group() {
   //Inputs

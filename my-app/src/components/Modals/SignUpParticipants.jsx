@@ -1,5 +1,5 @@
 import React from 'react';
-import TableParticipants from './TableParticipants';
+import TableParticipants from '../Tables/TableParticipants';
 
 export default function SignUpParticipants() {
   const handleClose = () => {

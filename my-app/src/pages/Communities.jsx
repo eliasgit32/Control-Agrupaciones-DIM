@@ -1,12 +1,14 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 import NavBar from '../components/NavBar';
-import TableCommunities from '../components/TableCommunities';
+import TableCommunities from '../components/Tables/TableCommunities';
 import { useState } from 'react';
+import { createCommunity } from '../API/communities';
 
 export default function Communities() {
   //Inputs
-  const[name, setName] =  useState('')
-  const[type, setType] =  useState('')
+  const[name, setName] =  useState('');
+  const[type, setType] =  useState('Escuela');
 
   //Funciones del manejo de inputs
   const changeName = e => setName(e.target.value)
@@ -17,34 +19,50 @@ export default function Communities() {
     setType('Escuela');
   }
 
-  const handleSave = () => {
+  const queryClient = useQueryClient();
+  
+  //Hook de mutación para operaciones POST
+  const addCommunityMutation = useMutation({
+    mutationFn: createCommunity,
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    }
+  })
 
+
+  const handleSave = () => {
+    const newCommunity = {
+      name: name,
+      type: type
+    } 
+    addCommunityMutation.mutate(newCommunity);
+    handleReset();
   }
 
   return(
     <>
       <NavBar />
-      <div className='row ps-4'>
+      <div className='d-flex ps-4'>
         <div className='col-md-7 container'>
           <TableCommunities />
         </div>
         {/* Formulario de registro de comunidades */}
         <div className='col-md-5 container'>
           {/* Input de nombre */}
-          <div className='mb-3 row'>
-            <label htmlFor="newCommName" className='form-label col-sm-2'>Nombre:</label>
+          <div className='mb-3 d-flex'>
+            <label htmlFor="newCommName" className='form-label col-sm-2 me-1'>Nombre:</label>
             <div className='col-sm-7'>
               <input 
                 type="text" 
                 className='form-control' 
                 id='newCommName'
                 onChange={changeName}
-                value={name}
+                defaultValue={name}
               />
             </div>
           </div>
           {/* Select tipo de comunidad */}
-          <div className='mb-3 row'>
+          <div className='mb-3 d-flex'>
             <label htmlFor="newCommType" className='form-label col-sm-5'>
               Tipo de comunidad:
             </label>

@@ -2,7 +2,7 @@ import React from 'react';
 import NavBar from '../components/NavBar';
 import PageHeader from '../components/PageHeader';
 import PlusButton from '../components/PlusButton';
-import NewGroup from '../components/NewGroup';
+import NewGroup from '../components/Modals/NewGroup';
 import GroupList from '../components/GroupList';
 
 export default function HomePage() {

@@ -3,7 +3,7 @@ import MUIDataTable from 'mui-datatables';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { getCoordinators } from '../API/coordinators';
+import { getCoordinators } from '../../API/coordinators.js';
 
 export default function TableAllParticipants(props) {
   //Importar función de datos de acuerdo al tipo de participante
@@ -34,7 +34,7 @@ export default function TableAllParticipants(props) {
     }
   }, 
     'Nombre Completo', 'Fecha Nacimiento', props.community , 'Etapa', 'Correo', 'Correo UCAB', 'Período Ingreso'];
-  // const options = {filterType: 'checkbox'};
+  const options = {filterType: 'checkbox'};
   
   return(
     <ThemeProvider theme={darkTheme}>
@@ -42,6 +42,7 @@ export default function TableAllParticipants(props) {
       title={props.title}
       data={data}
       columns={columns}
+      options={options}
       />
     </ThemeProvider>
   )

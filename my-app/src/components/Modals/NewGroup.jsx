@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 import { useState } from 'react';
-import { createGroup } from '../API/groups';
-import '../stylesheets/NewGroup.css';
+import { createGroup } from '../../API/groups';
+import '../../stylesheets/NewGroup.css';
 
 export default function NewGroup() {
   //Inputs

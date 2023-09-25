@@ -1,6 +1,6 @@
 import React from 'react';
-import PlusButton from './PlusButton';
-import TableActivities from './TableActivities';
+import PlusButton from '../PlusButton';
+import TableActivities from '../Tables/TableActivities';
 
 export default function AddActivity() {
   const handleClose = () => {

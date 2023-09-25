@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import TermSelect from './TermSelect';
+import TermSelect from '../TermSelect';
 
 export default function NewChart(props) {
   const navigate = useNavigate();
