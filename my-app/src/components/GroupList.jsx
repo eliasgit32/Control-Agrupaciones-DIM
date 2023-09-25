@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { getGroups } from '../API/group';
+import { getGroups } from '../API/groups';
 import GroupCard from './GroupCard';
 import NewGraph from './NewChart';
 import { useState } from 'react';

@@ -9,6 +9,7 @@ import Activity from './pages/Activity';
 import Participant from './pages/Participant';
 import RegParticipant from './pages/RegParticipant';
 import ChartsReport from './pages/ChartsReport';
+import Communities from './pages/Communities'
 
 function App() {
   return (
@@ -19,8 +20,9 @@ function App() {
         <Route path='/group/:id/' element={<Group />}></Route>
         <Route path='/group/:id/:idAct' element={<Activity />}></Route>
         <Route path='/participant/:cedula' element={<Participant />}></Route>
-        <Route path='/RegParticipant' element={<RegParticipant type='Estudiantes' />}></Route>
+        <Route path='/RegParticipant/:type' element={<RegParticipant />}></Route>
         <Route path='/ChartsReport' element={<ChartsReport />}></Route>
+        <Route path='/Communities' element={<Communities />}></Route>
       </Routes>
     </Router>
   );

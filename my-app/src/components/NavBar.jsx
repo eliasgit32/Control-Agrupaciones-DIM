@@ -34,10 +34,10 @@ export default function NavBar() {
                 Participantes
               </NavLink>
               <div className='dropdown-menu'>
-                <Link className='dropdown-item' to={'/RegParticipant'}>Estudiantes</Link>
-                <Link className='dropdown-item'>Docentes</Link>
-                <Link className='dropdown-item'>Personal</Link>
-                <Link className='dropdown-item'>Miembros de comunidad</Link>
+                <Link className='dropdown-item' to={'/RegParticipant/Estudiantes'}>Estudiantes</Link>
+                <Link className='dropdown-item' to={'/RegParticipant/Docentes'}>Docentes</Link>
+                <Link className='dropdown-item' to={'/RegParticipant/Personal'}>Personal</Link>
+                <Link className='dropdown-item' to={'/RegParticipant/Comunidad'}>Miembros de comunidad</Link>
                 <Link className='dropdown-item'>Importar lista de estudiantes</Link>
                 <Link className='dropdown-item'>Importar lista de docentes</Link>
                 <Link className='dropdown-item'>Importar lista de personal</Link>
@@ -53,7 +53,7 @@ export default function NavBar() {
               <NavLink className='nav-link'>Unidades</NavLink>
             </li>
             <li className='nav-item'>
-              <NavLink className='nav-link'>Comunidades</NavLink>
+              <NavLink className='nav-link' to={'/Communities'}>Comunidades</NavLink>
             </li>
             <li className='nav-item'>
               <NavLink className='nav-link'>Períodos</NavLink>

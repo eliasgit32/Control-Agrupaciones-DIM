@@ -2,8 +2,22 @@ import React from 'react';
 import MUIDataTable from 'mui-datatables';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { getCoordinators } from '../API/coordinators';
 
 export default function TableAllParticipants(props) {
+  //Importar función de datos de acuerdo al tipo de participante
+  var getFunction = null
+  switch(props.type){
+    case 'Coordinandores': getFunction =  getCoordinators; break;
+    case 'Personal':
+    default:
+      // Aquí va la asignación de la función getStudents
+  } 
+
+  //const {isLoading, data} = useQuery(['participants', props.type], getFunction);
+
+  const data = [];
   const darkTheme = createTheme({
     palette: {
       mode: 'dark'
@@ -20,26 +34,12 @@ export default function TableAllParticipants(props) {
     }
   }, 
     'Nombre Completo', 'Fecha Nacimiento', props.community , 'Etapa', 'Correo', 'Correo UCAB', 'Período Ingreso'];
-  const data = [
-    ['27158735', 'Peñalver Butto, Elias José', '28/04/1999', 'Ing. Informática', 'Familiarización', 'elias@gmail.com', 'ejpenalver@ucab.edu.ve', '2018-15'],
-    ['55555555', 'Martínez Gómez, Luisa Fernanda', '28/04/1999', 'Com. Social', 'Familiarización', 'elias@gmail.com', 'ejpenalver@ucab.edu.ve', '2018-15'],
-    ['66666666', 'Gómez Ramírez, Andrés Felipe', '28/04/1999', 'Contaduría', 'Familiarización', 'elias@gmail.com', 'ejpenalver@ucab.edu.ve', '2018-15'],
-    ['77777777', 'Ramírez Torres, Sofía Alejandra', '28/04/1999', 'Administración', 'Familiarización', 'elias@gmail.com', 'ejpenalver@ucab.edu.ve', '2018-15'],
-    ['27158735', 'Peñalver Butto, Elias José', '28/04/1999', 'Ing. Informática', 'Familiarización', 'elias@gmail.com', 'ejpenalver@ucab.edu.ve', '2018-15'],
-    ['55555555', 'Martínez Gómez, Luisa Fernanda', '28/04/1999', 'Com. Social', 'Familiarización', 'elias@gmail.com', 'ejpenalver@ucab.edu.ve', '2018-15'],
-    ['66666666', 'Gómez Ramírez, Andrés Felipe', '28/04/1999', 'Contaduría', 'Familiarización', 'elias@gmail.com', 'ejpenalver@ucab.edu.ve', '2018-15'],
-    ['77777777', 'Ramírez Torres, Sofía Alejandra', '28/04/1999', 'Administración', 'Familiarización', 'elias@gmail.com', 'ejpenalver@ucab.edu.ve', '2018-15'],
-    ['27158735', 'Peñalver Butto, Elias José', '28/04/1999', 'Ing. Informática', 'Familiarización', 'elias@gmail.com', 'ejpenalver@ucab.edu.ve', '2018-15'],
-    ['55555555', 'Martínez Gómez, Luisa Fernanda', '28/04/1999', 'Com. Social', 'Familiarización', 'elias@gmail.com', 'ejpenalver@ucab.edu.ve', '2018-15'],
-    ['66666666', 'Gómez Ramírez, Andrés Felipe', '28/04/1999', 'Contaduría', 'Familiarización', 'elias@gmail.com', 'ejpenalver@ucab.edu.ve', '2018-15'],
-    ['77777777', 'Ramírez Torres, Sofía Alejandra', '28/04/1999', 'Administración', 'Familiarización', 'elias@gmail.com', 'ejpenalver@ucab.edu.ve', '2018-15']
-  ];
   // const options = {filterType: 'checkbox'};
   
   return(
     <ThemeProvider theme={darkTheme}>
       <MUIDataTable 
-      title={'Participantes'}
+      title={props.title}
       data={data}
       columns={columns}
       />

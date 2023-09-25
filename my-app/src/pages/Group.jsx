@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getOneGroup, updateGroup } from '../API/group';
+import { getOneGroup, updateGroup } from '../API/groups';
 import InfoSideBar from '../components/InfoSideBar';
 import NavBar from '../components/NavBar';
 import '../stylesheets/Group.css';
