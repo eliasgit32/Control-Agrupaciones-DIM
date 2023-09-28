@@ -8,3 +8,6 @@ export const getTerms = async () => {
 
 //POST
 export const createTerm = (term) => conn.post('/terms', term);
+
+//PUT
+export const updateTerm = (term) => conn.put('/terms' , term);
