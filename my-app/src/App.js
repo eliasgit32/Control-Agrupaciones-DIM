@@ -9,7 +9,8 @@ import Activity from './pages/Activity';
 import Participant from './pages/Participant';
 import RegParticipant from './pages/RegParticipant';
 import ChartsReport from './pages/ChartsReport';
-import Communities from './pages/Communities'
+import Communities from './pages/Communities';
+import AcademicTerms from './pages/AcademicTerms';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path='/RegParticipant/:type' element={<RegParticipant />}></Route>
         <Route path='/ChartsReport' element={<ChartsReport />}></Route>
         <Route path='/Communities' element={<Communities />}></Route>
+        <Route path='/AcademicTerms' element={<AcademicTerms />}></Route>
       </Routes>
     </Router>
   );

@@ -56,7 +56,7 @@ export default function NavBar() {
               <NavLink className='nav-link' to={'/Communities'}>Comunidades</NavLink>
             </li>
             <li className='nav-item'>
-              <NavLink className='nav-link'>Períodos</NavLink>
+              <NavLink className='nav-link' to={'/AcademicTerms'}>Períodos</NavLink>
             </li>
           </ul>
         </div>

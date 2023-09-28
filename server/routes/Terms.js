@@ -24,4 +24,24 @@ router.get('/', (req, res) => {
   })
 })
 
+//PETICIONES POST
+//Agregar período académico
+router.post('/', (req, res) => {
+  const sql = 'INSERT INTO periodos SET ?';
+  const term = {
+    id: req.body.id
+  }
+
+  conn.query(sql, term, error => {
+    if(error){
+      res.statusCode = 500;
+      res.send(error.sqlMessage);
+      return;
+    } else {
+      res.statusCode = 200;
+      res.send('Content Added')
+    }
+  })
+})
+
 module.exports = router;
