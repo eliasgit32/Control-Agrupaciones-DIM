@@ -2,7 +2,8 @@ import React from 'react';
 import PlusButton from '../PlusButton';
 import TableActivities from '../Tables/TableActivities';
 
-export default function AddActivity() {
+export default function AddActivity(props) {
+  const {selectedTerm} =  props;
   const handleClose = () => {
 
   }
@@ -16,7 +17,7 @@ export default function AddActivity() {
       <div className='modal-dialog'>
         <div className='modal-content'>
           <div className='modal-header'>
-            <h5 className='modal-title'>Nueva Actividad</h5>
+            <h5 className='modal-title'>Añadir Actividad</h5>
             <button 
               type='button' 
               className='btn-close' 
@@ -27,7 +28,7 @@ export default function AddActivity() {
           </div>
           <div className='modal-body'>
             {/* Período académico seleccionado */}
-            <h6>Período: {'2024-15'}</h6>
+            <h6>Período: {selectedTerm}</h6>
             <TableActivities />
           </div>
           {/* Botón aceptar, cancelar y nueva actividad */}

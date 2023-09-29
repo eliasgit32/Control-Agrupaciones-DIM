@@ -20,6 +20,9 @@ export default function Group() {
   const[limit, setLimit] = useState(null);
   const[publico, setPublico] = useState(null);
 
+  //Período seleccionado en el SelectTerms
+  const[selectedTerm, setSelectedTerm] = useState('2024-15');
+
   //Funciones del manejo de inputs
   const changeName = e => setName(e.target.value) 
   const changeDescription = e => setDescription(e.target.value)
@@ -172,7 +175,7 @@ export default function Group() {
         <div className='text-center justify-content-center row mt-4'>
           <label htmlFor="selectTerms" className='form-label col-sm-2'>Períodos</label>
           <div className='col-sm-4'>
-            <TermSelect />
+            <TermSelect setSelectedTerm={setSelectedTerm}/>
           </div>
         </div>
       </div>
@@ -197,8 +200,8 @@ export default function Group() {
       </div>
 
       {/* Modal de nueva actividad */}
-      <AddActivity />
-      <NewActivity />
+      <AddActivity selectedTerm={selectedTerm} />
+      <NewActivity groupName={data[0].nombre} groupID={data[0].id}/>
       {/* Modal de inscribir participante */}
       <SignUpParticipants />
     </div>

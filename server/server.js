@@ -19,6 +19,7 @@ app.use('/groups', require('./routes/Groups'));
 app.use('/terms', require('./routes/Terms'));
 app.use('/coordinators', require('./routes/Coordinators'));
 app.use('/communities', require('./routes/Communities'));
+app.use('/activities', require('./routes/Activities'));
 
 
 app.listen(5000, () =>{

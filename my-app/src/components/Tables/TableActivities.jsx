@@ -10,11 +10,7 @@ export default function TableActivities() {
   })
 
   const columns = ['Nombre', 'Descripción'];
-  const data = [
-    ['Actividad 1', 'Descripción 1...'],
-    ['Actividad 2', 'Descripción 2...'],
-    ['Actividad 3', 'Descripción 3...']
-  ];
+  const data = [];
   const options = {filterType: 'checkbox'};
   return(
     <ThemeProvider theme={darkTheme}>

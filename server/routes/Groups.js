@@ -40,7 +40,7 @@ router.get('/:id', (req, res) => {
       return;
     } else {
       res.statusCode = 204;
-      res.send('No group found');
+      res.send('No content');
       return;
     }
   })
@@ -67,7 +67,7 @@ router.post('/', (req, res) => {
       return;
     } else {
       res.statusCode = 200;
-      res.send('Group Added')
+      res.send('Content Added')
     }
   })
 })
@@ -96,7 +96,7 @@ router.put('/', (req, res) => {
       return;
     } else {
       res.statusCode = 200;
-      res.send('Group Added');
+      res.send('Content Updated');
       return;
     }
   })
