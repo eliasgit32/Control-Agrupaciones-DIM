@@ -200,7 +200,7 @@ export default function Group() {
       </div>
 
       {/* Modal de nueva actividad */}
-      <AddActivity selectedTerm={selectedTerm} />
+      <AddActivity selectedTerm={selectedTerm} groupID={data[0].id} />
       <NewActivity groupName={data[0].nombre} groupID={data[0].id}/>
       {/* Modal de inscribir participante */}
       <SignUpParticipants />

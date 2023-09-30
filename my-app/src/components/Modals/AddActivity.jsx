@@ -3,7 +3,7 @@ import PlusButton from '../PlusButton';
 import TableActivities from '../Tables/TableActivities';
 
 export default function AddActivity(props) {
-  const {selectedTerm} =  props;
+  const {selectedTerm, groupID} =  props;
   const handleClose = () => {
 
   }
@@ -29,7 +29,7 @@ export default function AddActivity(props) {
           <div className='modal-body'>
             {/* Período académico seleccionado */}
             <h6>Período: {selectedTerm}</h6>
-            <TableActivities />
+            <TableActivities groupID={groupID} />
           </div>
           {/* Botón aceptar, cancelar y nueva actividad */}
           <div className='modal-footer'>

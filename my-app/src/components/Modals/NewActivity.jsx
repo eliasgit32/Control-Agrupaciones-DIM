@@ -86,6 +86,8 @@ export default function NewActivity(props) {
             <button 
             type='button' 
             className='btn btn-danger' 
+            data-bs-toggle='modal'
+            data-bs-target='#modalAddActivity'
             data-bs-dismiss='modal'
             onClick={handleClose}>Cancelar</button>
             <button 

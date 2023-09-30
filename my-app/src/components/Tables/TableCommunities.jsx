@@ -16,22 +16,26 @@ export default function TableCommunities() {
 
   if (isLoading) return <div>Cargando...</div>;
 
-  // if (data === '') data = [];
-
-  console.log(data)
   const columns = [{
     name:'nombre',
-    // options: {
-    //   customBodyRender: (value, tableMeta, updateValue) => {
-    //     const dataIndex = tableMeta.rowIndex;
-    //     return data[dataIndex].nombre;
-    //   }
-    // }
   }, {
     name:'tipo',
     label: 'Tipo de Comunidad'
   }];
   const options = {filterType: 'checkbox'};
+
+  if (data === '') {
+    return(
+      <ThemeProvider theme={darkTheme}>
+        <MUIDataTable 
+          title={'Actividades de la agrupación'}
+          data={[]}
+          columns={columns}
+          options={options}
+        />
+      </ThemeProvider>
+    )
+  }
   
   return(
     <ThemeProvider theme={darkTheme}>
