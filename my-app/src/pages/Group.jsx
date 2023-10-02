@@ -181,7 +181,7 @@ export default function Group() {
       </div>
 
       {/* Lista de Actividades de la agrupación */}
-      <ActList />
+      <ActList selectedTerm={selectedTerm} groupID={data[0].id} />
 
       {/* Botones opciones de agrupación */}
       <div className='buttons-container text-center d-flex justify-content-center'>

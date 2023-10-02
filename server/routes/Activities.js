@@ -17,7 +17,7 @@ router.get('/:group/:term', (req, res) => {
     } else if(data1.length > 0) {
       //2da consulta sql
       
-      const sql2 = 'SELECT actividad FROM conformaciones_agrupaciones ' +
+      const sql2 = 'SELECT * FROM conformaciones_agrupaciones ' +
       `WHERE agrupacion = ${group} AND periodo = '${term}'`;
       conn.query(sql2, (error, data2) => {
         if (error) {
@@ -27,22 +27,29 @@ router.get('/:group/:term', (req, res) => {
         } else if(data2.length > 0) {
           //Reordenar datos en nuevo arreglo
           const results = data1.map((activity) => {
-            // console.log(activity);
             let asignado = 0;
-            
+            let fechaInicio = 'N/A';
+            let fechaFin = 'N/A';
             
             for(let i = 0; i < data2.length; i++) {
-              console.log(activity.id + '=' + data2[i].actividad)
               if(activity.id === data2[i].actividad) {
                 asignado = 1;
+                data2[i].fechaInicio ?
+                  fechaInicio = data2[i].fechaInicio : fechaInicio = 'N/A';
+
+                data2[i].fechaFin ?
+                  fechaFin = data2[i].fechaFin : fechaFin = 'N/A';
                 break;
               }
             }
+
             return {
               id: activity.id,
               nombre: activity.nombre,
               descripcion: activity.descripcion,
-              asignado:  asignado
+              asignado:  asignado,
+              fechaInicio: fechaInicio,
+              fechaFin: fechaFin
             }
           })
           res.statusCode = 200;
@@ -55,7 +62,8 @@ router.get('/:group/:term', (req, res) => {
               id: activity.id,
               nombre: activity.nombre,
               descripcion: activity.descripcion,
-              asignado:  0
+              asignado:  0,
+
             }
           })
           res.statusCode = 200;

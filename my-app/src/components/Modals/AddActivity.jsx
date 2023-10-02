@@ -26,8 +26,7 @@ export default function AddActivity(props) {
     }
   })
 
-  const handleReset = () => {
-    
+  const handleCancel = () => {
   }
 
   const handleSave = () => {
@@ -47,7 +46,7 @@ export default function AddActivity(props) {
               className='btn-close' 
               data-bs-dismiss='modal' 
               aria-label='Close'
-              onClick={handleReset}>
+              onClick={handleCancel}>
             </button>
           </div>
           <div className='modal-body'>
@@ -65,7 +64,7 @@ export default function AddActivity(props) {
                 type='button'
                 className='btn btn-danger'
                 data-bs-dismiss='modal'
-                onClick={handleReset}>Cancelar</button>
+                onClick={handleCancel}>Cancelar</button>
               <button
                 type='button'
                 className='btn btn-success'

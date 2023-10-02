@@ -1,32 +1,39 @@
 import React from 'react';
 import ActCard from './ActCard';
 import '../stylesheets/ActList.css';
+import { useQuery } from '@tanstack/react-query';
+import { getGroupActivities } from '../API/activities';
 
-export default function ActList() {
+export default function ActList(props) {
+  const {groupID, selectedTerm} =  props;
+
+  const {isLoading, data} = useQuery(['activities', groupID, selectedTerm],
+  () => getGroupActivities(groupID, selectedTerm));
+
+  if( isLoading) return <div>Cargando...</div>;
+
+  if (data === '') return <div>No se encuentran registros</div>
+
+  console.log(data);
   return(
     <div className='act-container'>
       <div className='container card-group d-flex flex-column align-content-center flex-wrap'>
-        <ActCard 
-        name='Actividad 1'
-        description='Descripción de la actividad 1'
-        start='25/09/2023'
-        end='26/09/2023'
-        groupID='1'
-        id='1'/>
-        <ActCard 
-        name='Actividad 2'
-        description='Descripción de la actividad 2'
-        start='01/10/2023'
-        end='01/10/2023'
-        groupID='1'
-        id='2'/>
-        <ActCard 
-        name='Actividad 3'
-        description='Descripción de la actividad 3'
-        start='05/10/2023'
-        end='05/10/2023'
-        groupID='1'
-        id='3'/>
+        {data.map((activity) => {
+          if (activity.asignado)
+            return( 
+              <ActCard
+                key={activity.id}
+                name={activity.nombre}
+                description={activity.descripcion}
+                start={activity.fechaInicio}
+                end={activity.fechaFin}
+                groupID={groupID}
+                id={activity.id}
+              />
+            )
+          return <div></div>
+        })}
+        
       </div>
     </div>
   )

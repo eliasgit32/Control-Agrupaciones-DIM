@@ -8,6 +8,7 @@ import { getGroupActivities } from '../../API/activities';
 export default function TableActivities(props) {
 
   const {groupID, selectedTerm, changeSelectedAct} = props;
+  
   const darkTheme = createTheme({
     palette: {
       mode: 'dark'
@@ -24,10 +25,7 @@ export default function TableActivities(props) {
   const options1 = {
     filterType: 'checkbox', 
     print: 'false',
-    selectableRows: 'multiple',
-    // rowsSelected: [1]
-    // onRowsSelectionChange: handleRowSelection,
-    // isSelected: isSelected
+    selectableRows: 'multiple'
   };
 
   //Query solicitar actividades de agrupación
@@ -60,7 +58,6 @@ export default function TableActivities(props) {
   const handleRowSelection = (currentRowsSelected, allRowsSelected) => {
     const activityIds = allRowsSelected.map((index) => data[index.index].id);
     changeSelectedAct(activityIds);
-    // console.log(activityIds);
   };
 
   const options2 = {
