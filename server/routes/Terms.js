@@ -94,18 +94,6 @@ router.put('/', (req, res) => {
       }
     });
   })
-
-  // conn.query(sql, error => {
-  //   if(error){
-  //     res.statusCode = 500;
-  //     res.send(error.sqlMessage);
-  //     return;
-  //   } else {
-  //     res.statusCode = 200;
-  //     res.send('Content Updated');
-  //     return;
-  //   }
-  // })
 });
 
 module.exports = router;

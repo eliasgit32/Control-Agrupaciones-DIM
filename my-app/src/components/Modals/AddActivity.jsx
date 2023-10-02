@@ -1,15 +1,39 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React from 'react';
+import { createConformation } from '../../API/activities';
 import PlusButton from '../PlusButton';
 import TableActivities from '../Tables/TableActivities';
 
 export default function AddActivity(props) {
-  const {selectedTerm, groupID} =  props;
-  const handleClose = () => {
+  //Actividades seleccionadas en la tabla
+  // const [selectedAct, setSelectedAct] =  useState([]);
 
+  var selectedAct = [];
+
+  const changeSelectedAct = (array) => {
+    selectedAct = array;
+  }
+
+  const {selectedTerm, groupID} =  props;
+
+  const queryClient =  useQueryClient();
+
+  //Mutación crear nueva conformación de agrupación
+  const addConformationMutation =  useMutation({
+    mutationFn: createConformation,
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    }
+  })
+
+  const handleReset = () => {
+    
   }
 
   const handleSave = () => {
-
+    addConformationMutation.mutate(
+      {group: groupID, activities: selectedAct, term: selectedTerm}
+    );
   }
   
   return(
@@ -23,13 +47,17 @@ export default function AddActivity(props) {
               className='btn-close' 
               data-bs-dismiss='modal' 
               aria-label='Close'
-              onClick={handleClose}>
+              onClick={handleReset}>
             </button>
           </div>
           <div className='modal-body'>
             {/* Período académico seleccionado */}
-            <h6>Período: {selectedTerm}</h6>
-            <TableActivities groupID={groupID} />
+            <h5>Período: {selectedTerm}</h5>
+            <TableActivities 
+              groupID={groupID} 
+              selectedTerm={selectedTerm}
+              changeSelectedAct={changeSelectedAct}
+            />
           </div>
           {/* Botón aceptar, cancelar y nueva actividad */}
           <div className='modal-footer'>
@@ -37,7 +65,7 @@ export default function AddActivity(props) {
                 type='button'
                 className='btn btn-danger'
                 data-bs-dismiss='modal'
-                onClick={handleClose}>Cancelar</button>
+                onClick={handleReset}>Cancelar</button>
               <button
                 type='button'
                 className='btn btn-success'
