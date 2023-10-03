@@ -14,7 +14,7 @@ export default function AddActivity(props) {
     selectedAct = array;
   }
 
-  const {selectedTerm, groupID} =  props;
+  const {selectedTerm, groupID, data} =  props;
 
   const queryClient =  useQueryClient();
 
@@ -27,6 +27,8 @@ export default function AddActivity(props) {
   })
 
   const handleCancel = () => {
+    queryClient.invalidateQueries(['activities', groupID, selectedTerm]);
+    console.log('Luego de invalidate queries');
   }
 
   const handleSave = () => {
@@ -56,6 +58,7 @@ export default function AddActivity(props) {
               groupID={groupID} 
               selectedTerm={selectedTerm}
               changeSelectedAct={changeSelectedAct}
+              data={data}
             />
           </div>
           {/* Botón aceptar, cancelar y nueva actividad */}

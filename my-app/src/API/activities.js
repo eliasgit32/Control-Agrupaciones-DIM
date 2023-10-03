@@ -10,5 +10,6 @@ export const createConformation = ({group, activities, term}) => {
 //GET
 export const getGroupActivities = async (group, term) => {
   const res =  await conn.get(`/activities/${group}/${term}`);
+  if(res.data === ''){ console.log('retornando arrya'); return [];}
   return res.data;
 }

@@ -6,12 +6,7 @@ import { getOneGroup, updateGroup } from '../API/groups';
 import InfoSideBar from '../components/InfoSideBar';
 import NavBar from '../components/NavBar';
 import '../stylesheets/Group.css';
-import TermSelect from '../components/TermSelect';
-import PlusButton from '../components/PlusButton';
-import ActList from '../components/ActList';
-import AddActivity from '../components/Modals/AddActivity';
-import NewActivity from '../components/Modals/NewActivity';
-import SignUpParticipants from '../components/Modals/SignUpParticipants';
+import ActivitiesContainer from '../components/ActivitiesContainer';
 
 export default function Group() {
   //Inputs
@@ -19,9 +14,6 @@ export default function Group() {
   const[description, setDescription] = useState(null);
   const[limit, setLimit] = useState(null);
   const[publico, setPublico] = useState(null);
-
-  //Período seleccionado en el SelectTerms
-  const[selectedTerm, setSelectedTerm] = useState('2024-15');
 
   //Funciones del manejo de inputs
   const changeName = e => setName(e.target.value) 
@@ -170,40 +162,9 @@ export default function Group() {
         </div>
       </InfoSideBar>
 
-      {/* Select de períodos académicos */}
-      <div className='term-container'>
-        <div className='text-center justify-content-center row mt-4'>
-          <label htmlFor="selectTerms" className='form-label col-sm-2'>Períodos</label>
-          <div className='col-sm-4'>
-            <TermSelect setSelectedTerm={setSelectedTerm}/>
-          </div>
-        </div>
-      </div>
-
-      {/* Lista de Actividades de la agrupación */}
-      <ActList selectedTerm={selectedTerm} groupID={data[0].id} />
-
-      {/* Botones opciones de agrupación */}
-      <div className='buttons-container text-center d-flex justify-content-center'>
-        <button 
-        type='button' 
-        className='btn btn-success'
-        data-bs-toggle='modal'
-        data-bs-target='#modalSignUpParticipants'>
-          Inscribir Participantes
-        </button>
-        <button type='button' className='btn btn-info'>Exportar Cronograma Actividades</button>
-        <PlusButton 
-        type='AddActivity' 
-        font='17px' 
-        styleClass=''/>
-      </div>
-
-      {/* Modal de nueva actividad */}
-      <AddActivity selectedTerm={selectedTerm} groupID={data[0].id} />
-      <NewActivity groupName={data[0].nombre} groupID={data[0].id}/>
-      {/* Modal de inscribir participante */}
-      <SignUpParticipants />
+      {/* Contenedor de las actividades en pantalla */}
+      <ActivitiesContainer group={data[0]} />
+      
     </div>
   );
 }

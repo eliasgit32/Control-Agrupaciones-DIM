@@ -1,13 +1,12 @@
 import React from 'react';
 import MUIDataTable from 'mui-datatables';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useQuery } from '@tanstack/react-query';
-import { getGroupActivities } from '../../API/activities';
-
+import { useState, useEffect } from 'react';
 
 export default function TableActivities(props) {
+  const [rowsSelected, setRowsSelected] = useState([]);
 
-  const {groupID, selectedTerm, changeSelectedAct} = props;
+  const {changeSelectedAct, data} = props;
   
   const darkTheme = createTheme({
     palette: {
@@ -29,10 +28,22 @@ export default function TableActivities(props) {
   };
 
   //Query solicitar actividades de agrupación
-  const {isLoading, data} =  useQuery(['activities', groupID, selectedTerm], 
-    () => getGroupActivities(groupID, selectedTerm));
+  // const {isLoading, data} =  useQuery(['activities', groupID, selectedTerm], 
+  //   () => getGroupActivities(groupID, selectedTerm));
+  //   console.log(data);
 
-  if (isLoading) return <div>Cargando...</div>
+  useEffect(() => {
+    const NewRowsSelected = data.map((row, index) => {
+      if (row.asignado === 1) {
+        return index;
+      }
+      return null;
+    }).filter((index) => index !== null);
+
+    setRowsSelected(NewRowsSelected);
+  }, [data])
+
+  // if (isLoading) return <div>Cargando...</div>
 
   if (data === '') {
     return(
@@ -48,12 +59,12 @@ export default function TableActivities(props) {
   }
 
   //Definir si la fila es seleccionada en base al atributo "asignado"
-  const rowsSelected = data.map((row, index) => {
-    if (row.asignado === 1) {
-      return index;
-    }
-    return null;
-  }).filter((index) => index !== null);
+  // const rowsSelected = data.map((row, index) => {
+  //   if (row.asignado === 1) {
+  //     return index;
+  //   }
+  //   return null;
+  // }).filter((index) => index !== null);
 
   const handleRowSelection = (currentRowsSelected, allRowsSelected) => {
     const activityIds = allRowsSelected.map((index) => data[index.index].id);

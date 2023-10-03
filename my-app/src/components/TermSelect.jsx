@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 export default function TermSelect(props) {
 
-  const { setSelectedTerm } = props;
+  const { selectedTerm, setSelectedTerm } = props;
 
   const changeTerm = e => setSelectedTerm(e.target.value);
 
@@ -22,6 +22,7 @@ export default function TermSelect(props) {
         className='form-select text-center w-50' 
         id="selectTerms"
         onChange={changeTerm}
+        value={selectedTerm}
       >
         {data.map((term) => {
           return <option key={term.id} value={term.id}>{term.id}</option>
