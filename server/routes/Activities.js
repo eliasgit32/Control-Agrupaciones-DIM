@@ -203,6 +203,7 @@ router.post('/:group/:term', (req, res) => {
         return conn.rollback(() => {
           res.statusCode = 500;
           res.send(error.sqlMessage);
+          return;
         })
       } else {
         res.statusCode = 200;
@@ -210,6 +211,69 @@ router.post('/:group/:term', (req, res) => {
         return;
       }
     });
+  })
+})
+
+//PETICIONES PUT
+//Actualizar datos de actividad
+router.put('/:idGroup/:idAct/:term', (req, res) => {
+  const {idGroup, idAct, term} = req.params
+  const activity = {
+    nombre: req.body.name,
+    descripcion: req.body.description,
+    fechaInicio: req.body.startDate,
+    fechaFin: req.body.endDate
+  }
+  
+  //Actualizar nombre y descripción de la actividad
+  const sql1 = 'UPDATE actividades SET ' +
+  `nombre = '${activity.nombre}', ` +
+  `descripcion = '${activity.descripcion}' ` +
+  `WHERE agrupacion = ${idGroup} AND id = ${idAct}`;
+
+  //Actualizar fechas de la actividad
+  const sql2 = 'UPDATE conformaciones_agrupaciones SET ' +
+  `fechaInicio = '${activity.fechaInicio}', ` +
+  `fechaFin = '${activity.fechaFin}' ` +
+  `WHERE agrupacion = ${idGroup} AND actividad = ${idAct} ` +
+  `AND periodo = ${term}`;
+
+  conn.beginTransaction((error) => {
+    if (error) console.log(error);
+
+    //Actualización tabla actividad
+    conn.query(sql1, error => {
+      if (error) {
+        return conn.rollback(() => {
+          console.log(error);
+        })
+      }
+    })
+
+    //Actualización tabla conformaciones_agrupaciones
+    conn.query(sql2, error => {
+      if (error) {
+        return conn.rollback(() => {
+          console.log(error);
+        })
+      }
+    })
+
+    // Confirmar la transacción
+    conn.commit((error) => {
+      if (error) {
+        return conn.rollback(() => {
+          res.statusCode = 500;
+          res.send(error.sqlMessage);
+          return;
+        })
+      } else {
+        res.statusCode = 200;
+        res.send('Content Updated');
+        return;
+      }
+    });
+
   })
 })
 

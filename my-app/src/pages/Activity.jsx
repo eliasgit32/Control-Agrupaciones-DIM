@@ -7,12 +7,11 @@ import '../stylesheets/Activity.css';
 import TermSelect from '../components/TermSelect';
 import TableParticipants from '../components/Tables/TableParticipants';
 import '../stylesheets/Group.css';
-import { useQuery } from '@tanstack/react-query';
-import { getOneActivity } from '../API/activities';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { getOneActivity, updateActivity } from '../API/activities';
 
 export default function Activity() {
   const params = useParams();
-  console.log(params);
 
   const [selectedTerm, setSelectedTerm] =  useState(params.selectedTerm);
 
@@ -28,22 +27,18 @@ export default function Activity() {
   const changeStartDate = e => setStartDate(e.target.value);
   const changeEndDate = e => setEndDate(e.target.value);
 
-  //Cancelar actualización de datos
-  const handleCancel = () => {
-    //Reinicializar cada input en null para volver reestablecer
-    //valores de data en ellos
-    setName(null);
-    setDescription(null);
-    setStartDate(null);
-    setEndDate(null);  
-  }
-
-  //Actualizar datos
-  const handleUpdate = () => {
-
-  }
   const {isLoading, data} = useQuery(['activity', params.id, params.idAct, selectedTerm],
   () => getOneActivity(params.id, params.idAct, selectedTerm));
+
+  const queryClient = useQueryClient();
+
+  //Mutación actualizar actividad
+  const updateActivityMutation = useMutation({
+    mutationFn: updateActivity,
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    }
+  })
 
   if (isLoading) {
     return (
@@ -59,6 +54,34 @@ export default function Activity() {
   (description === null || description === data.descripcionAct) 
   && (startDate === 'dd/mm/aaaa' || startDate === data.fechaInicio) && 
   (endDate === 'dd/mm/aaaa' || endDate === data.fechaFin));
+
+  //Cancelar actualización de datos
+  const handleCancel = () => {
+    //Reinicializar cada input en null para volver reestablecer
+    //valores de data en ellos
+    setName(null);
+    setDescription(null);
+    setStartDate(null);
+    setEndDate(null);  
+  }
+
+  //Actualizar datos
+  const handleUpdate = () => {
+    const activity = {
+      name: document.getElementById('actName').value,
+      description: document.getElementById('actDesc').value,
+      startDate: document.getElementById('actStartDate').value,
+      endDate: document.getElementById('actEndDate'),
+    }
+    updateActivityMutation.mutate(
+      {
+        idGroup: params.id,
+        idAct: params.idAct,
+        term: selectedTerm,
+        activity: activity
+      }
+    )
+  }
 
   return(
     <div>
@@ -135,6 +158,7 @@ export default function Activity() {
             type="date"
             className='form-control'
             dark='true'
+            id='actStartDate'
             onChange={changeStartDate}
             value={startDate || (startDate !== 'dd/mm/aaaa' ? data.fechaInicio : 'dd/mm/aaaa')}/>
           </div>
@@ -149,6 +173,7 @@ export default function Activity() {
             type="date"
             className='form-control'
             dark='true'
+            id='actEndDate'
             onChange={changeEndDate}
             value={endDate || (endDate !== 'dd/mm/aaaa' ? data.fechaInicio : 'dd/mm/aaaa')}/>
           </div>
