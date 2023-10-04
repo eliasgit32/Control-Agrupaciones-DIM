@@ -27,11 +27,6 @@ export default function TableActivities(props) {
     selectableRows: 'multiple'
   };
 
-  //Query solicitar actividades de agrupación
-  // const {isLoading, data} =  useQuery(['activities', groupID, selectedTerm], 
-  //   () => getGroupActivities(groupID, selectedTerm));
-  //   console.log(data);
-
   useEffect(() => {
     const NewRowsSelected = data.map((row, index) => {
       if (row.asignado === 1) {
@@ -42,8 +37,6 @@ export default function TableActivities(props) {
 
     setRowsSelected(NewRowsSelected);
   }, [data])
-
-  // if (isLoading) return <div>Cargando...</div>
 
   if (data === '') {
     return(
@@ -57,14 +50,6 @@ export default function TableActivities(props) {
       </ThemeProvider>
     )
   }
-
-  //Definir si la fila es seleccionada en base al atributo "asignado"
-  // const rowsSelected = data.map((row, index) => {
-  //   if (row.asignado === 1) {
-  //     return index;
-  //   }
-  //   return null;
-  // }).filter((index) => index !== null);
 
   const handleRowSelection = (currentRowsSelected, allRowsSelected) => {
     const activityIds = allRowsSelected.map((index) => data[index.index].id);

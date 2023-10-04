@@ -28,7 +28,6 @@ export default function AddActivity(props) {
 
   const handleCancel = () => {
     queryClient.invalidateQueries(['activities', groupID, selectedTerm]);
-    console.log('Luego de invalidate queries');
   }
 
   const handleSave = () => {

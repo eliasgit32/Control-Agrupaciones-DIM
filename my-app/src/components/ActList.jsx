@@ -5,7 +5,7 @@ import '../stylesheets/ActList.css';
 // import { getGroupActivities } from '../API/activities';
 
 export default function ActList(props) {
-  const {groupID, data} =  props;
+  const {groupID, selectedTerm, data,} =  props;
   
 
   // const {isLoading, data} = useQuery(['activities', groupID, selectedTerm],
@@ -28,6 +28,7 @@ export default function ActList(props) {
                 start={activity.fechaInicio}
                 end={activity.fechaFin}
                 groupID={groupID}
+                selectedTerm={selectedTerm}
                 id={activity.id}
               />
             )

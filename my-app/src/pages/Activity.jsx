@@ -7,14 +7,20 @@ import '../stylesheets/Activity.css';
 import TermSelect from '../components/TermSelect';
 import TableParticipants from '../components/Tables/TableParticipants';
 import '../stylesheets/Group.css';
+import { useQuery } from '@tanstack/react-query';
+import { getOneActivity } from '../API/activities';
 
 export default function Activity() {
   const params = useParams();
+  console.log(params);
+
+  const [selectedTerm, setSelectedTerm] =  useState(params.selectedTerm);
+
   //Inputs
   const[name, setName] = useState(null);
   const[description, setDescription] = useState(null);
-  const[startDate, setStartDate] = useState(null);
-  const[endDate, setEndDate] =  useState(null);
+  const[startDate, setStartDate] = useState('dd/mm/aaaa');
+  const[endDate, setEndDate] =  useState('dd/mm/aaaa');
 
   //Funciones del manejo de inputs
   const changeName = e => setName(e.target.value);
@@ -25,7 +31,7 @@ export default function Activity() {
   //Cancelar actualización de datos
   const handleCancel = () => {
     //Reinicializar cada input en null para volver reestablecer
-    //valores de data[0] en ellos
+    //valores de data en ellos
     setName(null);
     setDescription(null);
     setStartDate(null);
@@ -36,10 +42,23 @@ export default function Activity() {
   const handleUpdate = () => {
 
   }
+  const {isLoading, data} = useQuery(['activity', params.id, params.idAct, selectedTerm],
+  () => getOneActivity(params.id, params.idAct, selectedTerm));
+
+  if (isLoading) {
+    return (
+      <>
+        <NavBar></NavBar>
+        <InfoSideBar>Cargando...</InfoSideBar>;
+      </>
+    ) 
+  }
 
   //Verificar que los inputs estan vacios o no hayan cambiado su valor
-  const invalidInputs = ( (name === null || name) && (description === null) 
-  && (startDate === null) && (endDate === null));
+  const invalidInputs = ( (name === null || name === data.nombreAct) && 
+  (description === null || description === data.descripcionAct) 
+  && (startDate === 'dd/mm/aaaa' || startDate === data.fechaInicio) && 
+  (endDate === 'dd/mm/aaaa' || endDate === data.fechaFin));
 
   return(
     <div>
@@ -52,7 +71,7 @@ export default function Activity() {
           id='actName'
           dark='true'
           onChange={changeName} 
-          defaultValue='Nombre de Actividad'/>
+          value={name || (name !== '' ? data.nombreAct : '')}/>
         </div>
         {/* Nombre de Agrupación */}
         <div className='mb-3 row'>
@@ -61,7 +80,7 @@ export default function Activity() {
           </label>
           <div className='col-sm-5'>
             <Link to={`/group/${params.id}`} className='link'>
-              <p>Grupo 1...</p>
+              <p>{data.nombreAgrupacion}</p>
             </Link>
           </div>
         </div>
@@ -76,7 +95,7 @@ export default function Activity() {
           rows="4"
           dark='true'
           onChange={changeDescription}
-          defaultValue='Descripción de Actividad'></textarea>
+          value={description || (description !== '' ? data.descripcionAct : '')}></textarea>
         </div>
         {/* Cant. Esperada */}
         <div className='mb-3 row'>
@@ -111,13 +130,13 @@ export default function Activity() {
           <label className='form-label col-sm-5 col align-self-center' act-label='true'>
             Fecha Inicio:
           </label>
-          <div className='col-sm-5'>
+          <div className='col-sm-6'>
             <input 
             type="date"
             className='form-control'
             dark='true'
             onChange={changeStartDate}
-            defaultValue='2023-09-16'/>
+            value={startDate || (startDate !== 'dd/mm/aaaa' ? data.fechaInicio : 'dd/mm/aaaa')}/>
           </div>
         </div>
         {/* Fecha fin */}
@@ -125,13 +144,13 @@ export default function Activity() {
           <label className='form-label col-sm-5 col align-self-center' act-label='true'>
             Fecha Fin:
           </label>
-          <div className='col-sm-5'>
+          <div className='col-sm-6'>
             <input 
             type="date"
             className='form-control'
             dark='true'
             onChange={changeEndDate}
-            value='2023-09-16'/>
+            value={endDate || (endDate !== 'dd/mm/aaaa' ? data.fechaInicio : 'dd/mm/aaaa')}/>
           </div>
         </div>
 

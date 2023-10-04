@@ -79,6 +79,61 @@ router.get('/:group/:term', (req, res) => {
   })
 })
 
+//Solicitar info de una sola actividad
+router.get('/singleAct/:idGroup/:idAct/:term', (req, res) => {
+  const {idGroup, idAct, term} =  req.params;
+
+  const sql1 = `SELECT nombre, descripcion FROM actividades WHERE id = ${idAct}`;
+  const sql2 = `SELECT nombre FROM agrupaciones WHERE id = ${idGroup}`;
+  const sql3 =  `SELECT fechaInicio, fechaFin FROM conformaciones_agrupaciones ` +
+  `WHERE agrupacion = ${idGroup} AND actividad = ${idAct} AND periodo = '${term}'`; 
+  //1era consulta
+  conn.query(sql1, (error, data1) => {
+    if(error) {
+      res.statusCode = 500;
+      res.send(error.sqlMessage);
+      return;
+    } else if(data1.length > 0) {
+      //2da consulta sql
+      conn.query(sql2, (error, data2) => {
+        if (error) {
+          res.statusCode = 500;
+          res.send(error.sqlMessage);
+          return;
+        } else if (data2.length > 0) {
+          //3era consulta sql
+          conn.query(sql3, (error, data3) => {
+            if (error) {
+              res.statusCode = 500;
+              res.send(error.sqlMessage);
+              return;
+            } else if (data3.length > 0) {
+              //Reordenar los datos en un solo objeto
+              const infoActivity = {
+                nombreAct: data1[0].nombre,
+                descripcionAct: data1[0].descripcion,
+                nombreAgrupacion: data2[0].nombre,
+                fechaInicio: data3[0].fechaInicio,
+                fechaFin: data3[0].fechaFin
+              }
+              res.statusCode = 200;
+              res.send(infoActivity);
+              return;
+            } else {
+              res.statusCode = 204;
+              res.send('No Content');
+              return; 
+            }
+          })
+        }
+      })
+    } else {
+      res.statusCode = 204;
+      res.send('No content');
+      return;
+    }
+  })
+})
 
 //PETICIONES POST
 //Agregar actividad

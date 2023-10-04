@@ -21,7 +21,7 @@ export default function ActCard(props) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       style={{ width: '700px' }}>
-        <Link to = {`/group/${props.groupID}/${props.id}`} className='link'>
+        <Link to = {`/group/${props.groupID}/${props.id}/${props.selectedTerm}`} className='link'>
           <div className='card-header'>{`${props.start} - ${props.end}`}</div>
           <div className='card-body'>
             <h4 className='card-title'>{props.name}</h4>

@@ -19,7 +19,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/homepage' element={<HomePage />} />
         <Route path='/group/:id/' element={<Group />}></Route>
-        <Route path='/group/:id/:idAct' element={<Activity />}></Route>
+        <Route path='/group/:id/:idAct/:selectedTerm' element={<Activity />}></Route>
         <Route path='/participant/:cedula' element={<Participant />}></Route>
         <Route path='/RegParticipant/:type' element={<RegParticipant />}></Route>
         <Route path='/ChartsReport' element={<ChartsReport />}></Route>

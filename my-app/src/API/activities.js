@@ -13,3 +13,8 @@ export const getGroupActivities = async (group, term) => {
   if(res.data === ''){ console.log('retornando arrya'); return [];}
   return res.data;
 }
+
+export const getOneActivity = async (idGroup, idAct, term) => {
+  const res =  await conn.get(`/activities/singleAct/${idGroup}/${idAct}/${term}`);
+  return res.data;
+}

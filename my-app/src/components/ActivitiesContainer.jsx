@@ -19,17 +19,6 @@ export default function ActivitiesContainer(props) {
   const {isLoading, data} =  useQuery(['activities', group.id, selectedTerm], 
     () => getGroupActivities(group.id, selectedTerm));
 
-  // useEffect(() => {
-  //   const NewRowsSelected = data.map((row, index) => {
-  //     if (row.asignado === 1) {
-  //       return index;
-  //     }
-  //     return null;
-  //   }).filter((index) => index !== null);
-
-  //   setRowsSelected(NewRowsSelected);
-  // }, [data])
-
   if (isLoading) return <div>Cargando...</div>
 
   return(
@@ -45,7 +34,7 @@ export default function ActivitiesContainer(props) {
       </div>
 
       {/* Lista de Actividades de la agrupación */}
-      <ActList groupID={group.id} data={data} />
+      <ActList groupID={group.id} data={data} selectedTerm={selectedTerm} />
 
       {/* Botones opciones de agrupación */}
       <div className='buttons-container text-center d-flex justify-content-center'>
