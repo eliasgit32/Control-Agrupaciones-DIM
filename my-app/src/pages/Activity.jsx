@@ -9,6 +9,10 @@ import TableParticipants from '../components/Tables/TableParticipants';
 import '../stylesheets/Group.css';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getOneActivity, updateActivity } from '../API/activities';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
+import { parseISO } from 'date-fns';
+
 
 export default function Activity() {
   const params = useParams();
@@ -18,14 +22,18 @@ export default function Activity() {
   //Inputs
   const[name, setName] = useState(null);
   const[description, setDescription] = useState(null);
-  const[startDate, setStartDate] = useState('dd/mm/aaaa');
-  const[endDate, setEndDate] =  useState('dd/mm/aaaa');
+  const[startDate, setStartDate] = useState(null);
+  const[endDate, setEndDate] =  useState(null);
 
   //Funciones del manejo de inputs
   const changeName = e => setName(e.target.value);
   const changeDescription = e => setDescription(e.target.value);
-  const changeStartDate = e => setStartDate(e.target.value);
-  const changeEndDate = e => setEndDate(e.target.value);
+  // const changeStartDate = e => {
+  //   setStartDate(e.target.value);
+  // }
+  // const changeEndDate = e => {
+  //   setEndDate(e.target.value);
+  // }
 
   const {isLoading, data} = useQuery(['activity', params.id, params.idAct, selectedTerm],
   () => getOneActivity(params.id, params.idAct, selectedTerm));
@@ -36,7 +44,7 @@ export default function Activity() {
   const updateActivityMutation = useMutation({
     mutationFn: updateActivity,
     onSuccess: () => {
-      queryClient.invalidateQueries();
+      queryClient.invalidateQueries(['activity', params.id, params.idAct, selectedTerm]);
     }
   })
 
@@ -52,8 +60,8 @@ export default function Activity() {
   //Verificar que los inputs estan vacios o no hayan cambiado su valor
   const invalidInputs = ( (name === null || name === data.nombreAct) && 
   (description === null || description === data.descripcionAct) 
-  && (startDate === 'dd/mm/aaaa' || startDate === data.fechaInicio) && 
-  (endDate === 'dd/mm/aaaa' || endDate === data.fechaFin));
+  && (startDate === null || startDate.toISOString() === data.fechaInicio) && 
+  (endDate === null || endDate.toISOString() === data.fechaFin));
 
   //Cancelar actualización de datos
   const handleCancel = () => {
@@ -70,8 +78,8 @@ export default function Activity() {
     const activity = {
       name: document.getElementById('actName').value,
       description: document.getElementById('actDesc').value,
-      startDate: document.getElementById('actStartDate').value,
-      endDate: document.getElementById('actEndDate'),
+      startDate: (startDate ? startDate.toISOString().slice(0, 10) : data.fechaInicio),
+      endDate: (endDate ? endDate.toISOString().slice(0, 10) : data.fechaFin)
     }
     updateActivityMutation.mutate(
       {
@@ -154,13 +162,11 @@ export default function Activity() {
             Fecha Inicio:
           </label>
           <div className='col-sm-6'>
-            <input 
-            type="date"
-            className='form-control'
-            dark='true'
-            id='actStartDate'
-            onChange={changeStartDate}
-            value={startDate || (startDate !== 'dd/mm/aaaa' ? data.fechaInicio : 'dd/mm/aaaa')}/>
+            <DatePicker 
+              selected={startDate || (data.fechaInicio ? parseISO(data.fechaInicio) : null)}
+              onChange={(date) => setStartDate(date)}
+              dateFormat='dd/MM/yyyy'
+            />
           </div>
         </div>
         {/* Fecha fin */}
@@ -169,13 +175,11 @@ export default function Activity() {
             Fecha Fin:
           </label>
           <div className='col-sm-6'>
-            <input 
-            type="date"
-            className='form-control'
-            dark='true'
-            id='actEndDate'
-            onChange={changeEndDate}
-            value={endDate || (endDate !== 'dd/mm/aaaa' ? data.fechaInicio : 'dd/mm/aaaa')}/>
+            <DatePicker
+              selected={endDate || (data.fechaFin ? parseISO(data.fechaFin) : null)}
+              onChange={(date) => setEndDate(date)}
+              dateFormat='dd/MM/yyyy'
+            />
           </div>
         </div>
 

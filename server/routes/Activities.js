@@ -224,6 +224,8 @@ router.put('/:idGroup/:idAct/:term', (req, res) => {
     fechaInicio: req.body.startDate,
     fechaFin: req.body.endDate
   }
+
+  console.log(activity);
   
   //Actualizar nombre y descripción de la actividad
   const sql1 = 'UPDATE actividades SET ' +
@@ -233,10 +235,10 @@ router.put('/:idGroup/:idAct/:term', (req, res) => {
 
   //Actualizar fechas de la actividad
   const sql2 = 'UPDATE conformaciones_agrupaciones SET ' +
-  `fechaInicio = '${activity.fechaInicio}', ` +
-  `fechaFin = '${activity.fechaFin}' ` +
+  `fechaInicio = ${!activity.fechaInicio ? null : `'${activity.fechaInicio}'`}, ` +
+  `fechaFin = ${!activity.fechaFin ? null : `'${activity.fechaFin}'`} ` +
   `WHERE agrupacion = ${idGroup} AND actividad = ${idAct} ` +
-  `AND periodo = ${term}`;
+  `AND periodo = '${term}'`;
 
   conn.beginTransaction((error) => {
     if (error) console.log(error);
