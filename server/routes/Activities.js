@@ -62,8 +62,7 @@ router.get('/:group/:term', (req, res) => {
               id: activity.id,
               nombre: activity.nombre,
               descripcion: activity.descripcion,
-              asignado:  0,
-
+              asignado:  0
             }
           })
           res.statusCode = 200;

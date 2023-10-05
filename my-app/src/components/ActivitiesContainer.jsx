@@ -56,7 +56,7 @@ export default function ActivitiesContainer(props) {
       <AddActivity selectedTerm={selectedTerm} groupID={group.id} data={data} />
       <NewActivity groupName={group.nombre} groupID={group.id}/>
       {/* Modal de inscribir participante */}
-      <SignUpParticipants />
+      <SignUpParticipants selectedTerm={selectedTerm} groupID={group.id} />
     </div>
   )
 }
