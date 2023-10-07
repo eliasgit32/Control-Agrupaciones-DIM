@@ -56,9 +56,8 @@ router.post('/', (req, res) => {
     descripcion: req.body.description,
     cupos: req.body.limit,
     publico: req.body.publico,
-    catedra: req.body.academic
+    catedra: req.body.academic,
   }
-  console.log(group);
 
   conn.query(sql, group, error => {
     if(error){

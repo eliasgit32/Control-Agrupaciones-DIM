@@ -21,6 +21,7 @@ app.use('/coordinators', require('./routes/Coordinators'));
 app.use('/communities', require('./routes/Communities'));
 app.use('/activities', require('./routes/Activities'));
 app.use('/participants', require('./routes/Participants'));
+app.use('/participations', require('./routes/Participations'));
 
 
 app.listen(5000, () =>{

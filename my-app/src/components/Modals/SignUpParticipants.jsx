@@ -47,8 +47,6 @@ export default function SignUpParticipants(props) {
     )
   }
 
-  console.log(data);
-
   return(
     <div className='modal modal-lg fade' id='modalSignUpParticipants' aria-hidden='true' tabIndex='-1'>
       <div className='modal-dialog'>
@@ -76,7 +74,10 @@ export default function SignUpParticipants(props) {
                   onChange={changeParticipant}
                 />
                 <div className='col d-flex'>
-                  <button className='btn btn-info align-self-center col-sm-12'>
+                  <button 
+                    className='btn btn-info align-self-center col-sm-12'
+                    onClick={handleSave}
+                  >
                     Agregar Participante
                   </button>
                 </div> 
@@ -90,7 +91,7 @@ export default function SignUpParticipants(props) {
               type='button'
               className='btn btn-success'
               data-bs-dismiss='modal'
-              onClick={handleSave}>
+              onClick={handleClose}>
               Aceptar
             </button>
           </div>

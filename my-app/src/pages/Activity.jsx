@@ -4,14 +4,13 @@ import { useParams, Link } from 'react-router-dom';
 import InfoSideBar from '../components/InfoSideBar';
 import NavBar from '../components/NavBar';
 import '../stylesheets/Activity.css';
-import TermSelect from '../components/TermSelect';
-import TableParticipants from '../components/Tables/TableParticipants';
 import '../stylesheets/Group.css';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getOneActivity, updateActivity } from '../API/activities';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { parseISO } from 'date-fns';
+import ParticipationContainer from '../components/ParticipationContainer';
 
 
 export default function Activity() {
@@ -28,12 +27,6 @@ export default function Activity() {
   //Funciones del manejo de inputs
   const changeName = e => setName(e.target.value);
   const changeDescription = e => setDescription(e.target.value);
-  // const changeStartDate = e => {
-  //   setStartDate(e.target.value);
-  // }
-  // const changeEndDate = e => {
-  //   setEndDate(e.target.value);
-  // }
 
   const {isLoading, data} = useQuery(['activity', params.id, params.idAct, selectedTerm],
   () => getOneActivity(params.id, params.idAct, selectedTerm));
@@ -196,25 +189,12 @@ export default function Activity() {
         </div>
       </InfoSideBar>
 
-      {/* Select de períodos académicos */}
-      <div className='term-container'>
-        <div className='text-center justify-content-center row mt-4'>
-          <label htmlFor="selectTerms" className='form-label col-sm-2'>Períodos</label>
-          <div className='col-sm-4'>
-            <TermSelect />
-          </div>
-        </div>
-      </div>
-
-      {/* Tabla de participantes */}
-      <div className='participants-container'>
-        <TableParticipants />
-      </div>
-
-      {/* Botones opciones de agrupación */}
-      <div className='buttons-container text-center d-flex justify-content-center'>
-        <button type='button' className='btn btn-info'>Exportar Lista de Participantes</button>
-      </div>
+      <ParticipationContainer 
+        selectedTerm={selectedTerm} 
+        setSelectedTerm={setSelectedTerm} 
+        groupID={params.id}
+        activityID={params.idAct}
+      />
     </div>
   )
 }

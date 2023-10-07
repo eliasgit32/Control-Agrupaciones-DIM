@@ -119,9 +119,19 @@ router.get('/singleAct/:idGroup/:idAct/:term', (req, res) => {
               res.send(infoActivity);
               return;
             } else {
-              res.statusCode = 204;
-              res.send('No Content');
-              return; 
+              const infoActivity = {
+                nombreAct: data1[0].nombre,
+                descripcionAct: data1[0].descripcion,
+                nombreAgrupacion: data2[0].nombre,
+                fechaInicio: null,
+                fechaFin: null
+              }
+              res.statusCode = 200;
+              res.send(infoActivity);
+              return;
+              // res.statusCode = 204;
+              // res.send('No Content');
+              // return; 
             }
           })
         }
@@ -223,8 +233,6 @@ router.put('/:idGroup/:idAct/:term', (req, res) => {
     fechaInicio: req.body.startDate,
     fechaFin: req.body.endDate
   }
-
-  console.log(activity);
   
   //Actualizar nombre y descripción de la actividad
   const sql1 = 'UPDATE actividades SET ' +
