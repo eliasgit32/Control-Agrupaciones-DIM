@@ -4,7 +4,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createParticipation } from '../../API/participations';
+import { createParticipation, deleteParticipation } from '../../API/participations';
 
 export default function TableParticipants(props) {
   //Filas seleccionadas que representen participación
@@ -45,17 +45,36 @@ export default function TableParticipants(props) {
     addParticipationMutation.mutate(participation);
   }
 
+  //Mutación borrar participación
+  const deleteParticipationMutation =  useMutation({
+    mutationFn: deleteParticipation,
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    }
+  })
+
+  const handleDeleteParticipation = (cedula) => {
+    const participation = {
+      groupID: groupID,
+      activityID: activityID,
+      cedula: cedula,
+      term: selectedTerm
+    }
+    // console.log(participation);
+    deleteParticipationMutation.mutate(participation);
+  }
+
   //Ejecutar inserción de participación cada vez que 
   //se selecciona una fila
   const handleRowSelection = (currentRowsSelected, allRowsSelected, rowsSelected) => {
+    const selectedCedula = currentRowsSelected.map((index) => data[index.index].cedula);
     for(let i = 0; i < rowsSelected.length; i++) {
       if(currentRowsSelected[0].index === rowsSelected[i]){
-        const selectedCedula = currentRowsSelected.map((index) => data[index.index].cedula);
         handleAddParticipation(selectedCedula);
         return;
       };
     }
-    console.log('fila deseleccionada') 
+    handleDeleteParticipation(selectedCedula[0]); 
   };
 
   const darkTheme = createTheme({

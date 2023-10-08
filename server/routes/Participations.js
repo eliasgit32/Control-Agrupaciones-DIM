@@ -106,4 +106,32 @@ router.post('/', (req, res) => {
   })
 })
 
+//PETICIONES DELETE
+router.delete('/', (req, res) => {
+
+  const participation = {
+    agrupacion: req.body.groupID,
+    actividad: req.body.activityID,
+    participante: req.body.cedula,
+    periodo: req.body.term,
+  }
+
+  const sql = 'DELETE FROM participaciones ' +
+  `WHERE agrupacion = ${participation.agrupacion} ` +
+  `AND actividad = ${participation.actividad} ` +
+  `AND participante = ${participation.participante} `+
+  `AND periodo = '${participation.periodo}'`;
+
+  conn.query(sql, participation, error => {
+    if(error){
+      res.statusCode = 500;
+      res.send(error.sqlMessage);
+      return;
+    } else {
+      res.statusCode = 200;
+      res.send('Content Deleted')
+    }
+  })
+})
+
 module.exports = router;
