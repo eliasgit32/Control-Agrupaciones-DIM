@@ -39,6 +39,30 @@ router.get('/signUp/:groupID/:term', (req, res) => {
   })
 })
 
+//Solicitar toda la info de un participante
+router.get('/:cedula', (req, res) => {
+  const {cedula} =  req.params;
+  const sql = `SELECT p.*, c.nombre AS nombreComunidad FROM participantes p ` +
+  ` JOIN comunidades c ON p.comunidad = c.id WHERE cedula = ${cedula}`;
+
+  conn.query(sql, (error, results) => {
+    if(error) {
+      res.statusCode = 500;
+      res.send(error.sqlMessage);
+      return;
+    } else if(results.length > 0) {
+      res.statusCode = 200;
+      res.send(results);
+      return;
+    } else {
+      res.statusCode = 204;
+      res.send('No Content');
+      return;
+    }
+  })
+
+})
+
 //PETICIONES POST
 //Inscribir participante en agrupación
 router.post('/signUp/:cedula/:groupID/:term', (req, res) => {

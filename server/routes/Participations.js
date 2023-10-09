@@ -82,6 +82,64 @@ router.get('/:groupID/:term/:activityID', (req, res) => {
   })
 })
 
+//Obtener historial de participación
+router.get('/history/:cedula', (req, res) => {
+  const {cedula} =  req.params;
+
+  //Pedir agrupaciones donde se haya inscrito el participante
+  const sql1 =  `SELECT a.id, a.nombre FROM inscripciones i ` +
+  `JOIN agrupaciones a ON i.agrupacion = a.id ` +
+  `WHERE i.participante = ${cedula}`;
+
+  const sql2 = `SELECT a.id, a.nombre, a.agrupacion, p.periodo, c.fechaInicio, ` + 
+  `c.fechaFin FROM participaciones p JOIN actividades a ` +
+  `ON p.actividad = a.id JOIN conformaciones_agrupaciones c ` +
+  `ON (p.periodo =  c.periodo AND p.actividad = c.actividad) ` +
+  `WHERE p.participante = ${cedula} ORDER  BY c.fechaInicio ASC`;
+
+  conn.query(sql1, (error, data1) => {
+    if(error) {
+      res.statusCode = 500;
+      res.send(error.sqlMessage);
+      return;
+    } else if(data1.length > 0) {
+      conn.query(sql2, (error, data2) => {
+        if(error) {
+          res.statusCode = 500;
+          res.send(error.sqlMessage);
+          return;
+        } else if(data2.length > 0) {
+          //Reordenar datos
+          const results = data1.map((group) => {
+            let actividades = [];
+            for(let i = 0; i < data2.length; i++) {
+              if(group.id === data2[i].agrupacion) {
+                actividades.push(data2[i]);
+              }
+            }
+            return {
+              idAgrupacion: group.id,
+              nombreAgrupacion: group.nombre,
+              actividades: actividades
+            }
+          })
+          res.statusCode = 200;
+          res.send(results);
+          return;
+        } else {
+          res.statusCode = 204;
+          res.send('No Content');
+          return;
+        }
+      })
+    } else {
+      res.statusCode = 204;
+      res.send('No Content');
+      return;
+    }
+  })
+})
+
 //PETICIONES POST
 //Añadir participación en actividad
 router.post('/', (req, res) => {

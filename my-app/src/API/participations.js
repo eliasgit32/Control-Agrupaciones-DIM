@@ -7,6 +7,12 @@ export const getParticipations = async (groupID, term, activityID) => {
   return res.data;
 }
 
+export const getParticipationHistory = async (cedula) => {
+  const res = await conn.get(`/participations/history/${cedula}`);
+  if (res.data === '') return []; 
+  return res.data;
+}
+
 //POST
 export const createParticipation = (participation) => conn.post('/participations', participation);
 

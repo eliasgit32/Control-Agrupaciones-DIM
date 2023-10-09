@@ -10,3 +10,9 @@ export const getRegisteredParticipants = async (groupID, term) => {
   if (res.data === '') return [];
   return res.data;
 }
+
+export const getInfoParticipant = async (cedula) => {
+  const res =  await conn.get(`/participants/${cedula}`);
+  if (res.data === '') return [];
+  return res.data;
+}

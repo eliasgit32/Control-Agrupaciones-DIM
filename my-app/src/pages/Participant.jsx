@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import InfoSideBar from '../components/InfoSideBar';
 import LetterAvatar from '../components/LetterAvatar';
 import NavBar from '../components/NavBar';
 import ParticipationHistory from '../components/ParticipationHistory';
 import '../stylesheets/Participant.css'
+import { getInfoParticipant } from '../API/participants';
+import { useQuery } from '@tanstack/react-query';
+import {parseISO} from 'date-fns';
+import DatePicker from 'react-datepicker';
 
 export default function Participant() {
+  const params = useParams();
+
   //Inputs
   const[cedula, setCedula] = useState(null);
   const[fName, setFName] = useState(null);
@@ -49,13 +56,29 @@ export default function Participant() {
     
   }
 
+  const { isLoading, data } = useQuery(['group', params.cedula], () => getInfoParticipant(params.cedula));
+
+  if (isLoading) {
+    return (
+      <>
+        <NavBar></NavBar>
+        <InfoSideBar>Cargando...</InfoSideBar>;
+      </>
+    ) 
+  }
+
+  console.log(data);
+
   return (
     <>
       <NavBar />
       <InfoSideBar>
         {/* Avatar de participante */}
         <div className='my-4 d-flex justify-content-center'>
-          <LetterAvatar name='Elias' lastName='Peñalver' />
+          <LetterAvatar 
+            name={data[0].primerNombre} 
+            lastName={data[0].primerApellido} 
+          />
         </div>
         {/* Cédula */}
         <div className='mb-2 row'>
@@ -68,9 +91,9 @@ export default function Participant() {
               className='form-control'
               dark='true'
               part-field='true'
-              defaultValue='*Cédula*'
+              value={params.cedula}
               id='id-part' 
-              onChange={changeCedula}/>
+              readOnly={true}/>
           </div>
         </div>
         {/* 1er y 2do nombre */}
@@ -82,8 +105,8 @@ export default function Participant() {
             className="form-control"
             dark='true'
             part-field='true' 
-            defaultValue='Elias'
-            onChange={changeFName}
+            readOnly={true}
+            value={data[0].primerNombre}
           />
           <input
             type="text"
@@ -91,8 +114,8 @@ export default function Participant() {
             className="form-control"
             dark='true'
             part-field='true' 
-            defaultValue='José'
-            onChange={changeSName}
+            readOnly={true}
+            value={data[0].segundoNombre}
           />
         </div>
         {/* 1er y 2do apellido */}
@@ -103,33 +126,28 @@ export default function Participant() {
             className="form-control"
             dark='true'
             part-field='true' 
-            defaultValue='Peñalver'
-            onChange={changeFLastName}  
+            readOnly={true}
+            value={data[0].primerApellido} 
           />
           <input
             type="text"
             className="form-control"
             dark='true'
             part-field='true' 
-            defaultValue='Butto'
-            onChange={changeSLastName}  
+            readOnly={true}
+            value={data[0].segundoApellido} 
           />
         </div>
         {/* Fecha nacimiento */}
         <div className='mb-2 row'>
           <label htmlFor='birthdate'
-            className='form-label col-sm-5 col align-self-center' part-field='true'>
+            className='form-label col-sm-6 col align-self-center' part-field='true'>
             Fecha Nacimiento:
           </label>
           <div className='col-sm-5'>
-            <input
-              type="date"
-              className='form-control'
-              dark='true'
-              part-field='true'
-              id='birthdate'
-              defaultValue='2023-09-16' 
-              onChange={changeBirthdate}  
+            <DatePicker 
+              selected={parseISO(data[0].fechaNac)} 
+              readOnly={true}
             />
           </div>
         </div>
@@ -138,34 +156,31 @@ export default function Participant() {
           <label htmlFor='partType'
             className='form-label col-sm-2' part-field='true'>Tipo:</label>
           <div className='col-sm-5'>
-            <select
-              className='form-select'
-              id="partType"
+            <input
+              type="text"
+              className='form-control text-center'
               dark='true'
               part-field='true'
-              onChange={changeType}>
-              <option value="Estudiante">Estudiantes</option>
-              <option value="Docente">Docentes</option>
-              <option value="Personal">Personal</option>
-              <option value="Comunidad">Comunidad</option>
-            </select>
+              readOnly={true}
+              value={data[0].tipo}
+              id='partType' 
+            />
           </div>
         </div>
         {/* Comunidad/Escuela/Unidad del participante */}
         <div className='mb-2 row'>
           <label htmlFor='partCommunity'
-            className='form-label col-sm-2' part-field='true'>Escuela:</label>
+            className='form-label col-sm-4' part-field='true'>Comunidad:</label>
           <div className='col-sm-5'>
-            <select
-              className='form-select'
-              id="partCommunity"
+            <input
+              type="text"
+              className='form-control text-center'
               dark='true'
               part-field='true'
-              onChange={changeCommunity}>
-              <option value="Estudiante">*Escuela*</option>
-              <option value="Docente">*Und. Administrativa*</option>
-              <option value="Personal">*Comunidad*</option>
-            </select>
+              readOnly={true}
+              value={data[0].nombreComunidad}
+              id='partCommunity'
+            />
           </div>
         </div>
         {/* Etapa */}
@@ -173,15 +188,18 @@ export default function Participant() {
           <label htmlFor='phase-part' className='form-label col-sm-2 col align-self-center' part-field='true'>
             Etapa:
           </label>
-          <div className='col-sm-4'>
-            <input
-              type="text"
-              className='form-control text-center'
+          <div className='col-sm-6'>
+             <select
+              className='form-select'
+              id="partPhase"
               dark='true'
               part-field='true'
-              readOnly={true}
-              defaultValue='*Etapa*'
-              id='phase-part' />
+              defaultValue={data[0].etapa}
+              >
+              <option value="Familiarización">Familiarización</option>
+              <option value="???">???</option>
+              <option value="Opción">Opción</option>
+            </select>
           </div>
         </div>
         {/* Email */}
@@ -189,15 +207,15 @@ export default function Participant() {
           <label htmlFor='partEmail' className='form-label col-sm-6 col align-self-center' part-field='true'>
             Correo Electrónico:
           </label>
-          <div className='col-sm-5'>
+          <div className='col-sm-6'>
             <input
               type="text"
               className='form-control'
               dark='true'
               part-field='true'
-              defaultValue='*Email*'
               id='partEmail' 
-              onChange={changeEmail}
+              readOnly={true}
+              value={data[0].email}
             />
           </div>
         </div>
@@ -212,9 +230,9 @@ export default function Participant() {
               className='form-control'
               dark='true'
               part-field='true'
-              defaultValue='*Teléfono*'
               id='tlp-part' 
-              onChange={changeTlp}  
+              readOnly={true}
+              value={data[0].telefono}  
             />
           </div>
         </div>
@@ -222,16 +240,16 @@ export default function Participant() {
         <div className='mb-2 row'>
           <label htmlFor='partTerm'
             className='form-label col-sm-6' part-field='true'>Período de Ingreso:</label>
-          <div className='col-sm-5'>
-            <select
-              className='form-select text-center'
-              id="partTerm"
+          <div className='col-sm-4'>
+          <input
+              type="text"
+              className='form-control text-center'
               dark='true'
               part-field='true'
-              onChange={changeFirstTerm}>
-              <option value="Estudiante">2024-15</option>
-              <option value="Docente">2024-25</option>
-            </select>
+              id='partTerm' 
+              readOnly={true}
+              value={data[0].periodoIngreso}  
+            />
           </div>
         </div>
         {/* Email Institucional */}
@@ -239,20 +257,20 @@ export default function Participant() {
           <label htmlFor='partEmailInst' className='form-label col-sm-5 col align-self-center' part-field='true'>
             Correo UCAB:
           </label>
-          <div className='col-sm-5'>
+          <div className='col-sm-6'>
             <input
               type="text"
               className='form-control'
               dark='true'
               part-field='true'
-              defaultValue='*Email UCAB*'
               id='partEmailInst' 
-              onChange={changeEmailUCAB}  
+              readOnly={true}
+              value={data[0].emailInst}  
             />
           </div>
         </div>
         
-        {/* Botones de guardado y cancelacion */}
+        {/* Botones de guardado y cancelacion
         <div className='text-center'>
           <button
             type='button'
@@ -262,7 +280,7 @@ export default function Participant() {
             type='button'
             className={invalidInputs ? 'btn btn-success disabled' : 'btn btn-success'}
             onClick={handleUpdate}>Guardar Cambios</button>
-        </div>
+        </div> */}
       </InfoSideBar>
 
       {/* Acordión de historial */}
