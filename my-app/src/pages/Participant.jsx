@@ -67,8 +67,6 @@ export default function Participant() {
     ) 
   }
 
-  console.log(data);
-
   return (
     <>
       <NavBar />
@@ -285,7 +283,7 @@ export default function Participant() {
 
       {/* Acordión de historial */}
       <div className='history-container'>
-        <ParticipationHistory />
+        <ParticipationHistory cedula={params.cedula}/>
       </div>
     </>
   );

@@ -87,7 +87,7 @@ router.get('/history/:cedula', (req, res) => {
   const {cedula} =  req.params;
 
   //Pedir agrupaciones donde se haya inscrito el participante
-  const sql1 =  `SELECT a.id, a.nombre FROM inscripciones i ` +
+  const sql1 =  `SELECT DISTINCT a.id, a.nombre FROM inscripciones i ` +
   `JOIN agrupaciones a ON i.agrupacion = a.id ` +
   `WHERE i.participante = ${cedula}`;
 
