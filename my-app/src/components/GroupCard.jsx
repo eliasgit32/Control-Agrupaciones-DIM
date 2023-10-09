@@ -27,7 +27,7 @@ export default function GroupCard(props) {
       style={{width: '18rem'}}>
         <div className='card-header text-info'>{props.publico}</div>
         <div className='card-body'>
-          <Link to={`/group/${props.id}`} className='link'>
+          <Link to={`/group/${props.id}/${props.term}`} className='link'>
             <h4 className='card-title'>{props.name}</h4>
             <p 
             className='card-text' >

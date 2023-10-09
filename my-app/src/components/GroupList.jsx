@@ -9,34 +9,36 @@ export default function GroupList() {
   //ID del grupo seleccionado para generar gráfico
   const [selectedGroup, setSelectedGroup] = useState(null);
 
-  
-const { isLoading, data } = useQuery(['groups'], getGroups);
 
-if (isLoading) {
-  return <div>Cargando...</div>;
-}
+  const { isLoading, data } = useQuery(['groups'], getGroups);
 
-// Si no hay grupos registrados en la bd
-if (data === '') {
+  if (isLoading) {
+    return <div>Cargando...</div>;
+  }
+
+  // Si no hay grupos registrados en la bd
+  if (data === '') {
     return <div>No data</div>
-}
+  }
 
-return (
-  <div className='container'>
-    <div className='container card-group d-flex flex-row justify-content-start flex-wrap'>
-      {data.map((group) => (
-        <GroupCard 
-        key={group.id}
-        id={group.id}
-        name={group.nombre}
-        description={group.descripcion}
-        publico={group.publico}
-        setSelectedGroup={setSelectedGroup}
-        />
-      ))}
+  console.log(data);
+
+  return (
+    <div className='container'>
+      <div className='container card-group d-flex flex-row justify-content-start flex-wrap'>
+        {data.map((group) => (
+          <GroupCard
+            key={group.id}
+            id={group.id}
+            name={group.nombre}
+            description={group.descripcion}
+            publico={group.publico}
+            term={group.periodoActual}
+            setSelectedGroup={setSelectedGroup}
+          />
+        ))}
+      </div>
+      <NewGraph id={selectedGroup} />
     </div>
-    
-    <NewGraph id={selectedGroup}/>
-  </div>   
-);
+  );
 }

@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route path='/login' element={<Login />} />
         <Route path='/homepage' element={<HomePage />} />
-        <Route path='/group/:id/' element={<Group />}></Route>
+        <Route path='/group/:id/:selectedTerm' element={<Group />}></Route>
         <Route path='/group/:id/:idAct/:selectedTerm' element={<Activity />}></Route>
         <Route path='/participant/:cedula' element={<Participant />}></Route>
         <Route path='/RegParticipant/:type' element={<RegParticipant />}></Route>

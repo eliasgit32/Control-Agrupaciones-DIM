@@ -163,7 +163,7 @@ export default function Group() {
       </InfoSideBar>
 
       {/* Contenedor de las actividades en pantalla */}
-      <ActivitiesContainer group={data[0]} />
+      <ActivitiesContainer group={data[0]} term={params.selectedTerm} />
       
     </div>
   );

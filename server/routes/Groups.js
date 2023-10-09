@@ -5,7 +5,8 @@ const conn =  require('../connection');
 //PETICIONES GET
 //Solicitar todos los grupos
 router.get('/', (req, res) => {
-  const sql = 'SELECT * FROM agrupaciones ORDER BY id DESC';
+  const sql = 'SELECT a.*, p.id AS periodoActual FROM agrupaciones a JOIN periodos p ON ' + 
+  'p.actual = 1 ORDER BY a.id DESC';
 
   conn.query(sql, (error, results) => {
     if(error) {
@@ -66,7 +67,7 @@ router.post('/', (req, res) => {
       return;
     } else {
       res.statusCode = 200;
-      res.send('Content Added')
+      res.send('Content Added');
     }
   })
 })

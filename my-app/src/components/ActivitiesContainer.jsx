@@ -11,9 +11,9 @@ import { getGroupActivities } from '../API/activities';
 
 export default function ActivitiesContainer(props) {
   
-  const[selectedTerm, setSelectedTerm] = useState('2024-15');
+  const {group, term} =  props;
 
-  const {group} =  props;
+  const[selectedTerm, setSelectedTerm] = useState(term);
 
   //Query solicitar actividades de agrupación
   const {isLoading, data} =  useQuery(['activities', group.id, selectedTerm], 

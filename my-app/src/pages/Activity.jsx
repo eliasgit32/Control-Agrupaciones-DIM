@@ -103,7 +103,7 @@ export default function Activity() {
             Nombre Agrupación:
           </label>
           <div className='col-sm-5'>
-            <Link to={`/group/${params.id}`} className='link'>
+            <Link to={`/group/${params.id}/${selectedTerm}`} className='link'>
               <p>{data.nombreAgrupacion}</p>
             </Link>
           </div>
