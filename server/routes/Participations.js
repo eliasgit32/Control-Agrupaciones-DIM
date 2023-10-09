@@ -83,19 +83,21 @@ router.get('/:groupID/:term/:activityID', (req, res) => {
 })
 
 //Obtener historial de participación
-router.get('/history/:cedula', (req, res) => {
-  const {cedula} =  req.params;
+router.get('/history/:cedula/:startTerm/:endTerm', (req, res) => {
+  const {cedula, startTerm, endTerm} =  req.params;
 
   //Pedir agrupaciones donde se haya inscrito el participante
   const sql1 =  `SELECT DISTINCT a.id, a.nombre FROM inscripciones i ` +
   `JOIN agrupaciones a ON i.agrupacion = a.id ` +
-  `WHERE i.participante = ${cedula}`;
+  `WHERE i.participante = ${cedula} AND i.periodo >= '${startTerm}' ` + 
+  `AND i.periodo <= '${endTerm}'`;
 
   const sql2 = `SELECT a.id, a.nombre, a.agrupacion, p.periodo, c.fechaInicio, ` + 
   `c.fechaFin FROM participaciones p JOIN actividades a ` +
   `ON p.actividad = a.id JOIN conformaciones_agrupaciones c ` +
   `ON (p.periodo =  c.periodo AND p.actividad = c.actividad) ` +
-  `WHERE p.participante = ${cedula} ORDER  BY c.fechaInicio ASC`;
+  `WHERE p.participante = ${cedula} AND p.periodo >= '${startTerm}' AND p.periodo <= '${endTerm}' ` +
+  `ORDER  BY c.fechaInicio ASC`;
 
   conn.query(sql1, (error, data1) => {
     if(error) {

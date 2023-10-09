@@ -7,8 +7,8 @@ export const getParticipations = async (groupID, term, activityID) => {
   return res.data;
 }
 
-export const getParticipationHistory = async (cedula) => {
-  const res = await conn.get(`/participations/history/${cedula}`);
+export const getParticipationHistory = async (cedula, startTerm, endTerm) => {
+  const res = await conn.get(`/participations/history/${cedula}/${startTerm}/${endTerm}`);
   if (res.data === '') return []; 
   return res.data;
 }
