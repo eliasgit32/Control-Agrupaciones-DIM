@@ -178,7 +178,7 @@ router.post('/:group/:term', (req, res) => {
 
   //Borrar conformación del periodo seleccionado
   //(para poder añadir nuevo lote de conformación sin problemas)
-  const sq1 = 'DELETE FROM conformaciones_agrupaciones ' +
+  const sql1 = 'DELETE FROM conformaciones_agrupaciones ' +
   `WHERE agrupacion = ${group} AND periodo = '${term}'`;
 
   //Insertar nuevo lote de conformaciones
@@ -189,7 +189,7 @@ router.post('/:group/:term', (req, res) => {
     if (error) console.log(error);
 
     //Borrado de conformación vieja
-    conn.query(sq1, error => {
+    conn.query(sql1, error => {
       if(error) {
         return conn.rollback(() => {
           console.log(error);

@@ -47,6 +47,8 @@ export default function NewActivity(props) {
             <button 
               type='button' 
               className='btn-close' 
+              data-bs-toggle='modal'
+              data-bs-target='#modalAddActivity'
               data-bs-dismiss='modal' 
               aria-label='Close'
               onClick={handleClose}>

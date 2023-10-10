@@ -8,6 +8,7 @@ import NewActivity from './Modals/NewActivity';
 import SignUpParticipants from './Modals/SignUpParticipants';
 import { useQuery } from '@tanstack/react-query';
 import { getGroupActivities } from '../API/activities';
+import ConfirmOperation from './Modals/ConfirmOperation';
 
 export default function ActivitiesContainer(props) {
   
@@ -57,6 +58,7 @@ export default function ActivitiesContainer(props) {
       <NewActivity groupName={group.nombre} groupID={group.id}/>
       {/* Modal de inscribir participante */}
       <SignUpParticipants selectedTerm={selectedTerm} groupID={group.id} />
+      
     </div>
   )
 }

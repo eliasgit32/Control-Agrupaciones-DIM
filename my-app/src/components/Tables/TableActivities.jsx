@@ -62,6 +62,7 @@ export default function TableActivities(props) {
     selectableRows: 'multiple',
     selectableRowsHeader: false,
     rowsSelected: rowsSelected,
+    selectToolbarPlacement: 'none',
     onRowSelectionChange: handleRowSelection
   };
 

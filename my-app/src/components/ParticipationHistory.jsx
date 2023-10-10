@@ -5,6 +5,7 @@ import { getParticipationHistory } from '../API/participations';
 import { format } from 'date-fns';
 import TermSelect from './TermSelect';
 import { useState } from 'react';
+
 export default function ParticipationHistory(props) {
   const { cedula } = props;
 

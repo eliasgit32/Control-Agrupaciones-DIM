@@ -84,7 +84,7 @@ export default function SignUpParticipants(props) {
               </div>
             </div>
             {/* Tabla de participantes inscritos */}
-            <TableRegistration data={data} />
+            <TableRegistration data={data} groupID={groupID} selectedTerm={selectedTerm} />
           </div>
           <div className='modal-footer'>
             <button

@@ -16,3 +16,8 @@ export const getInfoParticipant = async (cedula) => {
   if (res.data === '') return [];
   return res.data;
 }
+
+//DELETE
+export const deleteGroupRegistration = ({cedula, groupID, term}) => {
+  conn.delete(`/participants/${cedula}/${groupID}/${term}`);
+}

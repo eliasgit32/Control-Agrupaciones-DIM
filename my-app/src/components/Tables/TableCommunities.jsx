@@ -22,7 +22,11 @@ export default function TableCommunities() {
     name:'tipo',
     label: 'Tipo de Comunidad'
   }];
-  const options = {filterType: 'checkbox'};
+  const options = {
+    filterType: 'checkbox',
+    selectableRowsHeader: false,
+    selectableRows: 'single',
+  };
 
   if (data === '') {
     return(

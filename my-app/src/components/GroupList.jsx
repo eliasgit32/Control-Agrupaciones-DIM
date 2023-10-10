@@ -21,8 +21,6 @@ export default function GroupList() {
     return <div>No data</div>
   }
 
-  console.log(data);
-
   return (
     <div className='container'>
       <div className='container card-group d-flex flex-row justify-content-start flex-wrap'>

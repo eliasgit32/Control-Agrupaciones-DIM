@@ -25,7 +25,7 @@ router.get('/signUp/:groupID/:term', (req, res) => {
           nombreCompleto: `${participant.primerApellido} ` + 
           `${participant.segundoApellido}, ` +
           `${participant.primerNombre} ${participant.segundoNombre}`,
-          carrera: participant.nombre
+          comunidad: participant.nombre
         }
       })
       res.statusCode = 200;
@@ -85,6 +85,59 @@ router.post('/signUp/:cedula/:groupID/:term', (req, res) => {
       res.statusCode = 200;
       res.send('Content Added')
     }
+  })
+})
+
+//PETICIONES DELETE
+//Eliminar inscripción de participante en agrupación
+router.delete('/signUp/:cedula/:groupID/:term', (req, res) => {
+  const {cedula, groupID, term} = req.params;
+
+  const sql1 = 'DELETE FROM participaciones ' +
+  `WHERE agrupacion = ${groupID} ` +
+  `AND participante = ${cedula} `+
+  `AND periodo = '${term}'`;
+
+  const sql2 = 'DELETE FROM inscripciones ' +
+  `WHERE agrupacion = ${groupID} ` +
+  `AND participante = ${cedula} `+
+  `AND periodo = '${term}'`;
+
+  conn.beginTransaction((error) => {
+    if (error) console.log(error);
+
+    //Borrado de participaciones
+    conn.query(sql1, error => {
+      if(error) {
+        return conn.rollback(() => {
+          console.log(error);
+        })
+      }
+    })
+
+    //Borrado de inscripción
+    conn.query(sql2, error => {
+      if(error) {
+        return conn.rollback(() => {
+          console.log(error);
+        })
+      }
+    })
+    
+    // Confirmación de transacción
+    conn.commit((error) => {
+      if (error) {
+        return conn.rollback(() => {
+          res.statusCode = 500;
+          res.send(error.sqlMessage);
+          return;
+        })
+      } else {
+        res.statusCode = 200;
+        res.send('Content Deleted');
+        return;
+      }
+    });
   })
 })
 module.exports = router;
