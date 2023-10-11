@@ -44,6 +44,20 @@ export default function ParticipationHistory(props) {
               </h2>
               <div id={`flush-collapse${group.idAgrupacion}`} className="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
                 <div className='accordion-body'>
+                  <div className='row mb-2'>
+                    <div className='col'>
+                      PERÍODO
+                    </div>
+                    <div className='col'>
+                      FECHA INICIO
+                    </div>
+                    <div className='col'>
+                      FECHA FIN
+                    </div>
+                    <div className='col'>
+                      ACTIVIDAD
+                    </div>
+                  </div>
                   {group.actividades.map((activity) => {
                     return (
                       <div key={`${activity.id} ${activity.periodo}`} className='row' style={{ justifyContent: 'space-around' }}>
