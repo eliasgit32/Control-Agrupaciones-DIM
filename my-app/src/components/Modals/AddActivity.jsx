@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 import { createConformation } from '../../API/activities';
 import PlusButton from '../PlusButton';
-import TableActivities from '../Tables/TableActivities';
+import TableActivities from '../tables/TableActivities';
 
 export default function AddActivity(props) {
   //Actividades seleccionadas en la tabla

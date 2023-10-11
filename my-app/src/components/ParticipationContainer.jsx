@@ -1,6 +1,6 @@
 import React from 'react';
 import TermSelect from './TermSelect';
-import TableParticipants from './Tables/TableParticipants';
+import TableParticipants from './tables/TableParticipants';
 import { useQuery } from '@tanstack/react-query';
 import { getParticipations } from '../API/participations';
 

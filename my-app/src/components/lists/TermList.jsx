@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateTerm } from '../API/terms';
+import { updateTerm } from '../../API/terms';
 import { useEffect } from 'react';
 
 export default function TermList(props) {

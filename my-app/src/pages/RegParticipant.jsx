@@ -1,9 +1,9 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
-import TableAllParticipants from '../components/Tables/TableAllParticipants';
+import TableAllParticipants from '../components/tables/TableAllParticipants';
 import PlusButton from '../components/PlusButton';
 import { useParams } from 'react-router-dom';
-import NewParticipantUCAB from '../components/Modals/NewParticipantUCAB';
+import NewParticipantUCAB from '../components/modals/NewParticipantUCAB';
 
 export default function RegParticipant() {
   const params = useParams();

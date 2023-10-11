@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import CommunityList from '../CommunityList';
+import CommunityList from '../lists/CommunityList';
 
 export default function NewParticipantUCAB(props) {
   //Inputs

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { getGroups } from '../API/groups';
-import GroupCard from './GroupCard';
-import NewGraph from './Modals/NewChart';
+import { getGroups } from '../../API/groups';
+import GroupCard from '../GroupCard';
+import NewGraph from '../modals/NewChart';
 import { useState } from 'react';
 
 export default function GroupList() {

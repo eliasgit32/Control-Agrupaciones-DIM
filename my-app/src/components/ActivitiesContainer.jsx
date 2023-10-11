@@ -1,14 +1,14 @@
 import React from 'react';
 import { useState } from 'react';
 import TermSelect from './TermSelect';
-import ActList from './ActList';
+import ActList from './lists/ActList';
 import PlusButton from './PlusButton';
-import AddActivity from './Modals/AddActivity';
-import NewActivity from './Modals/NewActivity';
-import SignUpParticipants from './Modals/SignUpParticipants';
+import AddActivity from './modals/AddActivity';
+import NewActivity from './modals/NewActivity';
+import SignUpParticipants from './modals/SignUpParticipants';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import { getGroupActivities } from '../API/activities';
-import ConfirmOperation from './Modals/ConfirmOperation';
+import ConfirmOperation from './modals/ConfirmOperation';
 import { deleteGroupRegistration } from '../API/participants';
 
 export default function ActivitiesContainer(props) {

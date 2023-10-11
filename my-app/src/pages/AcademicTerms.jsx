@@ -3,7 +3,7 @@ import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query';
 import NavBar from '../components/NavBar';
 import PageHeader from '../components/PageHeader';
 import { createTerm, getTerms } from '../API/terms';
-import TermList from '../components/TermList';
+import TermList from '../components/lists/TermList';
 
 export default function AcademicTerms() {
   var lastTerm = '';

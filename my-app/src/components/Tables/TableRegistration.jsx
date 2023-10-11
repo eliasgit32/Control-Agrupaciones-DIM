@@ -2,7 +2,7 @@ import React from 'react';
 import MUIDataTable from 'mui-datatables';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link, useNavigate } from 'react-router-dom';
-import ConfirmOperation from '../Modals/ConfirmOperation';
+import ConfirmOperation from '../modals/ConfirmOperation';
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { deleteGroupRegistration } from '../../API/participants';

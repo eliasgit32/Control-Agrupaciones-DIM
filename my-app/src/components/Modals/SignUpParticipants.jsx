@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 import { useState } from 'react';
 import { getRegisteredParticipants, registerOnGroup } from '../../API/participants';
-import TableRegistration from '../Tables/TableRegistration';
+import TableRegistration from '../tables/TableRegistration';
 
 export default function SignUpParticipants(props) {
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { getUnitsFaculties } from '../API/communities';
+import { getUnitsFaculties } from '../../API/communities';
 
 export default function CommunityList(props) {
   var getFunction = null;

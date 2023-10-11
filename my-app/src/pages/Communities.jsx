@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React from 'react';
 import NavBar from '../components/NavBar';
-import TableCommunities from '../components/Tables/TableCommunities';
+import TableCommunities from '../components/tables/TableCommunities';
 import { useState } from 'react';
 import { createCommunity } from '../API/communities';
 

@@ -1,6 +1,6 @@
 import React from 'react';
-import ActCard from './ActCard';
-import '../stylesheets/ActList.css';
+import ActCard from '../ActCard';
+import '../../stylesheets/ActList.css';
 // import { useQuery } from '@tanstack/react-query';
 // import { getGroupActivities } from '../API/activities';
 

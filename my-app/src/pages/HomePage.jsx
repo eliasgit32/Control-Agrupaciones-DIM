@@ -2,8 +2,8 @@ import React from 'react';
 import NavBar from '../components/NavBar';
 import PageHeader from '../components/PageHeader';
 import PlusButton from '../components/PlusButton';
-import NewGroup from '../components/Modals/NewGroup';
-import GroupList from '../components/GroupList';
+import NewGroup from '../components/modals/NewGroup';
+import GroupList from '../components/lists/GroupList';
 
 export default function HomePage() {
   //Estilo del botón añadir grupo
