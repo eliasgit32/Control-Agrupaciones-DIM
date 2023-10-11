@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import BackForwardArrows from './BackForwardArrows';
 
 export default function NavBar() {
   
   return(
     <div className='navbar navbar-expand-lg fixed-top bg-primary' data-bs-theme='dark'>
+      <BackForwardArrows />
       <div className='container'>
         <NavLink to={'/homepage'} className='navbar-brand'>Dirección de Identidad y Misión -Guayana</NavLink>
         {/* Boton en caso de colapso de navbar */}

@@ -10,6 +10,7 @@ import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import { getGroupActivities } from '../API/activities';
 import ConfirmOperation from './modals/ConfirmOperation';
 import { deleteGroupRegistration } from '../API/participants';
+import { Link } from 'react-router-dom';
 
 export default function ActivitiesContainer(props) {
   
@@ -59,7 +60,12 @@ export default function ActivitiesContainer(props) {
         data-bs-target='#modalSignUpParticipants'>
           Inscribir Participantes
         </button>
-        <button type='button' className='btn btn-info'>Exportar Cronograma Actividades</button>
+        <Link to={`/ParticipationReport/${group.id}`}>
+          <button type='button' className='btn btn-info'>
+            Reporte Participación en Actividades
+          </button>
+        </Link>
+        
         <PlusButton 
         type='AddActivity' 
         font='17px' 

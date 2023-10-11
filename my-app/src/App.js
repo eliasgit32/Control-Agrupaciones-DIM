@@ -11,6 +11,7 @@ import RegParticipant from './pages/RegParticipant';
 import ChartsReport from './pages/ChartsReport';
 import Communities from './pages/Communities';
 import AcademicTerms from './pages/AcademicTerms';
+import ParticipationReport from './pages/ParticipationReport';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path='/ChartsReport' element={<ChartsReport />}></Route>
         <Route path='/Communities' element={<Communities />}></Route>
         <Route path='/AcademicTerms' element={<AcademicTerms />}></Route>
+        <Route path='/ParticipationReport/:groupID' element={<ParticipationReport />}></Route>
       </Routes>
     </Router>
   );

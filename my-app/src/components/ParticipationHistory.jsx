@@ -6,7 +6,7 @@ import { format } from 'date-fns';
 import TermSelect from './TermSelect';
 import { useState } from 'react';
 
-export default function ParticipationHistory(props) {
+export default function ParticipationHistory(props) {  
   const { cedula } = props;
 
   const [startTerm, setStartTerm] = useState('2024-15');
