@@ -6,7 +6,10 @@ import TableRegistration from '../Tables/TableRegistration';
 
 export default function SignUpParticipants(props) {
 
-  const {selectedTerm, groupID} = props;
+  const {selectedTerm, 
+    groupID, 
+    setSelectedParticipant,
+    setModalVisible} = props;
 
   const [participant, setParticipant] = useState('');
   
@@ -84,14 +87,21 @@ export default function SignUpParticipants(props) {
               </div>
             </div>
             {/* Tabla de participantes inscritos */}
-            <TableRegistration data={data} groupID={groupID} selectedTerm={selectedTerm} />
+            <TableRegistration 
+              data={data} 
+              groupID={groupID} 
+              selectedTerm={selectedTerm} 
+              setSelectedParticipant={setSelectedParticipant}
+              setModalVisible={setModalVisible}
+            />
           </div>
           <div className='modal-footer'>
             <button
               type='button'
               className='btn btn-success'
               data-bs-dismiss='modal'
-              onClick={handleClose}>
+              onClick={handleClose}
+            >
               Aceptar
             </button>
           </div>

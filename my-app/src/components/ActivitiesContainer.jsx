@@ -6,15 +6,28 @@ import PlusButton from './PlusButton';
 import AddActivity from './Modals/AddActivity';
 import NewActivity from './Modals/NewActivity';
 import SignUpParticipants from './Modals/SignUpParticipants';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import { getGroupActivities } from '../API/activities';
 import ConfirmOperation from './Modals/ConfirmOperation';
+import { deleteGroupRegistration } from '../API/participants';
 
 export default function ActivitiesContainer(props) {
   
   const {group, term} =  props;
 
   const[selectedTerm, setSelectedTerm] = useState(term);
+  const [selectedParticipant, setSelectedParticipant] = useState(null);
+  const [modalVisible, setModalVisible] =  useState(false);
+  
+  const queryClient = useQueryClient();
+  
+  //Mutación borrar inscripción
+  const deleteResgitrationMutation =  useMutation({
+    mutationFn: deleteGroupRegistration,
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    }
+  })
 
   //Query solicitar actividades de agrupación
   const {isLoading, data} =  useQuery(['activities', group.id, selectedTerm], 
@@ -57,7 +70,22 @@ export default function ActivitiesContainer(props) {
       <AddActivity selectedTerm={selectedTerm} groupID={group.id} data={data} />
       <NewActivity groupName={group.nombre} groupID={group.id}/>
       {/* Modal de inscribir participante */}
-      <SignUpParticipants selectedTerm={selectedTerm} groupID={group.id} />
+      <SignUpParticipants 
+        selectedTerm={selectedTerm} 
+        groupID={group.id} 
+        setSelectedParticipant={setSelectedParticipant} 
+        setModalVisible={setModalVisible}
+      />
+       <ConfirmOperation 
+        operation={() => 
+          {
+            deleteResgitrationMutation.mutate({cedula: selectedParticipant, groupID: group.id, term: selectedTerm})
+          }
+        }
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        selectedParticipant={selectedParticipant}
+      />
       
     </div>
   )

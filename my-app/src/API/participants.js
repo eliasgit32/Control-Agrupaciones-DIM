@@ -19,5 +19,5 @@ export const getInfoParticipant = async (cedula) => {
 
 //DELETE
 export const deleteGroupRegistration = ({cedula, groupID, term}) => {
-  conn.delete(`/participants/${cedula}/${groupID}/${term}`);
+  conn.delete(`/participants/signUp/${cedula}/${groupID}/${term}`);
 }

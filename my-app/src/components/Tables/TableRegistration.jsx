@@ -1,7 +1,7 @@
 import React from 'react';
 import MUIDataTable from 'mui-datatables';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ConfirmOperation from '../Modals/ConfirmOperation';
 import { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -9,20 +9,13 @@ import { deleteGroupRegistration } from '../../API/participants';
 
 export default function TableRegistration(props) {
 
-  const {data, groupID, selectedTerm} = props;
+  const navigate = useNavigate();
 
-  const [selectedParticipant, setSelectedParticipant] = useState(null);
-  const [modalVisible, setModalVisible] =  useState(false);
-
-  const queryClient = useQueryClient();
-  
-  //Mutación borrar inscripción
-  const deleteResgitrationMutation =  useMutation({
-    mutationFn: deleteGroupRegistration,
-    onSuccess: () => {
-      queryClient.invalidateQueries();
-    }
-  })
+  const {data, 
+    groupID, 
+    selectedTerm, 
+    setSelectedParticipant,
+    setModalVisible} = props;
 
   const darkTheme = createTheme({
     palette: {
@@ -36,7 +29,13 @@ export default function TableRegistration(props) {
       label: 'Cédula', 
       options: {
         customBodyRender: (value, tableMeta, updateValue) => {
-          return <Link to={`/participant/${value}`}>{value}</Link>
+          return <Link 
+            // to={`/participant/${value}`}
+            onClick={() => navigate(`/participant/${value}`)} 
+            data-bs-dismiss='modal'
+          >
+            {value}
+          </Link>
         }
       }
     }, 
@@ -76,15 +75,6 @@ export default function TableRegistration(props) {
         options={options}
         />
       </ThemeProvider>
-      <ConfirmOperation 
-        operation={() => 
-          {
-            deleteResgitrationMutation.mutate({cedula: selectedParticipant, groupID: groupID, term: selectedTerm})
-          }
-        }
-        modalVisible={modalVisible}
-        setModalVisible={setModalVisible}
-      />
     </>
     
   );

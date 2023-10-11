@@ -17,8 +17,6 @@ export default function ParticipationHistory(props) {
 
   if (isLoading) return <div>Cargando...</div>
 
-  console.log(data);
-
   return (
     <>
       {/* Contenedor de selectores de periodos */}
