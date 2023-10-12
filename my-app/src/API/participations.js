@@ -13,6 +13,12 @@ export const getParticipationHistory = async (cedula, startTerm, endTerm) => {
   return res.data;
 }
 
+export const getAllParticipations =  async (groupID, startTerm, endTerm) => {
+  const res = await conn.get(`/participations/AllParticipations/${groupID}/${startTerm}/${endTerm}`);
+  if (res.data === '') return {}; 
+  return res.data;
+}
+
 //POST
 export const createParticipation = (participation) => conn.post('/participations', participation);
 

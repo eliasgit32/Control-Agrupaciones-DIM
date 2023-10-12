@@ -142,6 +142,69 @@ router.get('/history/:cedula/:startTerm/:endTerm', (req, res) => {
   })
 })
 
+//Reporte de todas las participaciones de una agrupación
+router.get('/AllParticipations/:groupID/:startTerm/:endTerm', (req, res) => {
+  const {groupID, startTerm, endTerm} =  req.params;
+
+  //Solicitar nombre de la agrupación
+  const sql1 = `SELECT nombre FROM agrupaciones ` +
+  `WHERE id = ${groupID}`;
+
+  //Solicitar datos de todas las participaciones
+  const sql2 = `SELECT a.nombre AS nombreAct, a.id AS idAct, p.primerNombre, ` +
+  `p.segundoNombre, p.primerApellido, p.segundoApellido, p.cedula, c.nombre AS comunidad, ` +
+  `participacion.periodo FROM participaciones participacion ` +
+  `JOIN actividades a ON participacion.actividad = a.id ` +
+  `JOIN participantes p ON participacion.participante = p.cedula ` +
+  `JOIN comunidades c ON p.comunidad = c.id WHERE participacion.agrupacion = ${groupID} ` +
+  `AND participacion.periodo >= '${startTerm}' AND participacion.periodo <= '${endTerm}'`;
+
+  conn.query(sql1, (error, data1) => {
+    if(error) {
+      res.statusCode = 500;
+      res.send(error.sqlMessage);
+      return;
+    } else if(data1.length > 0) {
+      conn.query(sql2, (error, data2) => {
+        if(error) {
+          res.statusCode = 500;
+          res.send(error.sqlMessage);
+          return;
+        } else if(data2.length > 0) {
+          //Reordenar datos
+          const actividades = data2.map((actividad) => {
+            return {
+              nombre: actividad.nombreAct,
+              idAct: actividad.idAct,
+              nombreCompleto: `${actividad.primerApellido} ` +
+              `${actividad.segundoApellido}, ${actividad.primerNombre} ` +
+              `${actividad.segundoNombre}`,
+              cedula: actividad.cedula,
+              comunidad: actividad.comunidad,
+              periodo: actividad.periodo
+            }
+          })
+          const results = {
+            nombreAgrupacion: data1[0].nombre,
+            actividades: actividades
+          }
+          res.statusCode = 200;
+          res.send(results);
+          return;
+        } else {
+          res.statusCode = 204;
+          res.send('No Participations');
+          return;
+        }
+      })
+    } else {
+      res.statusCode = 204;
+      res.send('No Content');
+      return;
+    }
+  })
+})
+
 //PETICIONES POST
 //Añadir participación en actividad
 router.post('/', (req, res) => {

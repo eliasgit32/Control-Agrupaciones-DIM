@@ -5,18 +5,35 @@ import TermSelect from '../components/TermSelect';
 import { useState } from 'react';
 import TableParticipationsGroup from '../components/tables/TableParticipationsGroup';
 import TableStatisticsActivities from '../components/tables/TableStatisticsActivities';
+import { useQuery } from '@tanstack/react-query';
+import { getAllParticipations } from '../API/participations';
 
 export default function ParticipationReport() {
   const params = useParams();
   const [startTerm, setStartTerm] = useState('2024-15');
   const [endTerm, setEndTerm] = useState('2024-15');
 
+  //Hook de query react para solicitar los datos
+  const {isLoading, data} = useQuery(['AllParticipations', params.groupID, startTerm, endTerm],
+  () => getAllParticipations(params.groupID, startTerm, endTerm));
+
+  if (isLoading) {
+    return(
+      <>
+        <NavBar />
+        <div>
+          Cargando...
+        </div>
+      </>
+    )
+  }
+  console.log(data);
+
   return(
     <div>
       <NavBar />
-      {/* Enlazar link al nombre de la agrupación a la ruta: '/group/:id/:selectedTerm' */}
       <div className='title-container text-center mb-4'>
-        <h2>Reporte de participaciones de la agrupación [Nombre_agrupación]</h2>
+        <h2>Reporte de participaciones de la agrupación {data.nombreAgrupacion}</h2>
       </div>
 
       {/* Contenedor de selectores de periodos */}
@@ -34,7 +51,7 @@ export default function ParticipationReport() {
       </div>
 
       <div className='table-container my-3 mx-4'>
-        <TableParticipationsGroup />
+        <TableParticipationsGroup data={data.actividades}/>
       </div>
 
       {/*Tabla que contiene las estadísticas de cada actividad */}

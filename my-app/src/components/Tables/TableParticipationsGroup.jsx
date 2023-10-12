@@ -2,7 +2,9 @@ import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MUIDataTable from 'mui-datatables';
 
-export default function TableParticipationsGroup() {
+export default function TableParticipationsGroup(props) {
+  const {data} = props;
+  
   //Aplicar tema oscuro a la tabla
   const darkTheme = createTheme({
     palette: {
@@ -12,7 +14,7 @@ export default function TableParticipationsGroup() {
 
   const columns = [
     {
-      name: 'actividad',
+      name: 'nombre',
       label: 'Actividades'
     },
     {
@@ -24,8 +26,8 @@ export default function TableParticipationsGroup() {
       label: 'Cédula'
     },
     {
-      name: 'carrera',
-      label: 'Carrera'
+      name: 'comunidad',
+      label: 'Comunidad'
     },
     {
       name: 'periodo',
@@ -33,11 +35,10 @@ export default function TableParticipationsGroup() {
     }
   ]
 
-  const data = [];
-
   const options = {
     filterType: 'checkbox',
     selectableRows: 'none',
+    print: 'false',
   }
   return(
     <ThemeProvider theme={darkTheme}>
