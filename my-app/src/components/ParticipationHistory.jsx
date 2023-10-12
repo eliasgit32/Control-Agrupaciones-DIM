@@ -31,8 +31,8 @@ export default function ParticipationHistory(props) {
             <TermSelect selectedTerm={endTerm} setSelectedTerm={setEndTerm} />
           </div>
         </div>
-        
       </div>
+      
       <div className='accordion accordion-flush' id="accordionFlush">
         {data.map((group) => {
           return (
