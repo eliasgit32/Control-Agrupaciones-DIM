@@ -26,6 +26,7 @@ export default function TableCommunities() {
     filterType: 'checkbox',
     selectableRowsHeader: false,
     selectableRows: 'single',
+    print: 'false',
   };
 
   if (data === '') {

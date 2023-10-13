@@ -30,7 +30,6 @@ export default function TableRegistration(props) {
       options: {
         customBodyRender: (value, tableMeta, updateValue) => {
           return <Link 
-            // to={`/participant/${value}`}
             onClick={() => navigate(`/participant/${value}`)} 
             data-bs-dismiss='modal'
           >
@@ -58,11 +57,11 @@ export default function TableRegistration(props) {
     filterType: 'checkbox',
     selectableRowsHeader: false,
     selectableRows: 'single',
-    // selectToolbarPlacement: 'none',
     onRowSelectionChange: handleRowSelection,
     onRowsDelete: () => {
       setModalVisible(true);
-    }
+    },
+    print: 'false',
   };
   
   return(

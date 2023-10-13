@@ -35,6 +35,7 @@ export default function TableStatisticsActivities(props) {
   const options = {
     filterType: 'checkbox',
     selectableRows: 'none',
+    print: 'false',
   }
 
   return(

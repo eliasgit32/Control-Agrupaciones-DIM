@@ -34,7 +34,7 @@ export default function TableAllParticipants(props) {
     }
   }, 
     'Nombre Completo', 'Fecha Nacimiento', props.community , 'Etapa', 'Correo', 'Correo UCAB', 'Período Ingreso'];
-  const options = {filterType: 'checkbox'};
+  const options = {filterType: 'checkbox', print: 'false',};
   
   return(
     <ThemeProvider theme={darkTheme}>

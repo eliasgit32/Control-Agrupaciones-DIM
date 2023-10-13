@@ -106,10 +106,10 @@ export default function TableParticipants(props) {
   const options = {
     filterType: 'checkbox',
     selectableRowsHeader: false,
-    // customToolbarSelect: () => {},
     selectToolbarPlacement: 'none',
     rowsSelected: rowsSelected,
     onRowSelectionChange: handleRowSelection,
+    print: 'false',
   };
   
   return(
