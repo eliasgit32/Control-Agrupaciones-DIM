@@ -27,7 +27,6 @@ export default function ParticipationReport() {
       </>
     )
   }
-  console.log(data);
 
   return(
     <div>
@@ -51,7 +50,7 @@ export default function ParticipationReport() {
       </div>
 
       <div className='table-container my-3 mx-4'>
-        <TableParticipationsGroup data={data.actividades}/>
+        <TableParticipationsGroup data={data.actividades} groupID={params.groupID} />
       </div>
 
       {/*Tabla que contiene las estadísticas de cada actividad */}

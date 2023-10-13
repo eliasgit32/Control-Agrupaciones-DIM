@@ -184,6 +184,32 @@ router.get('/AllParticipations/:groupID/:startTerm/:endTerm', (req, res) => {
               periodo: actividad.periodo
             }
           })
+
+          //Organizar filas de actividades 1ero por nombre de la actividad,
+          //luego por nombre de comunidad y de último por nombre del participante
+          actividades.sort((a, b) => {
+            // Comparar por el nombre de la actividad
+            if (a.nombre < b.nombre) {
+              return -1;
+            } else if (a.nombre > b.nombre){
+              return 1;
+            }
+            // Si los nombres de las actividades son iguales, comparar por el nombre de la comunidad
+            if (a.comunidad < b.comunidad) {
+              return -1;
+            } else if (a.comunidad > b.comunidad) {
+              return 1;
+            }
+            // Si los nombres de las comunidades son iguales, comparar por el nombre del participante
+            if (a.nombreCompleto < b.nombreCompleto) {
+              return -1;
+            } else if (a.nombreCompleto > b.nombreCompleto) {
+              return 1;
+            }
+            
+            return 0;
+          })
+
           const results = {
             nombreAgrupacion: data1[0].nombre,
             actividades: actividades

@@ -1,9 +1,10 @@
 import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MUIDataTable from 'mui-datatables';
+import { Link } from 'react-router-dom';
 
 export default function TableParticipationsGroup(props) {
-  const {data} = props;
+  const {data, groupID} = props;
   
   //Aplicar tema oscuro a la tabla
   const darkTheme = createTheme({
@@ -15,7 +16,12 @@ export default function TableParticipationsGroup(props) {
   const columns = [
     {
       name: 'nombre',
-      label: 'Actividades'
+      label: 'Actividades',
+      options: {
+        customBodyRender: (value, tableMeta) => {
+          return <Link to={`/group/${groupID}/${data[tableMeta.rowIndex].idAct}/${tableMeta.rowData[4]}`} >{value}</Link>
+        }
+      }
     },
     {
       name: 'nombreCompleto',
