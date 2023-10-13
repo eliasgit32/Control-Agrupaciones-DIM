@@ -29,7 +29,12 @@ export default function TableParticipationsGroup(props) {
     },
     {
       name: 'cedula',
-      label: 'Cédula'
+      label: 'Cédula',
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <Link to={`/participant/${value}`}>{value}</Link>
+        }
+      }
     },
     {
       name: 'comunidad',

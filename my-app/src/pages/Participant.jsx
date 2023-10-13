@@ -263,7 +263,7 @@ export default function Participant() {
               part-field='true'
               id='partEmailInst' 
               readOnly={true}
-              value={data[0].emailInst}  
+              value={data[0].emailInst ? data[0].emailInst : ''}  
             />
           </div>
         </div>

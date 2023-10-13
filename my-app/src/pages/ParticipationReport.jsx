@@ -6,7 +6,7 @@ import { useState } from 'react';
 import TableParticipationsGroup from '../components/tables/TableParticipationsGroup';
 import TableStatisticsActivities from '../components/tables/TableStatisticsActivities';
 import { useQuery } from '@tanstack/react-query';
-import { getAllParticipations } from '../API/participations';
+import { getAllParticipations, getParticipationsStats } from '../API/participations';
 
 export default function ParticipationReport() {
   const params = useParams();
@@ -14,10 +14,13 @@ export default function ParticipationReport() {
   const [endTerm, setEndTerm] = useState('2024-15');
 
   //Hook de query react para solicitar los datos
-  const {isLoading, data} = useQuery(['AllParticipations', params.groupID, startTerm, endTerm],
+  const AllParticipationsQuery = useQuery(['AllParticipations', params.groupID, startTerm, endTerm],
   () => getAllParticipations(params.groupID, startTerm, endTerm));
 
-  if (isLoading) {
+  const ParticipationsStatsQuery = useQuery(['ParticipationsStats', params.groupID, startTerm, endTerm],
+  () => getParticipationsStats(params.groupID, startTerm, endTerm));
+
+  if (AllParticipationsQuery.isLoading || ParticipationsStatsQuery.isLoading) {
     return(
       <>
         <NavBar />
@@ -32,7 +35,7 @@ export default function ParticipationReport() {
     <div>
       <NavBar />
       <div className='title-container text-center mb-4'>
-        <h2>Reporte de participaciones de la agrupación {data.nombreAgrupacion}</h2>
+        <h2>Reporte de participaciones de la agrupación {AllParticipationsQuery.data.nombreAgrupacion}</h2>
       </div>
 
       {/* Contenedor de selectores de periodos */}
@@ -50,12 +53,15 @@ export default function ParticipationReport() {
       </div>
 
       <div className='table-container my-3 mx-4'>
-        <TableParticipationsGroup data={data.actividades} groupID={params.groupID} />
+        <TableParticipationsGroup 
+          data={AllParticipationsQuery.data.actividades} 
+          groupID={params.groupID} 
+        />
       </div>
 
       {/*Tabla que contiene las estadísticas de cada actividad */}
       <div className='statistic-container my-5 mx-4'>
-        <TableStatisticsActivities />
+        <TableStatisticsActivities data={ParticipationsStatsQuery.data} />
       </div>
     </div>
   )

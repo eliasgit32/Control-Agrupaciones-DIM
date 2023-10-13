@@ -231,6 +231,36 @@ router.get('/AllParticipations/:groupID/:startTerm/:endTerm', (req, res) => {
   })
 })
 
+//Estadísticas de participacion por actividades
+router.get('/ParticipationsOnActivities/:groupID/:startTerm/:endTerm', (req, res) => {
+  const {groupID, startTerm, endTerm} =  req.params;
+
+  const sql = `SELECT DISTINCT a.nombre, a.descripcion, 
+  (SELECT COUNT(*) FROM participaciones p WHERE p.actividad = a.id AND p.agrupacion = ${groupID} 
+  AND p.periodo >= '${startTerm}' AND p.periodo <= '${endTerm}') AS participaciones, 
+  (SELECT COUNT(*) FROM inscripciones i WHERE i.agrupacion = ${groupID} 
+  AND i.periodo >= '${startTerm}' AND i.periodo <= '${endTerm}') AS inscripciones 
+  FROM conformaciones_agrupaciones c JOIN actividades a ON c.actividad = a.id 
+  WHERE c.agrupacion = ${groupID} AND c.periodo >= '${startTerm}' AND c.periodo <= '${endTerm}'`;
+
+  conn.query(sql, (error, results) => {
+    if(error) {
+      res.statusCode = 500;
+      res.send(error.sqlMessage);
+      return;
+    } else if(results.length > 0) {
+      res.statusCode = 200;
+      res.send(results);
+      return;
+    } else {
+      res.statusCode = 204;
+      res.send('No Content');
+      return;
+    }
+  })
+
+})
+
 //PETICIONES POST
 //Añadir participación en actividad
 router.post('/', (req, res) => {
