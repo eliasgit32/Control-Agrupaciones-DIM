@@ -33,7 +33,7 @@ export default function ParticipationHistory(props) {
         </div>
       </div>
       
-      <div className='accordion accordion-flush' id="accordionFlush">
+      <div className='accordion' id="accordionFlush">
         {data.map((group) => {
           return (
             <div className='accordion-item' key={group.idAgrupacion}>

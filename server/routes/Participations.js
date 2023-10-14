@@ -129,8 +129,16 @@ router.get('/history/:cedula/:startTerm/:endTerm', (req, res) => {
           res.send(results);
           return;
         } else {
-          res.statusCode = 204;
-          res.send('No Content');
+          //Datos de agrupaciones sin actividades
+          const groups =  data1.map((group) => {
+            return {
+              idAgrupacion: group.id,
+              nombreAgrupacion: group.nombre,
+              actividades: []
+            }
+          })
+          res.statusCode = 200;
+          res.send(groups);
           return;
         }
       })
