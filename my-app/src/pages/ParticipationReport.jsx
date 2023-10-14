@@ -13,7 +13,7 @@ export default function ParticipationReport() {
   const [startTerm, setStartTerm] = useState('2024-15');
   const [endTerm, setEndTerm] = useState('2024-15');
 
-  //Hook de query react para solicitar los datos
+  //Hook de react query para solicitar los datos
   const AllParticipationsQuery = useQuery(['AllParticipations', params.groupID, startTerm, endTerm],
   () => getAllParticipations(params.groupID, startTerm, endTerm));
 

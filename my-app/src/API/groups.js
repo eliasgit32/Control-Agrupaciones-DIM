@@ -14,5 +14,11 @@ export const getOneGroup = async (id) => {
   return res.data;
 }
 
+export const getTotalRegistrations = async (startTerm, endTerm) => {
+  const res = await conn.get(`/groups/TotalRegistrations/${startTerm}/${endTerm}`);
+  if (res.data === '') return []; 
+  return res.data;
+}
+
 //PUT
 export const updateGroup = (group) => conn.put('/groups' , group);

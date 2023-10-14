@@ -4,10 +4,25 @@ import TermSelect from '../components/TermSelect';
 import { useState } from 'react';
 import TableTotalRegistrations from '../components/tables/TableTotalRegistrations';
 import TableStatisticsRegistration from '../components/tables/TableStatisticsRegistration';
+import { useQuery } from '@tanstack/react-query';
+import { getTotalRegistrations } from '../API/groups';
 
 export default function RegistrationReport() {
   const [startTerm, setStartTerm] = useState('2024-15');
   const [endTerm, setEndTerm] = useState('2024-15');
+
+  // Hook de react query para solicitar los datos
+  const TotalRegistrations =  useQuery(['TotalRegistrations', startTerm, endTerm],
+  () => getTotalRegistrations(startTerm, endTerm));
+
+  if (TotalRegistrations.isLoading) {
+    return (
+      <>
+        <NavBar />
+        <div>Cargando...</div>
+      </>
+    )
+  }
   
   return(
     <>
@@ -32,11 +47,11 @@ export default function RegistrationReport() {
 
       <div className='table-container my-3 mx-4'>
         <TableTotalRegistrations 
-          data={[]}  
+          data={TotalRegistrations.data}  
         />
       </div>
 
-      {/*Tabla de datos del rendimiento*/}
+      {/*Tabla de datos del rendimiento por semestre de todas las participaciones*/}
       <div className='statistic-container my-5 mx-4'>
         <TableStatisticsRegistration data={[]} />
       </div>

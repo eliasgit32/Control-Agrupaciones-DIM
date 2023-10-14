@@ -1,6 +1,7 @@
 import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MUIDataTable from 'mui-datatables';
+import { Link } from 'react-router-dom';
 
 
 export default function TableTotalRegistrations(props) {
@@ -20,7 +21,12 @@ export default function TableTotalRegistrations(props) {
     },
     {
       name: 'cedula',
-      label: 'Cédula'
+      label: 'Cédula',
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <Link to={`/participant/${value}`}>{value}</Link>
+        }
+      }
     },
     {
       name: 'agrupacion',
@@ -29,6 +35,10 @@ export default function TableTotalRegistrations(props) {
     {
       name: 'comunidad',
       label: 'Comunidad'
+    },
+    {
+      name: 'periodo',
+      label: 'Período'
     }
   ]
 
