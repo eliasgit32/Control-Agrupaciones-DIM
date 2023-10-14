@@ -51,6 +51,7 @@ export default function TableParticipationsGroup(props) {
     selectableRows: 'none',
     print: 'false',
   }
+  
   return(
     <ThemeProvider theme={darkTheme}>
       <MUIDataTable 

@@ -4,6 +4,7 @@ import PageHeader from '../components/PageHeader';
 import PlusButton from '../components/PlusButton';
 import NewGroup from '../components/modals/NewGroup';
 import GroupList from '../components/lists/GroupList';
+import { Link } from 'react-router-dom';
 
 export default function HomePage() {
   //Estilo del botón añadir grupo
@@ -18,6 +19,16 @@ export default function HomePage() {
         <PlusButton type='NewGroup' styleClass={buttonStyle} font='50px'/>
         <NewGroup />
       </div>
+      <Link to={'/RegistrationReport'}>
+        <button 
+          type='button' 
+          className='position-fixed bottom-0 py-3 mb-3 btn btn-info'
+          style={{left: '50%', transform: 'translateX(-50%)'}}
+        >
+          Reporte Inscripción en Agrupaciones
+        </button>
+      </Link>
+      
     </>
   );
 }
