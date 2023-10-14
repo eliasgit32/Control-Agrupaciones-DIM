@@ -23,12 +23,22 @@ export default function TableStatisticsActivities(props) {
       label: 'Descripción Actividad'
     },
     {
-      name: 'participaciones',
-      label: 'Participaciones'
+      name: 'participacion',
+      label: 'Participación',
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <p style={{textAlign: 'left', marginLeft: '45px'}}>{value}</p>
+        }
+      }
     },
     {
-      name: 'inscripciones',
-      label: 'inscripciones'
+      name: 'partInsc',
+      label: 'Part/Insc',
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <p style={{textAlign: 'left', marginLeft: '45px'}}>{value}</p>
+        }
+      }
     }
   ]
 

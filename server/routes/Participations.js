@@ -243,12 +243,23 @@ router.get('/ParticipationsOnActivities/:groupID/:startTerm/:endTerm', (req, res
   FROM conformaciones_agrupaciones c JOIN actividades a ON c.actividad = a.id 
   WHERE c.agrupacion = ${groupID} AND c.periodo >= '${startTerm}' AND c.periodo <= '${endTerm}'`;
 
-  conn.query(sql, (error, results) => {
+  conn.query(sql, (error, data) => {
     if(error) {
       res.statusCode = 500;
       res.send(error.sqlMessage);
       return;
-    } else if(results.length > 0) {
+    } else if(data.length > 0) {
+      //Reorganizar los datos
+      const results = data.map((actividad) => {
+        //Calculo de porcentaje
+        let percent = actividad.participaciones / actividad.inscripciones * 100;
+        return {
+          nombre: actividad.nombre,
+          descripcion: actividad.descripcion,
+          participacion:  `${Math.round(percent)}%`,
+          partInsc: `${actividad.participaciones}/${actividad.inscripciones}` 
+        }
+      })
       res.statusCode = 200;
       res.send(results);
       return;
