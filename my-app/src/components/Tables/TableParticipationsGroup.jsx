@@ -32,17 +32,27 @@ export default function TableParticipationsGroup(props) {
       label: 'Cédula',
       options: {
         customBodyRender: (value, tableMeta, updateValue) => {
-          return <Link to={`/participant/${value}`}>{value}</Link>
+          return <Link to={`/participant/${value}`} style={{marginLeft: '10px'}}>{value}</Link>
         }
       }
     },
     {
       name: 'comunidad',
-      label: 'Comunidad'
+      label: 'Comunidad',
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <p style={{marginLeft: '20px', marginBottom:'0px'}}>{value}</p>
+        }
+      }
     },
     {
       name: 'periodo',
-      label: 'Período'
+      label: 'Período',
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <p style={{marginLeft: '20px', marginBottom:'0px'}}>{value}</p>
+        }
+      }
     }
   ]
 

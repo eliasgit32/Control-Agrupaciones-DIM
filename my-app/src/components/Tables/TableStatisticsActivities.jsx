@@ -27,7 +27,7 @@ export default function TableStatisticsActivities(props) {
       label: 'Participación',
       options: {
         customBodyRender: (value, tableMeta, updateValue) => {
-          return <p style={{textAlign: 'left', marginLeft: '45px'}}>{value}</p>
+          return <p style={{marginLeft: '45px', marginBottom:'0px'}}>{value}</p>
         }
       }
     },
@@ -36,7 +36,7 @@ export default function TableStatisticsActivities(props) {
       label: 'Part/Insc',
       options: {
         customBodyRender: (value, tableMeta, updateValue) => {
-          return <p style={{textAlign: 'left', marginLeft: '45px'}}>{value}</p>
+          return <p style={{marginLeft: '45px', marginBottom:'0px'}}>{value}</p>
         }
       }
     }

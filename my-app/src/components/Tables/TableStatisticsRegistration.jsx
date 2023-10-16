@@ -15,19 +15,39 @@ export default function TableStatisticsRegistration(props) {
   const columns = [
     {
       name: 'semestre',
-      label: 'Semestre'
+      label: 'Semestre',
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <p style={{marginLeft: '25px', marginBottom:'0px'}}>{value}</p>
+        }
+      }
     },
     {
       name: 'participantes',
-      label: 'Participantes'
+      label: 'Participantes',
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <p style={{marginLeft: '25px', marginBottom:'0px'}}>{value}</p>
+        }
+      }
     },
     {
       name: 'inscripciones',
-      label: 'Inscripciones'
+      label: 'Inscripciones',
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <p style={{marginLeft: '25px', marginBottom:'0px'}}>{value}</p>
+        }
+      }
     },
     {
       name: 'porcentaje',
-      label: 'Porcentaje Part.'
+      label: 'Porcentaje Part.',
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <p style={{marginLeft: '75px', marginBottom:'0px'}}>{value}</p>
+        }
+      }
     }
   ]
 

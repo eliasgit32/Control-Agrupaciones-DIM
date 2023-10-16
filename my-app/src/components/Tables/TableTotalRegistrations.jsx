@@ -24,21 +24,36 @@ export default function TableTotalRegistrations(props) {
       label: 'Cédula',
       options: {
         customBodyRender: (value, tableMeta, updateValue) => {
-          return <Link to={`/participant/${value}`}>{value}</Link>
+          return <Link to={`/participant/${value}`} style={{marginLeft: '5px', marginBottom:'0px'}}>{value}</Link>
         }
       }
     },
     {
       name: 'agrupacion',
-      label: 'Agrupación'
+      label: 'Agrupación',
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <p style={{marginLeft: '25px', marginBottom:'0px'}}>{value}</p>
+        }
+      }
     },
     {
       name: 'comunidad',
-      label: 'Comunidad'
+      label: 'Comunidad',
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <p style={{marginLeft: '25px', marginBottom:'0px'}}>{value}</p>
+        }
+      }
     },
     {
       name: 'periodo',
-      label: 'Período'
+      label: 'Período',
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <p style={{marginLeft: '15px', marginBottom:'0px'}}>{value}</p>
+        }
+      }
     }
   ]
 

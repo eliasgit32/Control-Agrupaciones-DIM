@@ -49,12 +49,6 @@ export default function NavBar() {
               <NavLink className='nav-link'>Coordinadores</NavLink>
             </li>
             <li className='nav-item'>
-              <NavLink className='nav-link'>Escuelas</NavLink>
-            </li>
-            <li className='nav-item'>
-              <NavLink className='nav-link'>Unidades</NavLink>
-            </li>
-            <li className='nav-item'>
               <NavLink className='nav-link' to={'/Communities'}>Comunidades</NavLink>
             </li>
             <li className='nav-item'>
