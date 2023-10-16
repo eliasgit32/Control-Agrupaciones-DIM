@@ -20,5 +20,11 @@ export const getTotalRegistrations = async (startTerm, endTerm) => {
   return res.data;
 }
 
+export const getSemesterStats =  async (startTerm, endTerm) => {
+  const res = await conn.get(`/groups/RegistrationsOnEveryTerm/${startTerm}/${endTerm}`);
+  if (res.data === '') return []; 
+  return res.data;
+}
+
 //PUT
 export const updateGroup = (group) => conn.put('/groups' , group);

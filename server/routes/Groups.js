@@ -100,6 +100,43 @@ router.get('/TotalRegistrations/:startTerm/:endTerm', (req, res) => {
   })
 })
 
+//Reporte de inscripciones realizadas globalmente 
+//en todas las agrupaciones
+router.get('/RegistrationsOnEveryTerm/:startTerm/:endTerm', (req, res) => {
+  const {startTerm, endTerm} =  req.params;
+
+  const sql = `SELECT p.id AS semestre,  
+  (SELECT COUNT(DISTINCT part.participante) FROM participaciones part 
+  WHERE part.periodo = p.id) AS participantes,
+  (SELECT COUNT(*) FROM inscripciones i WHERE i.periodo = p.id) AS inscripciones
+  FROM periodos p WHERE p.id >= '${startTerm}' AND p.id <= '${endTerm}'`;
+
+  conn.query(sql, (error, data) => {
+    if(error) {
+      res.statusCode = 500;
+      res.send(error.sqlMessage);
+      return;
+    } else if (data.length > 0) {
+      //Organizar datos
+      const results =  data.map((semestre) => {
+        let porcentaje = (semestre.participantes/semestre.inscripciones) * 100;
+        return {
+          ...semestre,
+          porcentaje: `${porcentaje ? Math.round(porcentaje) : 0}%`,
+        }
+      })
+
+      res.statusCode = 200;
+      res.send(results);
+      return;
+    } else {
+      res.statusCode = 204;
+      res.send('No Content');
+      return;
+    }
+  })
+})
+
 //PETICIONES POST
 //Agregar grupo
 router.post('/', (req, res) => {

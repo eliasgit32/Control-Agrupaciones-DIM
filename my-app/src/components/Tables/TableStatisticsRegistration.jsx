@@ -18,8 +18,8 @@ export default function TableStatisticsRegistration(props) {
       label: 'Semestre'
     },
     {
-      name: 'participaciones',
-      label: 'Participaciones'
+      name: 'participantes',
+      label: 'Participantes'
     },
     {
       name: 'inscripciones',
