@@ -108,7 +108,7 @@ router.get('/RegistrationsOnEveryTerm/:startTerm/:endTerm', (req, res) => {
   const sql = `SELECT p.id AS semestre,  
   (SELECT COUNT(DISTINCT part.participante) FROM participaciones part 
   WHERE part.periodo = p.id) AS participantes,
-  (SELECT COUNT(*) FROM inscripciones i WHERE i.periodo = p.id) AS inscripciones
+  (SELECT COUNT(DISTINCT i.participante) FROM inscripciones i WHERE i.periodo = p.id) AS inscripciones
   FROM periodos p WHERE p.id >= '${startTerm}' AND p.id <= '${endTerm}'`;
 
   conn.query(sql, (error, data) => {

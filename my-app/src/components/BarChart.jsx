@@ -27,11 +27,17 @@ export default function BarChart(props) {
     maintainAspectRatio: false,
     scales: {
       x: {
+        ticks: {
+          color: '#fff'
+        },
         grid: {
           color: '#fff'
         }
       },
       y: {
+        ticks: {
+          color: '#fff'
+        },
         grid: {
           color: '#fff'
         }
@@ -57,7 +63,7 @@ export default function BarChart(props) {
       {
         label: 'Participantes',
         data: participation,
-        backgroundColor: 'rgba(255, 99, 132)',
+        backgroundColor: 'rgba(237, 45, 64)',
       },
     ],
   };

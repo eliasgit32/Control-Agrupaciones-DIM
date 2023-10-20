@@ -1,6 +1,7 @@
 import React from 'react';
 import BarChart from '../components/BarChart';
 import NavBar from '../components/NavBar';
+import LineChart from '../components/LineChart';
 import { useState } from 'react';
 import TermSelect from '../components/TermSelect';
 import { useQuery } from '@tanstack/react-query';
@@ -78,7 +79,8 @@ export default function ChartsReport() {
         </div>
       </div>
 
-      <div className='row'>
+      {/* Contenedor de gráfico de barras */}
+      <div className='row' style={{width: '100%'}}>
         <div
           className='col d-flex justify-content-center my-5 mx-5'
           style={{ width: '1000px' }}
@@ -91,6 +93,15 @@ export default function ChartsReport() {
         </div>
       </div>
       
+      {/* Contenedor de gráfico de líneas */}
+      <div className='row' style={{width: '100%'}}>
+        <div
+          className='col d-flex justify-content-center my-4 mx-5'
+          style={{ width: '1000px' }}
+        >
+          <LineChart />
+        </div>
+      </div>
       
     </>
   )
