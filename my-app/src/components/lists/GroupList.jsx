@@ -2,14 +2,8 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getGroups } from '../../API/groups';
 import GroupCard from '../GroupCard';
-import NewGraph from '../modals/NewChart';
-import { useState } from 'react';
 
 export default function GroupList() {
-  //ID del grupo seleccionado para generar gráfico
-  const [selectedGroup, setSelectedGroup] = useState(null);
-
-
   const { isLoading, data } = useQuery(['groups'], getGroups);
 
   if (isLoading) {
@@ -32,11 +26,9 @@ export default function GroupList() {
             description={group.descripcion}
             publico={group.publico}
             term={group.periodoActual}
-            setSelectedGroup={setSelectedGroup}
           />
         ))}
       </div>
-      <NewGraph id={selectedGroup} />
     </div>
   );
 }

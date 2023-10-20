@@ -24,7 +24,7 @@ function App() {
         <Route path='/group/:id/:idAct/:selectedTerm' element={<Activity />}></Route>
         <Route path='/participant/:cedula' element={<Participant />}></Route>
         <Route path='/RegParticipant/:type' element={<RegParticipant />}></Route>
-        <Route path='/ChartsReport' element={<ChartsReport />}></Route>
+        <Route path='/ChartsReport/:groupID' element={<ChartsReport />}></Route>
         <Route path='/Communities' element={<Communities />}></Route>
         <Route path='/AcademicTerms' element={<AcademicTerms />}></Route>
         <Route path='/ParticipationReport/:groupID' element={<ParticipationReport />}></Route>

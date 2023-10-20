@@ -26,5 +26,11 @@ export const getSemesterStats =  async (startTerm, endTerm) => {
   return res.data;
 }
 
+export const getBarChartData = async (groupID, startTerm, endTerm) => {
+  const res = await conn.get(`/groups/BarChart/${groupID}/${startTerm}/${endTerm}`);
+  if (res.data === '') return { agrupacion: '', comunidades: [], inscritos: [], participantes: []};
+  return res.data;
+}
+
 //PUT
 export const updateGroup = (group) => conn.put('/groups' , group);
