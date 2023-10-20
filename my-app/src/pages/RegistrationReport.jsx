@@ -5,7 +5,7 @@ import { useState } from 'react';
 import TableTotalRegistrations from '../components/tables/TableTotalRegistrations';
 import TableStatisticsRegistration from '../components/tables/TableStatisticsRegistration';
 import { useQuery } from '@tanstack/react-query';
-import { getSemesterStats, getTotalRegistrations } from '../API/groups';
+import { getSemesterStats, getTotalRegistrations } from '../API/reports';
 
 export default function RegistrationReport() {
   const [startTerm, setStartTerm] = useState('2024-15');

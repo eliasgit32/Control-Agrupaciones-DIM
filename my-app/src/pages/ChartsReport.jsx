@@ -6,7 +6,7 @@ import { useState } from 'react';
 import TermSelect from '../components/TermSelect';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
-import { getBarChartData } from '../API/groups';
+import { getBarChartData } from '../API/reports';
 
 export default function ChartsReport() {
   const [startTerm, setStartTerm] = useState('2024-15');

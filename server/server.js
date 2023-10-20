@@ -22,6 +22,7 @@ app.use('/communities', require('./routes/Communities'));
 app.use('/activities', require('./routes/Activities'));
 app.use('/participants', require('./routes/Participants'));
 app.use('/participations', require('./routes/Participations'));
+app.use('/reports', require('./routes/Reports'));
 
 
 app.listen(5000, () =>{
