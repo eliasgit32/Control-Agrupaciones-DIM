@@ -6,7 +6,7 @@ import { useState } from 'react';
 import TermSelect from '../components/TermSelect';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
-import { getBarChartData } from '../API/reports';
+import { getBarChartData, getLineChartData } from '../API/reports';
 
 export default function ChartsReport() {
   const [startTerm, setStartTerm] = useState('2024-15');
@@ -17,7 +17,10 @@ export default function ChartsReport() {
   const BarChartQuery = useQuery(['BarChart', params.groupID, startTerm, endTerm],
   () => getBarChartData(params.groupID, startTerm, endTerm));
 
-  if (BarChartQuery.isLoading) {
+  const LineChartQuery = useQuery(['LineChart', params.groupID, startTerm, endTerm],
+  () => getLineChartData(params.groupID, startTerm, endTerm));
+
+  if (BarChartQuery.isLoading || LineChartQuery.isLoading) {
     return (
       <>
         <NavBar />
@@ -99,7 +102,11 @@ export default function ChartsReport() {
           className='col d-flex justify-content-center my-4 mx-5'
           style={{ width: '1000px' }}
         >
-          <LineChart />
+          <LineChart 
+            labels={LineChartQuery.data.periodos}
+            registration={LineChartQuery.data.inscritos}
+            participation={LineChartQuery.data.participantes}
+          />
         </div>
       </div>
       
