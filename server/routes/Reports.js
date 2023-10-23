@@ -160,4 +160,48 @@ router.get('/BarChart/:groupID/:startTerm/:endTerm', (req, res) => {
   })
 })
 
+//Solicitud de datos necesitados por el gráfico de líneas 
+router.get('/LineChart/:groupID/:startTerm/:endTerm', (req, res) => {
+  const {groupID, startTerm, endTerm} =  req.params;
+
+  const sql = `SELECT p.id AS periodo, (SELECT COUNT(DISTINCT i.participante) FROM 
+  inscripciones i WHERE i.periodo = p.id AND i.agrupacion = ${groupID}) AS inscritos, 
+  (SELECT COUNT(DISTINCT part.participante) FROM participaciones part 
+  WHERE part.periodo = p.id AND part.agrupacion = ${groupID}) AS participantes 
+  FROM periodos p WHERE p.id  >= '${startTerm}' AND p.id <= '${endTerm}'`;
+
+  conn.query(sql, (error, data) => {
+    if (error) {
+      res.statusCode = 500;
+      res.send(error.sqlMessage);
+      return;
+    } else if (data.length > 0) {
+      //Organizar datos en 3 arreglos
+      let periodos = [];
+      let inscritos = [];
+      let participantes = [];
+
+      for (let i = 0; i < data.length; i++) {
+        periodos.push(data[i].periodo);
+        inscritos.push(data[i].inscritos);
+        participantes.push(data[i].participantes);
+      }
+
+      const results = {
+        periodos: periodos,
+        inscritos: inscritos,
+        participantes: participantes
+      }
+
+      res.statusCode = 200;
+      res.send(results);
+      return;
+    } else {
+      res.statusCode = 204;
+      res.send('No Content');
+      return;
+    }
+  })
+})
+
 module.exports = router;
