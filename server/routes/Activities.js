@@ -3,6 +3,40 @@ const router = new Router();
 const conn =  require('../connection');
 
 //PETICIONES GET
+//Solicitar actividades cuya fecha de finalización haya pasado
+router.get('/finished/:currentDate', (req, res) => {
+  const { currentDate } = req.params;
+
+  const sql1 = `SELECT grupo.id AS agrupacionID, grupo.nombre AS agrupacion, 
+  a.id AS actividadID, a.nombre AS actividad, c.periodo, c.fechaFin,
+  (SELECT COUNT(*) FROM participaciones p WHERE p.actividad = c.actividad AND 
+  p.periodo =  c.periodo) AS participaciones 
+  FROM conformaciones_agrupaciones c JOIN agrupaciones grupo ON 
+  c.agrupacion = grupo.id JOIN actividades a ON c.actividad = a.id 
+  WHERE c.fechaFin <= '${currentDate}' GROUP BY a.id, c.periodo, c.fechaFin
+  HAVING participaciones = 0`;
+
+  conn.query(sql1, (error, data) => {
+    console.log('dentro del conn.query')
+    if(error) {
+      console.log('dentro del error');
+      res.statusCode = 500;
+      console.log(error.sqlMessage);
+      res.send(error.sqlMessage);
+      return;
+    } else if(data.length > 0) {
+      console.log('dentro del data length > 0');
+      res.statusCode = 200;
+      res.send(data);
+      return;
+    } else {
+      res.statusCode = 204;
+      res.send('No Content');
+      return;
+    }
+  })
+})
+
 //Solicitar todas las actividades de un determinado grupo
 //Modificar esto a las 2 operaciones de consulta sql
 router.get('/:group/:term', (req, res) => {
@@ -174,7 +208,6 @@ router.post('/:group/:term', (req, res) => {
   const values = activities.map((activity) => {
     return `(${group}, ${activity}, '${term}')`
   })
-    // .join(', ');
 
   //Borrar conformación del periodo seleccionado
   //(para poder añadir nuevo lote de conformación sin problemas)
