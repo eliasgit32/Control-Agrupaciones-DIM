@@ -53,12 +53,19 @@ export default function NewParticipantUCAB(props) {
           <div className='modal-body'>
             {/* Registrar cédula */}
             <div className='mb-3 row'>
-              <label htmlFor="newParticipantCed" className='form-label col-sm-2'>Cédula</label>
+              <label 
+                htmlFor="newParticipantCed" 
+                className='form-label col-sm-2'
+                style={{fontSize: '18px'}}
+              >
+                Cédula
+              </label>
               <div className='col-sm-4'>
                 <input 
                   type="text"
                   id='newParticipantCed'
                   className='form-control'
+                  style={{fontSize: '14px'}}
                 />
               </div>
             </div>

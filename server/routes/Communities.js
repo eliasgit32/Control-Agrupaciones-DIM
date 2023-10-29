@@ -5,7 +5,7 @@ const conn =  require('../connection');
 //PETICIONES GET
 //Solicitar todas las comunidades
 router.get('/', (req, res) => {
-  const sql = 'SELECT * FROM comunidades ORDER BY id DESC';
+  const sql = 'SELECT * FROM comunidades ORDER BY nombre ASC';
 
   conn.query(sql, (error, results) => {
     if(error) {
@@ -13,15 +13,19 @@ router.get('/', (req, res) => {
       res.send(error.sqlMessage);
       return;
     } else if(results.length > 0) {
-      // Mapeo de datos para enviar los resultados como un varios arreglos
-      // de cadenas
-      // var array = [];
-      // results.map(() => {
-      //   var row = [results['nombre'], results['tipo']];
-      //   array.push(row);
-      // })
+      // Organizar resultados por tipo de comunidad
+      const customOrder = {
+        'Escuela': 1,
+        'Unidad': 2,
+        'Comunidad': 3,
+      };
+
+      results.sort((a, b) => {
+        return customOrder[a.tipo] - customOrder[b.tipo];
+      })
+      
       res.statusCode = 200;
-      res.send(JSON.stringify(results));
+      res.send(results);
       return;
     } else {
       res.statusCode = 204;
@@ -34,7 +38,7 @@ router.get('/', (req, res) => {
 
 //Solicitar info de las escuelas y unidades
 router.get('/units-faculties', (req, res) => {
-  const sql = 'SELECT id, nombre FROM comunidades ' + 
+  const sql = 'SELECT id, nombre, tipo FROM comunidades ' + 
               `WHERE tipo = 'Escuela' OR tipo = 'Unidad'`;
 
   conn.query(sql, (error, results) => {
@@ -52,6 +56,11 @@ router.get('/units-faculties', (req, res) => {
       return;
     }
   })
+})
+
+//Solicitar info de solo las escuelas
+router.get('/faculties', (req, res) => {
+
 })
 
 //PETICIONES POST

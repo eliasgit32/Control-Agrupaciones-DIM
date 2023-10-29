@@ -42,12 +42,12 @@ export default function Communities() {
   return(
     <>
       <NavBar />
-      <div className='d-flex ps-4'>
-        <div className='col-md-7 container'>
+      <div className='d-flex ps-5 ms-5 justify-content-start'>
+        <div className='col-md-5'>
           <TableCommunities />
         </div>
         {/* Formulario de registro de comunidades */}
-        <div className='col-md-5 container'>
+        <div className='col-md-5 container position-fixed' style={{right: '60px'}}>
           {/* Input de nombre */}
           <div className='mb-3 d-flex'>
             <label htmlFor="newCommName" className='form-label col-sm-2 me-1'>Nombre:</label>
@@ -87,7 +87,7 @@ export default function Communities() {
             type='button' 
             className='btn btn-success col-sm-3'
             onClick={handleSave}>
-              Guardar
+              Agregar
             </button>
           </div>
         </div>

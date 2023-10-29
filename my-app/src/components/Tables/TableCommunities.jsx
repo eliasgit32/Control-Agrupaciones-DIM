@@ -16,16 +16,30 @@ export default function TableCommunities() {
 
   if (isLoading) return <div>Cargando...</div>;
 
-  const columns = [{
-    name:'nombre',
-  }, {
-    name:'tipo',
-    label: 'Tipo de Comunidad'
-  }];
+  const columns = [
+    {
+      name: 'nombre',
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <p style={{ marginLeft: '15px', marginBottom: '0px' }}>{value}</p>
+        }
+      }
+    },
+    {
+      name: 'tipo',
+      label: 'Tipo de Comunidad',
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <p style={{ marginLeft: '55px', marginBottom: '0px' }}>{value}</p>
+        }
+      }
+    }
+  ];
+  
   const options = {
     filterType: 'checkbox',
     selectableRowsHeader: false,
-    selectableRows: 'single',
+    selectableRows: 'none',
     print: 'false',
     download: false
   };

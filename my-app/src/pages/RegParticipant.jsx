@@ -10,17 +10,12 @@ export default function RegParticipant() {
   var community = '';
   var modalTarget = '';
 
-  switch (params.type){
-    case 'Comunidad': 
-      community = 'Comunidad';
-      modalTarget = 'Community'; 
-      break;
-    case 'Personal' : 
-      community = 'Unidad';
-      modalTarget = 'UCAB'; 
-      break;
-    default: 
-    community = 'Escuela'; modalTarget = 'UCAB';
+  if(params.type === 'Comunidad') {
+    community = 'Comunidad';
+    modalTarget = 'Community';
+  } else {
+    community = 'Unidad/Escuela'
+    modalTarget = 'UCAB';
   }
 
   return(

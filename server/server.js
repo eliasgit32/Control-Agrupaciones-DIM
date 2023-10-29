@@ -17,7 +17,6 @@ app.use(express.json());
 app.use('/connection', require('./routes/userAuth'));
 app.use('/groups', require('./routes/Groups'));
 app.use('/terms', require('./routes/Terms'));
-app.use('/coordinators', require('./routes/Coordinators'));
 app.use('/communities', require('./routes/Communities'));
 app.use('/activities', require('./routes/Activities'));
 app.use('/participants', require('./routes/Participants'));
