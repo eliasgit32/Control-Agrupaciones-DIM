@@ -24,8 +24,7 @@ export default function TableActivities(props) {
   const options1 = {
     filterType: 'checkbox', 
     print: 'false',
-    selectableRows: 'multiple',
-    print: 'false',
+    selectableRows: 'multiple'
   };
 
   useEffect(() => {
@@ -64,8 +63,7 @@ export default function TableActivities(props) {
     selectableRowsHeader: false,
     rowsSelected: rowsSelected,
     selectToolbarPlacement: 'none',
-    onRowSelectionChange: handleRowSelection,
-    print: 'false',
+    onRowSelectionChange: handleRowSelection
   };
 
   return(

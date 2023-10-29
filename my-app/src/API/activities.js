@@ -10,7 +10,7 @@ export const createConformation = ({group, activities, term}) => {
 //GET
 export const getGroupActivities = async (group, term) => {
   const res =  await conn.get(`/activities/${group}/${term}`);
-  if(res.data === ''){ console.log('retornando array'); return [];}
+  if(res.data === '') return [];
   return res.data;
 }
 
@@ -19,6 +19,13 @@ export const getOneActivity = async (idGroup, idAct, term) => {
   return res.data;
 }
 
+export const getFinishedAct = async (currentDate) => {
+  const res =  await conn.get(`/activities/finished/${currentDate}`);
+  if(res.data === '') return [];
+  return res.data;
+}
+
+//PUT
 export const updateActivity =  ({idGroup, idAct, term, activity}) => {
   conn.put(`/activities/${idGroup}/${idAct}/${term}`, activity);
 }
