@@ -46,6 +46,7 @@ export default function TableStatisticsActivities(props) {
     filterType: 'checkbox',
     selectableRows: 'none',
     print: 'false',
+    download: false
   }
 
   return(

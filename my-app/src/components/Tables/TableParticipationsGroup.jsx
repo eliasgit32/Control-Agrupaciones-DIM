@@ -60,6 +60,7 @@ export default function TableParticipationsGroup(props) {
     filterType: 'checkbox',
     selectableRows: 'none',
     print: 'false',
+    download: false
   }
   
   return(

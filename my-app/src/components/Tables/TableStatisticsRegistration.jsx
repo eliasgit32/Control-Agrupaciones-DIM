@@ -55,6 +55,7 @@ export default function TableStatisticsRegistration(props) {
     filterType: 'checkbox',
     selectableRows: 'none',
     print: 'false',
+    download: false
   }
 
   return(

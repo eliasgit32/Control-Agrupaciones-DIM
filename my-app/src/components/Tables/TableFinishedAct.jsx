@@ -60,8 +60,10 @@ export default function TableFinishedAct(props) {
   const options = {
     filterType: 'checkbox', 
     print: 'false',
-    selectableRows: 'none'
+    selectableRows: 'none',
+    download: false
   }
+  
   return(
     <ThemeProvider theme={darkTheme}>
       <MUIDataTable 

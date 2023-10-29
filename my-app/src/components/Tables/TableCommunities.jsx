@@ -27,6 +27,7 @@ export default function TableCommunities() {
     selectableRowsHeader: false,
     selectableRows: 'single',
     print: 'false',
+    download: false
   };
 
   if (data === '') {

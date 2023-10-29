@@ -64,6 +64,38 @@ router.get('/:cedula', (req, res) => {
 })
 
 //PETICIONES POST
+//Registrar participante en la bd
+router.post('/', (req, res) => {
+  const sql = 'INSERT INTO participantes SET ?';
+
+  const participant = {
+    cedula: req.body.cedula,
+    primerNombre: req.body.firstName,
+    segundoNombre: req.body.secondName,
+    primerApellido: req.body.FirstLastName,
+    segundoApellido: req.body.secondLastName,
+    fechaNac: req.body.birthdate,
+    tipo: req.body.type,
+    comunidad: req.body.comunity,
+    etapa: req.body.phase,
+    email: req.body.email,
+    telefono: req.body.telephone,
+    periodoIngreso: req.body.initialTerm,
+    emailInst: req.body.cedula.emailInst
+  }
+
+  conn.query(sql, participant, error => {
+    if(error){
+      res.statusCode = 500;
+      res.send(error.sqlMessage);
+      return;
+    } else {
+      res.statusCode = 200;
+      res.send('Content Added')
+    }
+  })
+})
+
 //Inscribir participante en agrupación
 router.post('/signUp/:cedula/:groupID/:term', (req, res) => {
   const {cedula, groupID, term} = req.params;

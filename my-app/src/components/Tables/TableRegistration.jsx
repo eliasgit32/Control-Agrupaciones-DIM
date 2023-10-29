@@ -62,6 +62,7 @@ export default function TableRegistration(props) {
       setModalVisible(true);
     },
     print: 'false',
+    download: false
   };
   
   return(

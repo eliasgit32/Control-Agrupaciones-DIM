@@ -61,6 +61,7 @@ export default function TableTotalRegistrations(props) {
     filterType: 'checkbox',
     selectableRows: 'none',
     print: 'false',
+    download: false
   }
   
   return(

@@ -110,6 +110,7 @@ export default function TableParticipants(props) {
     rowsSelected: rowsSelected,
     onRowSelectionChange: handleRowSelection,
     print: 'false',
+    download: false
   };
   
   return(
