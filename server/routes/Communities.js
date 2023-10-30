@@ -19,7 +19,6 @@ router.get('/', (req, res) => {
         'Unidad': 2,
         'Comunidad': 3,
       };
-
       results.sort((a, b) => {
         return customOrder[a.tipo] - customOrder[b.tipo];
       })
@@ -60,7 +59,24 @@ router.get('/units-faculties', (req, res) => {
 
 //Solicitar info de solo las escuelas
 router.get('/faculties', (req, res) => {
+  const sql = `SELECT id, nombre FROM comunidades 
+  WHERE tipo = 'Escuela' ORDER BY nombre ASC`;
 
+  conn.query(sql, (error, results) => {
+    if(error) {
+      res.statusCode = 500;
+      res.send(error.sqlMessage);
+      return;
+    } else if(results.length > 0) {
+      res.statusCode = 200;
+      res.send(results);
+      return;
+    } else {
+      res.statusCode = 204;
+      res.send('No Content');
+      return;
+    }
+  })
 })
 
 //PETICIONES POST

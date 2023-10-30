@@ -13,6 +13,9 @@ export default function RegParticipant() {
   if(params.type === 'Comunidad') {
     community = 'Comunidad';
     modalTarget = 'Community';
+  } else if(params.type === 'Estudiante') {
+    community = 'Escuela'
+    modalTarget = 'UCAB';
   } else {
     community = 'Unidad/Escuela'
     modalTarget = 'UCAB';
@@ -37,7 +40,7 @@ export default function RegParticipant() {
           font='20px' 
           />
       </div>
-      <NewParticipantUCAB participant={params.type} />
+      <NewParticipantUCAB participant={params.type} community={community} />
     </>
   )
 }

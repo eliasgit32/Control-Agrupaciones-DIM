@@ -1,12 +1,13 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { getUnitsFaculties } from '../../API/communities';
+import { getFaculties, getUnitsFaculties } from '../../API/communities';
 
 export default function CommunityList(props) {
   var getFunction = null;
 
   switch(props.type) {
     case 'Escuela/Unidad': getFunction = getUnitsFaculties; break;
+    case 'Escuela': getFunction = getFaculties; break;
     default: //Aquí dejo el de las comunidades no universitarias
   }
   const {isLoading, data} = useQuery(['Communities'], getFunction);
@@ -25,7 +26,7 @@ export default function CommunityList(props) {
       {data.map((community) => {
         return <option 
           key={community.id}
-          value={community.nombre}
+          value={community.id}
         >
           {community.nombre}
         </option>

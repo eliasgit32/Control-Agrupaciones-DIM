@@ -12,10 +12,6 @@ export default function TermList(props) {
     handleUpdate(e.target.value)
   }
 
-  // useEffect(() => {
-  //   handleUpdate(selectedTerm)
-  // }, [selectedTerm]);
-
   const {data} = props;
 
   //Seleccionar el período guardado como actual al recibir
