@@ -72,16 +72,15 @@ router.post('/', (req, res) => {
     cedula: req.body.cedula,
     primerNombre: req.body.firstName,
     segundoNombre: req.body.secondName,
-    primerApellido: req.body.FirstLastName,
+    primerApellido: req.body.firstLastName,
     segundoApellido: req.body.secondLastName,
     fechaNac: req.body.birthdate,
     tipo: req.body.type,
-    comunidad: req.body.comunity,
+    comunidad: req.body.community,
     etapa: req.body.phase,
     email: req.body.email,
     telefono: req.body.telephone,
-    periodoIngreso: req.body.initialTerm,
-    emailInst: req.body.cedula.emailInst
+    emailInst: req.body.emailInst
   }
 
   conn.query(sql, participant, error => {

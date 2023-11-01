@@ -1,20 +1,22 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
+import { createParticipant } from '../../API/participants';
 import CommunityList from '../lists/CommunityList';
 
 export default function NewParticipantUCAB(props) {
-  //Inputs
-  const[cedula, setCedula] = useState(null);
-  const[fName, setFName] = useState(null);
-  const[sName, setSName] = useState(null);
-  const[fLastName, setFLastName] = useState(null);
-  const[sLastName, setSLastName] = useState(null);
-  const[birthdate, setBirthdate] = useState(null);
-  const[type, setType] = useState(null);
-  const[community, setCommunity] = useState(null);
-  const[email, setEmail] = useState(null);
-  const[telephone, setTelephone] = useState(null);
-  const[firstTerm, setFirstTerm] = useState(null);
-  const[emailUCAB, setEmailUCAB] = useState(null);
+  //Inputs CAMBIAR VALORES DE INCIALES DISTINTOS A NULL
+  const[cedula, setCedula] = useState('');
+  const[fName, setFName] = useState('');
+  const[sName, setSName] = useState('');
+  const[fLastName, setFLastName] = useState('');
+  const[sLastName, setSLastName] = useState('');
+  const[birthdate, setBirthdate] = useState(new Date().toISOString().substr(0, 10));
+  // const[type, setType] = useState(null);
+  const[community, setCommunity] = useState(0);
+  const[email, setEmail] = useState('');
+  const[telephone, setTelephone] = useState('');
+  // const[firstTerm, setFirstTerm] = useState(null);
+  const[emailUCAB, setEmailUCAB] = useState('');
 
   //Funciones del manejo de inputs
   const changeCedula = e => setCedula(e.target.value) 
@@ -23,19 +25,55 @@ export default function NewParticipantUCAB(props) {
   const changeFLastName = e => setFLastName(e.target.value)
   const changeSLastName = e => setSLastName(e.target.value) 
   const changeBirthdate = e => setBirthdate(e.target.value)
-  const changeType = e => setType(e.target.value)
+  // const changeType = e => setType(e.target.value)
   const changeCommunity = e => setCommunity(e.target.value)
   const changeEmail = e => setEmail(e.target.value) 
   const changeTelephone = e => setTelephone(e.target.value)
-  const changeFirstTerm = e => setFirstTerm(e.target.value)
+  // const changeFirstTerm = e => setFirstTerm(e.target.value)
   const changeEmailUCAB = e => setEmailUCAB(e.target.value)
 
   const handleClose = () => {
-
+    setCedula('');
+    setFName('');
+    setSName('');
+    setFLastName('');
+    setSLastName('');
+    setBirthdate(new Date().toISOString().substr(0, 10));
+    // setCommunity(null);
+    setEmail('');
+    setTelephone('');
+    setEmailUCAB('');
   }
 
-  const handleSave = () => {
+  const queryClient = useQueryClient();
 
+  //Hook de react query para enviar participante
+  const addParticipantMutation =  useMutation({
+    mutationFn: createParticipant,
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    }
+  })
+
+  //Guardar Participante
+  const handleSave = () => {
+    const newParticipant = {
+      cedula: cedula,
+      firstName: fName,
+      secondName: sName,
+      firstLastName: fLastName,
+      secondLastName: sLastName,
+      birthdate: birthdate,
+      type: props.participant,
+      community: community,
+      phase: (props.participant === 'Estudiante' ? 'Familiarización' : null),
+      email: email,
+      telephone: telephone,
+      emailInst: (props.participant === 'Comunidad' ? null : emailUCAB)
+    }
+
+    addParticipantMutation.mutate(newParticipant);
+    handleClose();
   }
 
   return(
@@ -70,6 +108,7 @@ export default function NewParticipantUCAB(props) {
                   id='newParticipantCed'
                   className='form-control'
                   style={{fontSize: '14px'}}
+                  value={cedula}
                   onChange={changeCedula}
                 />
               </div>
@@ -84,6 +123,7 @@ export default function NewParticipantUCAB(props) {
                 aria-label="First name"
                 className="form-control"
                 part-field='true'
+                value={fName}
                 onChange={changeFName}
               />
               <input
@@ -91,6 +131,7 @@ export default function NewParticipantUCAB(props) {
                 aria-label="Last name"
                 className="form-control"
                 part-field='true'
+                value={sName}
                 onChange={changeSName}
               />
             </div>
@@ -101,12 +142,14 @@ export default function NewParticipantUCAB(props) {
                 type="text"
                 className="form-control"
                 part-field='true'
+                value={fLastName}
                 onChange={changeFLastName}
               />
               <input
                 type="text"
                 className="form-control"
                 part-field='true'
+                value={sLastName}
                 onChange={changeSLastName}
               />
             </div>
@@ -121,8 +164,8 @@ export default function NewParticipantUCAB(props) {
                   type="date"
                   className='form-control'
                   id='newUCABbirthdate'
+                  value={birthdate}
                   onChange={changeBirthdate}
-                  defaultValue={new Date().toISOString().substr(0, 10)}
                   style={{marginLeft: '-40px'}}
                 />
               </div>
@@ -139,6 +182,7 @@ export default function NewParticipantUCAB(props) {
                   className='form-select'
                   id="newPartCommunity"
                   part-field='true'
+                  value={community}
                   onChange={changeCommunity}
                 >
                   <CommunityList type={props.community}/>
@@ -160,6 +204,7 @@ export default function NewParticipantUCAB(props) {
                   id='newParticipantEmail'
                   className='form-control'
                   style={{fontSize: '14px'}}
+                  value={email}
                   onChange={changeEmail}
                 />
               </div>
@@ -178,6 +223,7 @@ export default function NewParticipantUCAB(props) {
                   id='newPartTelephone'
                   className='form-control'
                   style={{fontSize: '14px'}}
+                  value={telephone}
                   onChange={changeTelephone}
                 />
             </div>
@@ -197,6 +243,7 @@ export default function NewParticipantUCAB(props) {
                   id='newParticipantInstEmail'
                   className='form-control'
                   style={{ fontSize: '14px' }}
+                  value={emailUCAB}
                   onChange={changeEmailUCAB}
                 />
               </div>
