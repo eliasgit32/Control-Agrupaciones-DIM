@@ -33,7 +33,7 @@ export default function TableAllParticipants(props) {
   return(
     <ThemeProvider theme={darkTheme}>
       <MUIDataTable 
-      title={props.title}
+      title={props.type === 'Comunidad' ? `Miembros de Comunidad` : props.type}
       data={data}
       columns={columns}
       options={options}

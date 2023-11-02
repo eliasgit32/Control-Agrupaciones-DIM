@@ -8,24 +8,20 @@ import NewParticipantUCAB from '../components/modals/NewParticipantUCAB';
 export default function RegParticipant() {
   const params = useParams();
   var community = '';
-  var modalTarget = '';
 
   if(params.type === 'Comunidad') {
     community = 'Comunidad';
-    modalTarget = 'Community';
   } else if(params.type === 'Estudiante') {
-    community = 'Escuela'
-    modalTarget = 'UCAB';
+    community = 'Escuela';
   } else {
-    community = 'Unidad/Escuela'
-    modalTarget = 'UCAB';
+    community = 'Escuela/Unidad'
   }
 
   return(
     <>
       <NavBar />
       <div className='mx-3'> 
-        <TableAllParticipants title={params.type} type={params.type} community={community} />
+        <TableAllParticipants type={params.type} community={community} />
       </div>
       <div className='mb-4'></div>
       {/* Botones de registrar o importar participantes */}
@@ -36,7 +32,7 @@ export default function RegParticipant() {
             Importar Lista de {params.type === 'Comunidad' ? 'Miembros de Comunidad': params.type}
           </button>
           <PlusButton 
-          type={'NewParticipant'+modalTarget} 
+          type={'NewParticipant'} 
           font='20px' 
           />
       </div>

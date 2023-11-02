@@ -4,7 +4,7 @@ import { createParticipant } from '../../API/participants';
 import CommunityList from '../lists/CommunityList';
 
 export default function NewParticipantUCAB(props) {
-  //Inputs CAMBIAR VALORES DE INCIALES DISTINTOS A NULL
+  //Inputs
   const[cedula, setCedula] = useState('');
   const[fName, setFName] = useState('');
   const[sName, setSName] = useState('');
@@ -77,12 +77,12 @@ export default function NewParticipantUCAB(props) {
   }
 
   return(
-    <div className='modal modal-lg fade' id='modalNewParticipantUCAB' aria-hidden='true' tabIndex='-1'>
+    <div className='modal modal-lg fade' id='modalNewParticipant' aria-hidden='true' tabIndex='-1'>
       <div className='modal-dialog'>
         <div className='modal-content'>
           <div className='modal-header'>
             <h5 className='modal-title'>
-              Registrar {props.participant}
+              {props.participant === 'Comunidad' ? 'Registrar Miembro de Comunidad' :  `Registrar ${props.participant}`}
             </h5>
             <button 
             type='button' 
@@ -229,7 +229,7 @@ export default function NewParticipantUCAB(props) {
             </div>
           </div>
           {/* Email Institucional */}
-          <div className='mb-2 row'>
+          <div className='mb-2 row' style={{display: (props.participant === 'Comunidad' ? 'none' : 'flex')}}>
               <label
                 htmlFor="newParticipantInstEmail"
                 className='form-label col-sm-2 col align-self-center'
@@ -260,7 +260,7 @@ export default function NewParticipantUCAB(props) {
             className='btn btn-success'
             data-bs-dismiss='modal'
             onClick={handleSave}>
-              Guardar {props.participant}
+              {props.participant === 'Comunidad' ? 'Guardar Miembro de Comunidad' :  `Guardar ${props.participant}`}
             </button>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { getFaculties, getUnitsFaculties } from '../../API/communities';
+import { getExternalCommunities, getFaculties, getUnitsFaculties } from '../../API/communities';
 
 export default function CommunityList(props) {
   var getFunction = null;
@@ -8,7 +8,7 @@ export default function CommunityList(props) {
   switch(props.type) {
     case 'Escuela/Unidad': getFunction = getUnitsFaculties; break;
     case 'Escuela': getFunction = getFaculties; break;
-    default: //Aquí dejo el de las comunidades no universitarias
+    default: getFunction = getExternalCommunities; break;
   }
   const {isLoading, data} = useQuery(['Communities'], getFunction);
   
