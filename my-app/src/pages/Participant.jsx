@@ -176,7 +176,7 @@ export default function Participant() {
               dark='true'
               part-field='true'
               readOnly={true}
-              value={data[0].nombreComunidad}
+              value={data[0].comunidad}
               id='partCommunity'
             />
           </div>

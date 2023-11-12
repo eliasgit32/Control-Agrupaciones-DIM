@@ -10,6 +10,7 @@ export default function CommunityList(props) {
     case 'Escuela': getFunction = getFaculties; break;
     default: getFunction = getExternalCommunities; break;
   }
+  
   const {isLoading, data} = useQuery(['Communities'], getFunction);
   
   if (isLoading) {

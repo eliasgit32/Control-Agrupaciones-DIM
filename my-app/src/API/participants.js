@@ -20,6 +20,12 @@ export const getInfoParticipant = async (cedula) => {
   return res.data;
 }
 
+export const getStudents = async () => {
+  const res = await conn.get(`/participants/students`);
+  if (res.data === '') return [];
+  return res.data;
+}
+
 //DELETE
 export const deleteGroupRegistration = ({cedula, groupID, term}) => {
   conn.delete(`/participants/signUp/${cedula}/${groupID}/${term}`);

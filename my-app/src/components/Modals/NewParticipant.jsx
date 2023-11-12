@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { createParticipant } from '../../API/participants';
 import CommunityList from '../lists/CommunityList';
 
-export default function NewParticipantUCAB(props) {
+export default function NewParticipant(props) {
   //Inputs
   const [cedula, setCedula] = useState('');
   const [fName, setFName] = useState('');

@@ -3,6 +3,107 @@ const router = new Router();
 const conn =  require('../connection');
 
 //PETICIONES GET
+
+//Solicitar info de los participantes tipo estudiante
+router.get('/students', (req, res) => {
+  const sql = `SELECT * FROM participantes WHERE tipo = 'Estudiante' ORDER BY comunidad`;
+  conn.query(sql, (error, data) => {
+    if(error) {
+      res.statusCode = 500;
+      res.send(error.sqlMessage);
+      return;
+    } else if(data.length > 0) {
+      const results = data.map((student) => {
+        //Formatear fecha
+        let date =  new Date(student.fechaNac);
+        let birthdate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
+        return {
+          cedula: student.cedula,
+          nombreCompleto: `${student.primerApellido} ${student.segundoApellido},`+ 
+         ` ${student.primerNombre} ${student.segundoNombre}`,
+          fechaNac: birthdate,
+          escuela: student.comunidad,
+          etapa: student.etapa,
+          correo: student.email,
+          telefono: student.telefono,
+          correoUCAB: student.emailInst
+        }
+      })
+      res.statusCode = 200;
+      res.send(results);
+      return;
+    } else {
+      res.statusCode = 204;
+      res.send('No Content');
+      return;
+    }
+  })
+})
+
+//Solicitar info de los participantes tipo comunidad
+router.get('/community', (req, res) => {
+  const sql = `SELECT * FROM participantes WHERE tipo = 'Comunidad'`;
+  conn.query(sql, (error, results) => {
+    if(error) {
+      res.statusCode = 500;
+      res.send(error.sqlMessage);
+      return;
+    } else if(results.length > 0) {
+      res.statusCode = 200;
+      res.send(results);
+      return;
+    } else {
+      res.statusCode = 204;
+      res.send('No Content');
+      return;
+    }
+  })
+})
+
+//Solicitar info de los participantes tipo personal
+router.get('/personal', (req, res) => {
+  const sql = `SELECT * FROM participantes WHERE tipo != 'Comunidad' 
+  AND tipo != 'Estudiante'`;
+  conn.query(sql, (error, results) => {
+    if(error) {
+      res.statusCode = 500;
+      res.send(error.sqlMessage);
+      return;
+    } else if(results.length > 0) {
+      res.statusCode = 200;
+      res.send(results);
+      return;
+    } else {
+      res.statusCode = 204;
+      res.send('No Content');
+      return;
+    }
+  })
+})
+
+//Solicitar toda la info de un participante
+router.get('/:cedula', (req, res) => {
+  const {cedula} =  req.params;
+  const sql = `SELECT * FROM participantes WHERE cedula = ${cedula}`;
+
+  conn.query(sql, (error, results) => {
+    if(error) {
+      res.statusCode = 500;
+      res.send(error.sqlMessage);
+      return;
+    } else if(results.length > 0) {
+      res.statusCode = 200;
+      res.send(results);
+      return;
+    } else {
+      res.statusCode = 204;
+      res.send('No Content');
+      return;
+    }
+  })
+
+})
+
 //Solicitar participantes inscritos en una agrupación
 router.get('/signUp/:groupID/:term', (req, res) => {
   const {groupID, term} = req.params;
@@ -37,30 +138,6 @@ router.get('/signUp/:groupID/:term', (req, res) => {
       return;
     }
   })
-})
-
-//Solicitar toda la info de un participante
-router.get('/:cedula', (req, res) => {
-  const {cedula} =  req.params;
-  const sql = `SELECT p.*, c.nombre AS nombreComunidad FROM participantes p ` +
-  ` JOIN comunidades c ON p.comunidad = c.id WHERE cedula = ${cedula}`;
-
-  conn.query(sql, (error, results) => {
-    if(error) {
-      res.statusCode = 500;
-      res.send(error.sqlMessage);
-      return;
-    } else if(results.length > 0) {
-      res.statusCode = 200;
-      res.send(results);
-      return;
-    } else {
-      res.statusCode = 204;
-      res.send('No Content');
-      return;
-    }
-  })
-
 })
 
 //PETICIONES POST
