@@ -42,13 +42,29 @@ router.get('/students', (req, res) => {
 
 //Solicitar info de los participantes tipo comunidad
 router.get('/community', (req, res) => {
-  const sql = `SELECT * FROM participantes WHERE tipo = 'Comunidad'`;
-  conn.query(sql, (error, results) => {
+  const sql = `SELECT * FROM participantes WHERE tipo = 'Comunidad' ORDER BY comunidad`;
+  conn.query(sql, (error, data) => {
     if(error) {
       res.statusCode = 500;
       res.send(error.sqlMessage);
       return;
-    } else if(results.length > 0) {
+    } else if(data.length > 0) {
+      const results = data.map((participant) => {
+        //Formatear fecha
+        let date =  new Date(participant.fechaNac);
+        let birthdate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
+        return {
+          cedula: participant.cedula,
+          nombreCompleto: `${participant.primerApellido} ${participant.segundoApellido},`+ 
+         ` ${participant.primerNombre} ${participant.segundoNombre}`,
+          fechaNac: birthdate,
+          escuela: participant.comunidad,
+          etapa: participant.etapa,
+          correo: participant.email,
+          telefono: participant.telefono,
+          correoUCAB: participant.emailInst
+        }
+      })
       res.statusCode = 200;
       res.send(results);
       return;
@@ -63,13 +79,29 @@ router.get('/community', (req, res) => {
 //Solicitar info de los participantes tipo personal
 router.get('/personal', (req, res) => {
   const sql = `SELECT * FROM participantes WHERE tipo != 'Comunidad' 
-  AND tipo != 'Estudiante'`;
-  conn.query(sql, (error, results) => {
+  AND tipo != 'Estudiante' ORDER BY comunidad` ;
+  conn.query(sql, (error, data) => {
     if(error) {
       res.statusCode = 500;
       res.send(error.sqlMessage);
       return;
-    } else if(results.length > 0) {
+    } else if(data.length > 0) {
+      const results = data.map((participant) => {
+        //Formatear fecha
+        let date =  new Date(participant.fechaNac);
+        let birthdate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
+        return {
+          cedula: participant.cedula,
+          nombreCompleto: `${participant.primerApellido} ${participant.segundoApellido},`+ 
+         ` ${participant.primerNombre} ${participant.segundoNombre}`,
+          fechaNac: birthdate,
+          escuela: participant.comunidad,
+          etapa: participant.etapa,
+          correo: participant.email,
+          telefono: participant.telefono,
+          correoUCAB: participant.emailInst
+        }
+      })
       res.statusCode = 200;
       res.send(results);
       return;

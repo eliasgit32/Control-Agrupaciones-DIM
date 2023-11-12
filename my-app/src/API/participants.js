@@ -26,6 +26,18 @@ export const getStudents = async () => {
   return res.data;
 }
 
+export const getPersonal = async () => {
+  const res = await conn.get(`/participants/personal`);
+  if (res.data === '') return [];
+  return res.data;
+}
+
+export const getComunnityMembers = async () => {
+  const res = await conn.get(`/participants/community`);
+  if (res.data === '') return [];
+  return res.data;
+}
+
 //DELETE
 export const deleteGroupRegistration = ({cedula, groupID, term}) => {
   conn.delete(`/participants/signUp/${cedula}/${groupID}/${term}`);

@@ -253,13 +253,13 @@ export default function NewParticipant(props) {
                 htmlFor="newPartPersonalType"
                 className='form-label col-sm-2 col align-self-center'
                 style={{ fontSize: '16px', padding: '0',
-                  display: (props.participant !== 'Docente' ? 'none' : 'inline-block') }}
+                  display: (props.participant !== 'Personal' ? 'none' : 'inline-block') }}
               >
                 Tipo de Personal
               </label>
               <div 
                 className='col-sm-3'
-                style={{display: (props.participant !== 'Docente' ? 'none' : 'block')}}
+                style={{display: (props.participant !== 'Personal' ? 'none' : 'block')}}
               >
                 <select
                   id="newPartPersonalType"

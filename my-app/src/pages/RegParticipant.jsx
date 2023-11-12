@@ -4,7 +4,7 @@ import TableAllParticipants from '../components/tables/TableAllParticipants';
 import PlusButton from '../components/PlusButton';
 import { useParams } from 'react-router-dom';
 import NewParticipant from '../components/modals/NewParticipant';
-import { getStudents } from '../API/participants';
+import { getComunnityMembers, getPersonal, getStudents } from '../API/participants';
 import { useQuery } from '@tanstack/react-query';
 
 export default function RegParticipant() {
@@ -15,11 +15,13 @@ export default function RegParticipant() {
 
   if(params.type === 'Comunidad') {
     community = 'Comunidad';
+    getFunction =  getComunnityMembers;
   } else if(params.type === 'Estudiante') {
     community = 'Escuela';
     getFunction = getStudents;
   } else {
-    community = 'Escuela/Unidad'
+    community = 'Escuela/Unidad';
+    getFunction = getPersonal;
   }
 
   // switch(params.type) {
@@ -28,7 +30,7 @@ export default function RegParticipant() {
   //   default: //Caso de participante tipo comunidad
   // }
 
-  const { isLoading, data } = useQuery(['getParticipants'], getFunction);
+  const { isLoading, data } = useQuery(['getParticipants', community], getFunction);
 
   if (isLoading) {
     return (

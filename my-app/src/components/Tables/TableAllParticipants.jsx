@@ -14,7 +14,7 @@ export default function TableAllParticipants(props) {
     }
   })
 
-  const columns = [ 
+  const columnsStudents = [ 
     {
       name:'cedula',
       options: {
@@ -55,6 +55,91 @@ export default function TableAllParticipants(props) {
       label: 'Correo UCAB'
     }
   ];
+
+  const columnsPersonal = [
+    {
+      name:'cedula',
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <Link to={`/participant/${value}`}>{value}</Link>
+        }
+      }
+    }, 
+    {
+      name:'nombreCompleto',
+      label: 'Nombre Completo'
+    },
+    {
+      name: 'fechaNac',
+      label: 'Fecha Nacimiento',
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <p style={{marginLeft: '35px', marginBottom:'0px'}}>{value}</p>
+        }
+      }
+    }, 
+    {
+      name: 'escuela',
+      label: props.community
+    },
+     'correo', 
+    {
+      name: 'telefono',
+      label: 'Teléfono',
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <p style={{marginLeft: '25px', marginBottom:'0px'}}>{value}</p>
+        }
+      }
+    },
+    {
+      name:'correoUCAB',
+      label: 'Correo UCAB'
+    }
+  ]
+
+  const columnsCommunity = [
+    {
+      name:'cedula',
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <Link to={`/participant/${value}`}>{value}</Link>
+        }
+      }
+    }, 
+    {
+      name:'nombreCompleto',
+      label: 'Nombre Completo'
+    },
+    {
+      name: 'fechaNac',
+      label: 'Fecha Nacimiento',
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <p style={{marginLeft: '35px', marginBottom:'0px'}}>{value}</p>
+        }
+      }
+    }, 
+    {
+      name: 'escuela',
+      label: props.community,
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <p style={{marginLeft: '25px', marginBottom:'0px'}}>{value}</p>
+        }
+      }
+    },
+     'correo', 
+    {
+      name: 'telefono',
+      label: 'Teléfono',
+      options: {
+        customBodyRender: (value, tableMeta, updateValue) => {
+          return <p style={{marginLeft: '25px', marginBottom:'0px'}}>{value}</p>
+        }
+      }
+    }
+  ]
   const options = {
     filterType: 'checkbox', 
     print: 'false',
@@ -67,7 +152,8 @@ export default function TableAllParticipants(props) {
       <MUIDataTable 
         title={props.type === 'Comunidad' ? `Miembros de Comunidad` : props.type}
         data={data}
-        columns={columns}
+        columns={props.type === 'Estudiante' ? columnsStudents : 
+                  (props.type === 'Personal' ? columnsPersonal : columnsCommunity)}
         options={options}
       />
     </ThemeProvider>

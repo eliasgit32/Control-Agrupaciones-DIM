@@ -37,7 +37,7 @@ export default function NavBar() {
               </NavLink>
               <div className='dropdown-menu'>
                 <Link className='dropdown-item' to={'/RegParticipant/Estudiante'}>Estudiantes</Link>
-                <Link className='dropdown-item' to={'/RegParticipant/Docente'}>Personal</Link>
+                <Link className='dropdown-item' to={'/RegParticipant/Personal'}>Personal</Link>
                 <Link className='dropdown-item' to={'/RegParticipant/Comunidad'}>Miembros de comunidad</Link>
                 <Link className='dropdown-item'>Importar lista de estudiantes</Link>
                 <Link className='dropdown-item'>Importar lista de docentes</Link>
