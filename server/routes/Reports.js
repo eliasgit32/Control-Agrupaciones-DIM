@@ -9,10 +9,9 @@ router.get('/TotalRegistrations/:startTerm/:endTerm', (req, res) => {
 
   const sql = `SELECT p.primerNombre, p.segundoNombre, p.primerApellido, 
   p.segundoApellido, i.participante, a.nombre AS agrupacion, 
-  c.nombre AS comunidad, i.periodo FROM inscripciones i 
+  p.comunidad, i.periodo FROM inscripciones i 
   JOIN participantes p ON i.participante = p.cedula 
   JOIN agrupaciones a ON i.agrupacion = a.id 
-  JOIN comunidades c ON p.comunidad = c.id 
   WHERE i.periodo >= '${startTerm}' AND i.periodo <= '${endTerm}'`;
 
   conn.query(sql, (error, data) => {
@@ -99,10 +98,10 @@ router.get('/BarChart/:groupID/:startTerm/:endTerm', (req, res) => {
   const sql1 = `SELECT nombre FROM agrupaciones WHERE id = ${groupID}`;
 
   const sql2 = `SELECT c.nombre AS comunidad, (SELECT COUNT(DISTINCT i.participante) FROM inscripciones i 
-  JOIN participantes p ON i.participante = p.cedula WHERE p.comunidad = c.id AND 
+  JOIN participantes p ON i.participante = p.cedula WHERE p.comunidad = c.nombre AND 
   i.periodo >= '${startTerm}' AND i.periodo <= '${endTerm}' AND i.agrupacion = ${groupID}) AS inscritos,
   (SELECT COUNT(DISTINCT part.participante) FROM participaciones part 
-  JOIN participantes p ON part.participante = p.cedula WHERE p.comunidad = c.id AND 
+  JOIN participantes p ON part.participante = p.cedula WHERE p.comunidad = c.nombre AND 
   part.periodo >= '${startTerm}' AND part.periodo <= '${endTerm}' AND part.agrupacion = ${groupID}) AS participantes
   FROM comunidades c GROUP BY c.nombre HAVING inscritos > 0`;
 

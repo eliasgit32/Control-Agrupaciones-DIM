@@ -9,9 +9,8 @@ router.get('/:groupID/:term/:activityID', (req, res) => {
 
   //Pedir lista de inscritos
   const sql1 = `SELECT p.cedula, p.primerNombre, p.segundoNombre, ` + 
-  `p.primerApellido, p.segundoApellido, c.nombre ` + 
+  `p.primerApellido, p.segundoApellido, p.comunidad ` + 
   `FROM inscripciones i JOIN participantes p ON i.participante = p.cedula ` +
-  `JOIN comunidades c ON c.id = p.comunidad ` +
   `WHERE i.agrupacion = ${groupID} AND i.periodo = '${term}'`;
 
   //Pedir lista de participaciones
@@ -50,7 +49,7 @@ router.get('/:groupID/:term/:activityID', (req, res) => {
               nombreCompleto: `${participant.primerApellido} ` + 
               `${participant.segundoApellido}, ` +
               `${participant.primerNombre} ${participant.segundoNombre}`,
-              comunidad: participant.nombre,
+              comunidad: participant.comunidad,
               participacion: participacion
             }
           })
@@ -65,7 +64,7 @@ router.get('/:groupID/:term/:activityID', (req, res) => {
               nombreCompleto: `${participant.primerApellido} ` + 
               `${participant.segundoApellido}, ` +
               `${participant.primerNombre} ${participant.segundoNombre}`,
-              comunidad: participant.nombre,
+              comunidad: participant.comunidad,
               participacion: 0
             }
           })
@@ -160,11 +159,11 @@ router.get('/AllParticipations/:groupID/:startTerm/:endTerm', (req, res) => {
 
   //Solicitar datos de todas las participaciones
   const sql2 = `SELECT a.nombre AS nombreAct, a.id AS idAct, p.primerNombre, ` +
-  `p.segundoNombre, p.primerApellido, p.segundoApellido, p.cedula, c.nombre AS comunidad, ` +
+  `p.segundoNombre, p.primerApellido, p.segundoApellido, p.cedula, p.comunidad, ` +
   `participacion.periodo FROM participaciones participacion ` +
   `JOIN actividades a ON participacion.actividad = a.id ` +
   `JOIN participantes p ON participacion.participante = p.cedula ` +
-  `JOIN comunidades c ON p.comunidad = c.id WHERE participacion.agrupacion = ${groupID} ` +
+  `WHERE participacion.agrupacion = ${groupID} ` +
   `AND participacion.periodo >= '${startTerm}' AND participacion.periodo <= '${endTerm}'`;
 
   conn.query(sql1, (error, data1) => {

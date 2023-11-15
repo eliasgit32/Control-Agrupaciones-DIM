@@ -139,11 +139,10 @@ router.get('/:cedula', (req, res) => {
 //Solicitar participantes inscritos en una agrupación
 router.get('/signUp/:groupID/:term', (req, res) => {
   const {groupID, term} = req.params;
-
+  console.log('dentro de signup')
   const sql = `SELECT p.cedula, p.primerNombre, p.segundoNombre, ` + 
-  `p.primerApellido, p.segundoApellido, c.nombre ` + 
+  `p.primerApellido, p.segundoApellido, p.comunidad ` + 
   `FROM inscripciones i JOIN participantes p ON i.participante = p.cedula ` +
-  `JOIN comunidades c ON c.id = p.comunidad ` +
   `WHERE i.agrupacion = ${groupID} AND i.periodo = '${term}'`;
   
   conn.query(sql, (error, data) => {
@@ -158,7 +157,7 @@ router.get('/signUp/:groupID/:term', (req, res) => {
           nombreCompleto: `${participant.primerApellido} ` + 
           `${participant.segundoApellido}, ` +
           `${participant.primerNombre} ${participant.segundoNombre}`,
-          comunidad: participant.nombre
+          comunidad: participant.comunidad
         }
       })
       res.statusCode = 200;

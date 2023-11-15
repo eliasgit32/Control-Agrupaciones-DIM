@@ -197,6 +197,29 @@ router.post('/', (req, res) => {
   })
 })
 
+//Agregar acompañante a la actividad
+router.post('/helper', (req, res) => {
+  const sql = 'INSERT INTO acompannantes SET ?'
+  
+  const helper =  {
+    agrupacion: req.body.group,
+    actividad: req.body. activity,
+    acompannante: req.body.helper,
+    periodo: req.body.term
+  }
+
+  conn.query(sql, helper, error => {
+    if(error){
+      res.statusCode = 500;
+      res.send(error.sqlMessage);
+      return;
+    } else {
+      res.statusCode = 200;
+      res.send('Content Added')
+    }
+  })
+}) 
+
 //Agregar conformación de actividades en agrupación
 router.post('/:group/:term', (req, res) => {
   const {group, term} =  req.params;
@@ -312,6 +335,32 @@ router.put('/:idGroup/:idAct/:term', (req, res) => {
       }
     });
 
+  })
+})
+
+//PETICIONES DELETE
+//Eliminar acompañante de la actividad
+router.delete('/helper', (req, res) => {
+  const helper = {
+    agrupacion: req.body.group,
+    actividad: req.body. activity,
+    acompannante: req.body.helper,
+    periodo: req.body.term
+  }
+
+  const sql = `DELETE FROM acompannantes WHERE agrupacion = ${helper.agrupacion} 
+  AND actividad = ${helper.actividad} AND acompannante = ${helper.acompannante} 
+  AND periodo = '${helper.periodo}'`;
+
+  conn.query(sql, participation, error => {
+    if(error){
+      res.statusCode = 500;
+      res.send(error.sqlMessage);
+      return;
+    } else {
+      res.statusCode = 200;
+      res.send('Content Deleted')
+    }
   })
 })
 
