@@ -5,7 +5,7 @@ import ActList from './lists/ActList';
 import PlusButton from './PlusButton';
 import AddActivity from './modals/AddActivity';
 import NewActivity from './modals/NewActivity';
-import SignUpParticipants from './modals/SignUpParticipants';
+import AddParticipants from './modals/AddParticipants';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import { getGroupActivities } from '../API/activities';
 import ConfirmOperation from './modals/ConfirmOperation';
@@ -57,7 +57,7 @@ export default function ActivitiesContainer(props) {
         type='button' 
         className='btn btn-success'
         data-bs-toggle='modal'
-        data-bs-target='#modalSignUpParticipants'>
+        data-bs-target='#modalAddParticipants'>
           Inscribir Participantes
         </button>
         <Link to={`/ParticipationReport/${group.id}`}>
@@ -75,14 +75,15 @@ export default function ActivitiesContainer(props) {
       {/* Modal de nueva actividad */}
       <AddActivity selectedTerm={selectedTerm} groupID={group.id} data={data} />
       <NewActivity groupName={group.nombre} groupID={group.id}/>
-      {/* Modal de inscribir participante */}
-      <SignUpParticipants 
+      {/* Modal de inscribir participante - Agregar acompañantes */}
+      <AddParticipants 
         selectedTerm={selectedTerm} 
         groupID={group.id} 
         setSelectedParticipant={setSelectedParticipant} 
         setModalVisible={setModalVisible}
+        type='SignUp'
       />
-       <ConfirmOperation 
+      <ConfirmOperation 
         operation={() => 
           {
             deleteResgitrationMutation.mutate({cedula: selectedParticipant, groupID: group.id, term: selectedTerm})
@@ -91,6 +92,7 @@ export default function ActivitiesContainer(props) {
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         selectedParticipant={selectedParticipant}
+        type='SignUp'
       />
       
     </div>

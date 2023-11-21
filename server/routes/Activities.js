@@ -174,6 +174,42 @@ router.get('/singleAct/:idGroup/:idAct/:term', (req, res) => {
   })
 })
 
+//Solicitar listado de acompañantes 
+router.get('/helper/:groupID/:activity/:term', (req, res) => {
+  const { groupID, activity, term } =  req.params;
+
+  const sql = `SELECT p.cedula, p.primerNombre, p.segundoNombre, ` + 
+  `p.primerApellido, p.segundoApellido, p.comunidad ` + 
+  `FROM acompannantes a JOIN participantes p ON a.acompannante = p.cedula ` +
+  `WHERE a.agrupacion = ${groupID} AND a.periodo = '${term}' 
+  AND actividad = ${activity}`;
+
+  conn.query(sql, (error, data) => {
+    if (error) {
+      res.statusCode = 500;
+      res.send(error.sqlMessage);
+      return;
+    } else if (data.length > 0) {
+      const results = data.map((participant) => {
+        return {
+          cedula: participant.cedula,
+          nombreCompleto: `${participant.primerApellido} ` + 
+          `${participant.segundoApellido}, ` +
+          `${participant.primerNombre} ${participant.segundoNombre}`,
+          comunidad: participant.comunidad
+        }
+      })
+      res.statusCode = 200;
+      res.send(results);
+      return
+    } else {
+      res.statusCode = 204;
+      res.send('No Content');
+      return;
+    }
+  })
+})
+
 //PETICIONES POST
 //Agregar actividad
 router.post('/', (req, res) => {
@@ -341,9 +377,10 @@ router.put('/:idGroup/:idAct/:term', (req, res) => {
 //PETICIONES DELETE
 //Eliminar acompañante de la actividad
 router.delete('/helper', (req, res) => {
+  console.log(req.body);
   const helper = {
     agrupacion: req.body.group,
-    actividad: req.body. activity,
+    actividad: req.body.activity,
     acompannante: req.body.helper,
     periodo: req.body.term
   }
@@ -352,7 +389,9 @@ router.delete('/helper', (req, res) => {
   AND actividad = ${helper.actividad} AND acompannante = ${helper.acompannante} 
   AND periodo = '${helper.periodo}'`;
 
-  conn.query(sql, participation, error => {
+  console.log(sql);
+
+  conn.query(sql, error => {
     if(error){
       res.statusCode = 500;
       res.send(error.sqlMessage);

@@ -11,11 +11,10 @@ export default function TableRegistration(props) {
 
   const navigate = useNavigate();
 
-  const {data, 
-    groupID, 
-    selectedTerm, 
+  const {data,
     setSelectedParticipant,
-    setModalVisible} = props;
+    setModalVisible,
+    type} = props;
 
   const darkTheme = createTheme({
     palette: {
@@ -69,7 +68,7 @@ export default function TableRegistration(props) {
     <> 
       <ThemeProvider theme={darkTheme}>
         <MUIDataTable 
-        title={'Inscripciones'}
+        title={(type === 'SignUp' ? 'Inscripciones' : 'Acompañantes')}
         data={data}
         columns={columns}
         options={options}

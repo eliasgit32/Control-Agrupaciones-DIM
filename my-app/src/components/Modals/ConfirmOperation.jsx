@@ -2,7 +2,18 @@ import React from 'react';
 
 export default function ConfirmOperation(props) {
 
-  const { operation, modalVisible, setModalVisible, selectedParticipant } = props;
+  const { operation, modalVisible, setModalVisible, selectedParticipant, type } = props;
+
+  var confirmationMsg = '';
+
+  if (type === 'SignUp') {
+    confirmationMsg = `¿Está seguro que desea eliminar inscripción de participante?
+    La operación también eliminará toda participación realizada
+    por el portador de la cédula ${selectedParticipant} en las actividades de la agrupación.`
+  } else {
+    confirmationMsg = `Se desasignará el portador de la cédula ${selectedParticipant} como acompañante 
+    de la actividad`
+  }
 
   const handleDelete = () => {
     operation();
@@ -20,16 +31,11 @@ export default function ConfirmOperation(props) {
         <div className='modal-content'>
           <div className='modal-body'>
             <h5>
-              ¿Está seguro que desea eliminar inscripción de participante?
-              La operación también eliminará toda participación realizada
-              por la persona {selectedParticipant} en las actividades de la agrupación.
+              {confirmationMsg}
             </h5>
             <button
               type='button'
               className='btn btn-danger'
-              // data-bs-toggle='modal'
-              // data-bs-target='#modalSignUpParticipants'
-              // data-bs-dismiss='modal'
               onClick={() => setModalVisible(false)}
             >
               Cancelar
@@ -37,9 +43,6 @@ export default function ConfirmOperation(props) {
             <button
               type='button'
               className='btn btn-success'
-              // data-bs-toggle='modal'
-              // data-bs-target='#modalSignUpParticipants'
-              // data-bs-dismiss='modal'
               onClick={handleDelete}
             >
               Confirmar
