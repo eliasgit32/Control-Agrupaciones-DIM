@@ -47,5 +47,5 @@ export const updateActivity =  ({idGroup, idAct, term, activity}) => {
 }
 
 //DELETE
-//Borar acompañante
+//Eliminar acompañante
 export const deleteHelper = (helper) => conn.delete('/activities/helper', { data: helper});
