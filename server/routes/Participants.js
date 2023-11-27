@@ -113,6 +113,36 @@ router.get('/personal', (req, res) => {
   })
 })
 
+//Solicitar info de personal de Identidad y Misión
+router.get('/personal/DIM', (req, res) => {
+  const sql = `SELECT cedula, primerNombre, segundoNombre,
+  primerApellido, segundoApellido FROM participantes 
+  WHERE comunidad = 'DIM'`;
+
+  conn.query(sql, (error, data) => {
+    if(error) {
+      res.statusCode = 500;
+      res.send(error.sqlMessage);
+      return;
+    } else if(data.length > 0) {
+      const results = data.map((participant) => {
+        return {
+          cedula: participant.cedula,
+          nombreCompleto: `${participant.primerApellido} ${participant.segundoApellido},`+ 
+         ` ${participant.primerNombre} ${participant.segundoNombre}`
+        }
+      })
+      res.statusCode = 200;
+      res.send(results);
+      return;
+    } else {
+      res.statusCode = 204;
+      res.send('No Content');
+      return;
+    }
+  })
+})
+
 //Solicitar toda la info de un participante
 router.get('/:cedula', (req, res) => {
   const {cedula} =  req.params;
@@ -139,7 +169,7 @@ router.get('/:cedula', (req, res) => {
 //Solicitar participantes inscritos en una agrupación
 router.get('/signUp/:groupID/:term', (req, res) => {
   const {groupID, term} = req.params;
-  console.log('dentro de signup')
+  
   const sql = `SELECT p.cedula, p.primerNombre, p.segundoNombre, ` + 
   `p.primerApellido, p.segundoApellido, p.comunidad ` + 
   `FROM inscripciones i JOIN participantes p ON i.participante = p.cedula ` +

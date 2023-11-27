@@ -29,6 +29,13 @@ export const getPersonal = async () => {
   return res.data;
 }
 
+//Solicitar info del personal de Identidad y Misión
+export const getPersonalDIM = async () => {
+  const res = await conn.get(`/participants/personal/DIM`);
+  if (res.data === '') return [];
+  return res.data;
+}
+
 //Solicitar info de los participantes miembros de comunidades externas
 export const getComunnityMembers = async () => {
   const res = await conn.get(`/participants/community`);

@@ -389,8 +389,6 @@ router.delete('/helper', (req, res) => {
   AND actividad = ${helper.actividad} AND acompannante = ${helper.acompannante} 
   AND periodo = '${helper.periodo}'`;
 
-  console.log(sql);
-
   conn.query(sql, error => {
     if(error){
       res.statusCode = 500;

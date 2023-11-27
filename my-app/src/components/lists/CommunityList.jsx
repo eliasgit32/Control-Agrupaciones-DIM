@@ -28,7 +28,7 @@ export default function CommunityList(props) {
       {data.map((community) => {
         return <option 
           key={community.id}
-          value={community.id}
+          value={community.nombre}
         >
           {community.nombre}
         </option>

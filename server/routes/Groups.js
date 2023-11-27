@@ -26,19 +26,45 @@ router.get('/', (req, res) => {
 })
 
 //Solicitar info de solo un grupo
-router.get('/:id', (req, res) => {
-  const { id } = req.params;
+router.get('/:id/:term', (req, res) => {
+  const { id, term } = req.params;
 
-  const sql = `SELECT * FROM agrupaciones WHERE id = ${id}`;
-  conn.query(sql, (error, results) => {
+  //Query de agrupación
+  const sql1 = `SELECT *, (SELECT COUNT(*) FROM inscripciones WHERE agrupacion = ${id} 
+  AND periodo = '${term}') AS inscritos 
+  FROM agrupaciones WHERE id = ${id}`;
+
+  //Query de coordinador
+  const sql2 = `SELECT p.primerNombre, p.segundoNombre, p.primerApellido, p.segundoApellido
+  FROM supervisiones s JOIN participantes p ON s.coordinador = p.cedula 
+  WHERE s.agrupacion = ${id} AND s.periodo = ${term}`;
+
+  conn.query(sql1, (error, data1) => {
+    let nombreCoord = '';
     if (error) {
       res.statusCode = 500;
       res.send(error.sqlMessage);
       return;
-    } else if (results.length > 0) {
-      res.statusCode = 200;
-      res.json(results);
-      return;
+    } else if (data1.length > 0) {
+      conn.query(sql2, (error, data2) => {
+        if (error) {
+          res.statusCode = 500;
+          res.send(error.sqlMessage);
+          return;
+        } else if (data2.length > 0) {
+          nombreCoord =  `${data2[0].primerApellido} ${data2[0].segundoApellido}, ` +
+          `${data2[0].primerNombre} ${data2[0].segundoNombre}`;
+        } else {
+          nombreCoord = 'N/A';
+        }
+        const results = [{
+          ...data1[0],
+          coordinador: nombreCoord
+        }]
+        res.statusCode = 200;
+        res.send(results);
+        return;
+      })
     } else {
       res.statusCode = 204;
       res.send('No content');

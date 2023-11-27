@@ -7,6 +7,7 @@ import InfoSideBar from '../components/InfoSideBar';
 import NavBar from '../components/NavBar';
 import '../stylesheets/Group.css';
 import ActivitiesContainer from '../components/ActivitiesContainer';
+import PersonalDIMList from '../components/lists/PersonalDIMList';
 
 export default function Group() {
   //Inputs
@@ -14,16 +15,20 @@ export default function Group() {
   const[description, setDescription] = useState(null);
   const[limit, setLimit] = useState(null);
   const[publico, setPublico] = useState(null);
+  const[coordinator, setCoordinator] = useState(null);
 
   //Funciones del manejo de inputs
   const changeName = e => setName(e.target.value) 
   const changeDescription = e => setDescription(e.target.value)
   const changeLimit = e => setLimit(parseInt(e.target.value))
   const changePublico = e => setPublico(e.target.value)
-
+  const changeCoordinator =  e => setCoordinator(e.target.value)
+  
   const params = useParams();
 
-  const { isLoading, data } = useQuery(['group', params.id], () => getOneGroup(params.id));
+  const groupInfoQuery = useQuery(['group', params.id, params.selectedTerm], 
+  () => getOneGroup(params.id, params.selectedTerm));
+  // const coordinatorQuery = useQuery(['coordinator'],)
 
   //Cliente para funcion de actualizacion de grupo
   const queryClient = useQueryClient();
@@ -36,7 +41,7 @@ export default function Group() {
     }
   })
 
-  if (isLoading) {
+  if (groupInfoQuery.isLoading) {
     return (
       <>
         <NavBar></NavBar>
@@ -45,13 +50,14 @@ export default function Group() {
     ) 
   }
 
+  const data =  groupInfoQuery.data;
+  
   //Verificar que los inputs estan vacios o no hayan cambiado su valor
   const invalidInputs = ( (name === null || name === data[0].nombre)
   && (description === null || description === data[0].descripcion)
   && (limit === null || limit === data[0].cupos) 
-  && (publico === null || publico === data[0].publico));
-
- 
+  && (publico === null || publico === data[0].publico)
+  && (coordinator === null || coordinator === data[0].coordinador));
 
   //Cancelar actualizar info de grupo
   const handleCancel = () => {
@@ -61,6 +67,7 @@ export default function Group() {
     setDescription(null);
     setLimit(null);
     setPublico(null);  
+    setCoordinator(null);
   }
 
   //Guardar actualización de grupo
@@ -119,14 +126,26 @@ export default function Group() {
         {/* Total Inscritos */}
         <div className='mb-3 row'>
           <label className='form-label col-sm-6'>Total inscritos: </label>
-          <p className='col-sm-5' id='groupTotalSigned'>*Falta agregar*</p>
+          <p 
+            className='col-sm-4' 
+            id='groupTotalSigned' 
+            style={{marginBottom: '0', fontSize: '22px'}}
+          >
+            {data[0].inscritos}
+          </p>
         </div>
         {/* Coordinador */}
         <div className='mb-3 row'>
           <label htmlFor='groupCoord' className='form-label col-sm-5'>Coordinador:</label>
           <div className='col-sm-6'>
-            <select className='form-select' id="groupCoord" dark='true'>
-              <option value="">*Falta agregar*</option>
+            <select 
+              className='form-select' 
+              id="groupCoord" 
+              dark='true'
+              onChange={changeCoordinator}
+              value={coordinator || data[0].coordinador}
+            >
+              <PersonalDIMList />
             </select>
           </div>
         </div>

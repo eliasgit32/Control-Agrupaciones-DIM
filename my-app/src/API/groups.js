@@ -8,8 +8,8 @@ export const getGroups = async () => {
 }
 
 //Solicitar info de una sola agrupación
-export const getOneGroup = async (id) => {
-  const res =  await conn.get(`/groups/${id}`);
+export const getOneGroup = async (id, term) => {
+  const res =  await conn.get(`/groups/${id}/${term}`);
   return res.data;
 }
 
