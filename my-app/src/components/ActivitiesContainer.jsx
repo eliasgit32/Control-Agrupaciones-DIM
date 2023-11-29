@@ -14,9 +14,8 @@ import { Link } from 'react-router-dom';
 
 export default function ActivitiesContainer(props) {
   
-  const {group, term} =  props;
-
-  const[selectedTerm, setSelectedTerm] = useState(term);
+  const {group, selectedTerm, setSelectedTerm} =  props;
+  
   const [selectedParticipant, setSelectedParticipant] = useState(null);
   const [modalVisible, setModalVisible] =  useState(false);
   
@@ -35,6 +34,11 @@ export default function ActivitiesContainer(props) {
     () => getGroupActivities(group.id, selectedTerm));
 
   if (isLoading) return <div>Cargando...</div>
+  
+  queryClient.invalidateQueries({
+    queryKey: ['group', group.id, selectedTerm],
+    refetchType: 'active'
+  });
 
   return(
     <div>

@@ -10,6 +10,12 @@ import ActivitiesContainer from '../components/ActivitiesContainer';
 import PersonalDIMList from '../components/lists/PersonalDIMList';
 
 export default function Group() {
+  
+  const params = useParams();
+
+  //Período académico seleccionado
+  const[selectedTerm, setSelectedTerm] = useState(params.selectedTerm);
+
   //Inputs
   const[name, setName] = useState(null);
   const[description, setDescription] = useState(null);
@@ -23,11 +29,9 @@ export default function Group() {
   const changeLimit = e => setLimit(parseInt(e.target.value))
   const changePublico = e => setPublico(e.target.value)
   const changeCoordinator =  e => setCoordinator(e.target.value)
-  
-  const params = useParams();
 
-  const groupInfoQuery = useQuery(['group', params.id, params.selectedTerm], 
-  () => getOneGroup(params.id, params.selectedTerm));
+  const groupInfoQuery = useQuery(['group', params.id, selectedTerm], 
+  () => getOneGroup(params.id, selectedTerm));
   // const coordinatorQuery = useQuery(['coordinator'],)
 
   //Cliente para funcion de actualizacion de grupo
@@ -182,7 +186,7 @@ export default function Group() {
       </InfoSideBar>
 
       {/* Contenedor de las actividades en pantalla */}
-      <ActivitiesContainer group={data[0]} term={params.selectedTerm} />
+      <ActivitiesContainer group={data[0]} selectedTerm={selectedTerm} setSelectedTerm={setSelectedTerm} />
       
     </div>
   );
