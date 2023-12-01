@@ -1,4 +1,4 @@
-import react from 'react';
+import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getPersonalDIM } from '../../API/participants';
 
@@ -11,11 +11,11 @@ export default function PersonalDIMList() {
 
   return(
     <>
-      <option value={0}>N/A</option>
+      <option value={'N/A'}>N/A</option>
       {data.map((personal) => {
         return <option 
           key={personal.cedula}
-          value={personal.cedula}
+          value={parseInt(personal.cedula)}
         >
           {personal.nombreCompleto}
         </option>

@@ -32,7 +32,6 @@ export default function Group() {
 
   const groupInfoQuery = useQuery(['group', params.id, selectedTerm], 
   () => getOneGroup(params.id, selectedTerm));
-  // const coordinatorQuery = useQuery(['coordinator'],)
 
   //Cliente para funcion de actualizacion de grupo
   const queryClient = useQueryClient();
@@ -41,7 +40,7 @@ export default function Group() {
   const updateGroupMutation = useMutation({
     mutationFn: updateGroup,
     onSuccess: () => {
-      queryClient.invalidateQueries(['group', params.id]);
+      queryClient.invalidateQueries();
     }
   })
 
@@ -61,7 +60,7 @@ export default function Group() {
   && (description === null || description === data[0].descripcion)
   && (limit === null || limit === data[0].cupos) 
   && (publico === null || publico === data[0].publico)
-  && (coordinator === null || coordinator === data[0].coordinador));
+  && (coordinator === null || coordinator === data[0].coordinador.toString()));
 
   //Cancelar actualizar info de grupo
   const handleCancel = () => {
@@ -81,11 +80,14 @@ export default function Group() {
       name: document.getElementById('groupName').value,
       description: document.getElementById('groupDesc').value,
       limit: parseInt(document.getElementById('groupLimit').value),
-      publico: document.getElementById('groupPublic').value
+      publico: document.getElementById('groupPublic').value,
+      coordinator: parseInt(document.getElementById('groupCoord').value),
+      term: selectedTerm
     }
     updateGroupMutation.mutate(group);
   }
 
+  // console.log(publico+' '+data[0].publico);
   return (
     <div>
       <NavBar></NavBar>

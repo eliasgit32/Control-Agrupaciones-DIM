@@ -30,9 +30,10 @@ router.get('/:id/:term', (req, res) => {
   const { id, term } = req.params;
 
   //Query de agrupación
-  const sql1 = `SELECT *, (SELECT COUNT(*) FROM inscripciones WHERE agrupacion = ${id} 
-  AND periodo = '${term}') AS inscritos 
-  FROM agrupaciones WHERE id = ${id}`;
+  const sql1 = `SELECT a.*, (SELECT COUNT(*) FROM inscripciones WHERE agrupacion = ${id} 
+  AND periodo = '${term}') AS inscritos, s.coordinador 
+  FROM agrupaciones a LEFT JOIN supervisiones s ON (s.agrupacion = ${id} AND s.periodo = '${term}') 
+  WHERE id = ${id}`;
 
   //Query de coordinador
   const sql2 = `SELECT p.primerNombre, p.segundoNombre, p.primerApellido, p.segundoApellido
@@ -46,25 +47,29 @@ router.get('/:id/:term', (req, res) => {
       res.send(error.sqlMessage);
       return;
     } else if (data1.length > 0) {
-      conn.query(sql2, (error, data2) => {
-        if (error) {
-          res.statusCode = 500;
-          res.send(error.sqlMessage);
-          return;
-        } else if (data2.length > 0) {
-          nombreCoord =  `${data2[0].primerApellido} ${data2[0].segundoApellido}, ` +
-          `${data2[0].primerNombre} ${data2[0].segundoNombre}`;
-        } else {
-          nombreCoord = 'N/A';
-        }
-        const results = [{
-          ...data1[0],
-          coordinador: nombreCoord
-        }]
-        res.statusCode = 200;
-        res.send(results);
-        return;
-      })
+      if(!data1[0].coordinador) data1[0].coordinador = 'N/A';
+      res.statusCode = 200;
+      res.send(data1);
+      return;
+      // conn.query(sql2, (error, data2) => {
+      //   if (error) {
+      //     res.statusCode = 500;
+      //     res.send(error.sqlMessage);
+      //     return;
+      //   } else if (data2.length > 0) {
+      //     nombreCoord =  `${data2[0].primerApellido} ${data2[0].segundoApellido}, ` +
+      //     `${data2[0].primerNombre} ${data2[0].segundoNombre}`;
+      //   } else {
+      //     nombreCoord = 'N/A';
+      //   }
+      //   const results = [{
+      //     ...data1[0],
+      //     coordinador: nombreCoord
+      //   }]
+      //   res.statusCode = 200;
+      //   res.send(results);
+      //   return;
+      // })
     } else {
       res.statusCode = 204;
       res.send('No content');
@@ -106,25 +111,77 @@ router.put('/', (req, res) => {
     nombre: req.body.name,
     descripcion: req.body.description,
     cupos: req.body.limit,
-    publico: req.body.publico
+    publico: req.body.publico,
+    coordinador: req.body.coordinator,
+    periodo: req.body.term
   }
-  const sql = 'UPDATE agrupaciones SET ' +
+
+  const supervision = {
+    coordinador: req.body.coordinator,
+    agrupacion: req.body.id,
+    periodo: req.body.term,
+    docente: null
+  }
+
+  // Actualizar info de agrupación
+  const sql1 = 'UPDATE agrupaciones SET ' +
     `nombre='${group.nombre}', ` +
     `descripcion='${group.descripcion}', ` +
     `cupos=${group.cupos}, ` +
     `publico='${group.publico}' ` +
     `WHERE id=${group.id}`;
 
-  conn.query(sql, error => {
-    if (error) {
-      res.statusCode = 500;
-      res.send(error.sqlMessage);
-      return;
-    } else {
-      res.statusCode = 200;
-      res.send('Content Updated');
-      return;
-    }
+  // Borrar asignación de coordinador
+  const sql2 = `DELETE FROM supervisiones 
+  WHERE agrupacion = ${group.id} AND periodo = '${group.periodo}'`;
+
+  //Registrar asignación de nuevo coordinador
+  const sql3 = `INSERT INTO supervisiones SET ?`;
+
+  conn.beginTransaction((error) => {
+    if (error) console.log(error);
+
+    //Actualizar datos de agrupación
+    conn.query(sql1, error => {
+      if(error) {
+        return conn.rollback(() => {
+          console.log(error);
+        })
+      }
+    })
+
+    //Borrar asignación de coordinador
+    conn.query(sql2, error => {
+      if(error) {
+        return conn.rollback(() => {
+          console.log(error);
+        })
+      }
+    })
+
+    //Registrar asignación de nuevo coordinador
+    conn.query(sql3, supervision, error => {
+      if(error) {
+        return conn.rollback(() => {
+          console.log(error);
+        })
+      }
+    })
+
+    // Confirmar la transacción
+    conn.commit((error) => {
+      if (error) {
+        return conn.rollback(() => {
+          res.statusCode = 500;
+          res.send(error.sqlMessage);
+          return;
+        })
+      } else {
+        res.statusCode = 200;
+        res.send('Content Updated');
+        return;
+      }
+    });
   })
 });
 
