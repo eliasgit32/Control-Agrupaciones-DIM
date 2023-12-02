@@ -58,7 +58,7 @@ export default function ParticipationContainer(props) {
 
       {/* Botones opciones de actividad */}
       <div className='buttons-container text-center d-flex justify-content-center'>
-        <button type='button' className='btn btn-info'>Exportar Lista de Participantes</button>
+        {/* <button type='button' className='btn btn-info'>Exportar Lista de Participantes</button> */}
         <button 
           type='button' 
           className='btn btn-success'

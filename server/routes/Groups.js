@@ -48,6 +48,7 @@ router.get('/:id/:term', (req, res) => {
       return;
     } else if (data1.length > 0) {
       if(!data1[0].coordinador) data1[0].coordinador = 'N/A';
+      (data1[0].catedra ? data1[0].catedra = true : data1[0].catedra = false)
       res.statusCode = 200;
       res.send(data1);
       return;
@@ -113,7 +114,8 @@ router.put('/', (req, res) => {
     cupos: req.body.limit,
     publico: req.body.publico,
     coordinador: req.body.coordinator,
-    periodo: req.body.term
+    periodo: req.body.term,
+    catedra: req.body.catedra
   }
 
   const supervision = {
@@ -128,7 +130,8 @@ router.put('/', (req, res) => {
     `nombre='${group.nombre}', ` +
     `descripcion='${group.descripcion}', ` +
     `cupos=${group.cupos}, ` +
-    `publico='${group.publico}' ` +
+    `publico='${group.publico}', ` +
+    `catedra = ${group.catedra} ` +
     `WHERE id=${group.id}`;
 
   // Borrar asignación de coordinador

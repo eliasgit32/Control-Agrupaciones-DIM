@@ -8,6 +8,7 @@ import NavBar from '../components/NavBar';
 import '../stylesheets/Group.css';
 import ActivitiesContainer from '../components/ActivitiesContainer';
 import PersonalDIMList from '../components/lists/PersonalDIMList';
+import { getPersonalDIM } from '../API/participants';
 
 export default function Group() {
   
@@ -22,6 +23,8 @@ export default function Group() {
   const[limit, setLimit] = useState(null);
   const[publico, setPublico] = useState(null);
   const[coordinator, setCoordinator] = useState(null);
+  const[catedra, setCatedra] = useState(null);
+  const[teacher, setTeacher] = useState('');
 
   //Funciones del manejo de inputs
   const changeName = e => setName(e.target.value) 
@@ -29,9 +32,13 @@ export default function Group() {
   const changeLimit = e => setLimit(parseInt(e.target.value))
   const changePublico = e => setPublico(e.target.value)
   const changeCoordinator =  e => setCoordinator(e.target.value)
+  const changeCatedra =  e => setCatedra(e.target.checked)
+  const changeTeacher = e => setTeacher(e.target.value)
 
   const groupInfoQuery = useQuery(['group', params.id, selectedTerm], 
   () => getOneGroup(params.id, selectedTerm));
+
+  const personalDIMQuery = useQuery(['personalDIM'], getPersonalDIM);
 
   //Cliente para funcion de actualizacion de grupo
   const queryClient = useQueryClient();
@@ -44,7 +51,7 @@ export default function Group() {
     }
   })
 
-  if (groupInfoQuery.isLoading) {
+  if (groupInfoQuery.isLoading || personalDIMQuery.isLoading) {
     return (
       <>
         <NavBar></NavBar>
@@ -54,13 +61,15 @@ export default function Group() {
   }
 
   const data =  groupInfoQuery.data;
+  const personalDIM = personalDIMQuery.data; 
   
   //Verificar que los inputs estan vacios o no hayan cambiado su valor
   const invalidInputs = ( (name === null || name === data[0].nombre)
   && (description === null || description === data[0].descripcion)
   && (limit === null || limit === data[0].cupos) 
   && (publico === null || publico === data[0].publico)
-  && (coordinator === null || coordinator === data[0].coordinador.toString()));
+  && (coordinator === null || coordinator === data[0].coordinador.toString())
+  && (catedra === null || catedra === data[0].catedra));
 
   //Cancelar actualizar info de grupo
   const handleCancel = () => {
@@ -82,12 +91,12 @@ export default function Group() {
       limit: parseInt(document.getElementById('groupLimit').value),
       publico: document.getElementById('groupPublic').value,
       coordinator: parseInt(document.getElementById('groupCoord').value),
-      term: selectedTerm
+      term: selectedTerm,
+      catedra: document.getElementById('isCatedra').checked
     }
     updateGroupMutation.mutate(group);
   }
 
-  // console.log(publico+' '+data[0].publico);
   return (
     <div>
       <NavBar></NavBar>
@@ -151,7 +160,7 @@ export default function Group() {
               onChange={changeCoordinator}
               value={coordinator || data[0].coordinador}
             >
-              <PersonalDIMList />
+              <PersonalDIMList data={personalDIM} />
             </select>
           </div>
         </div>
@@ -171,6 +180,36 @@ export default function Group() {
               <option value="Comunidad">Comunidad</option>
               <option value="Mixto">Mixto</option>
             </select>
+          </div> 
+        </div>
+
+        {/* Catedrá */}
+        <div className='mb-3 row'>
+          <label htmlFor='isCatedra' className='form-label col-sm-4'>Catedrá:</label>
+          <div className='col-sm-5'>
+            <input
+              type='checkbox'
+              id="isCatedra"
+              style={{marginTop: '12px', transform: 'scale(1.5)'}}
+              onChange={changeCatedra}
+              value={catedra || data[0].catedra}
+            />
+          </div> 
+        </div>
+
+        {/* Docente */}
+        <div className='mb-3 row' style={{display: (data[0].catedra ? 'flex' : 'none')}}>
+          <label htmlFor='teacher' className='form-label col-sm-4'>Docente:</label>
+          <div className='col-sm-5'>
+            <input
+              type='text'
+              id='teacher'
+              // style={{marginTop: '12px', transform: 'scale(1.5)'}}
+              className='form-control'
+              dark='true'
+              onChange={changeTeacher}
+              value={teacher}
+            />
           </div> 
         </div>
 

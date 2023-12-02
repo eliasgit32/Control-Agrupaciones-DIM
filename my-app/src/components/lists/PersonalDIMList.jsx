@@ -1,14 +1,7 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { getPersonalDIM } from '../../API/participants';
 
-export default function PersonalDIMList() {
-  const { isLoading, data } =  useQuery(['PersonalDIM'], getPersonalDIM);
-
-  if (isLoading) {
-    return <option>Cargando...</option>
-  }
-
+export default function PersonalDIMList(props) {
+  const { data } = props;
   return(
     <>
       <option value={'N/A'}>N/A</option>
@@ -22,5 +15,4 @@ export default function PersonalDIMList() {
       })}
     </>
   )
-
 }
