@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import NewParticipant from '../components/modals/NewParticipant';
 import { getComunnityMembers, getPersonal, getStudents } from '../API/participants';
 import { useQuery } from '@tanstack/react-query';
+import ImportStudents from '../components/modals/ImportStudents';
 
 export default function RegParticipant() {
   const params = useParams();
@@ -52,7 +53,10 @@ export default function RegParticipant() {
       <div className='d-flex justify-content-center'>
         <button 
           type='button' 
-          className='btn btn-success'>
+          className='btn btn-success'
+          data-bs-toggle='modal'
+          data-bs-target='#modalImportStudents'
+        >
             Importar Lista de {params.type === 'Comunidad' ? 'Miembros de Comunidad': params.type}
           </button>
           <PlusButton 
@@ -61,6 +65,7 @@ export default function RegParticipant() {
           />
       </div>
       <NewParticipant participant={params.type} community={community} />
+      <ImportStudents />
     </>
   )
 }
