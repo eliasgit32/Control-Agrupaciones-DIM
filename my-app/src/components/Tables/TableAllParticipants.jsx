@@ -28,15 +28,6 @@ export default function TableAllParticipants(props) {
       label: 'Nombre Completo'
     },
     {
-      name: 'fechaNac',
-      label: 'Fecha Nacimiento',
-      options: {
-        customBodyRender: (value, tableMeta, updateValue) => {
-          return <p style={{marginLeft: '35px', marginBottom:'0px'}}>{value}</p>
-        }
-      }
-    }, 
-    {
       name: 'escuela',
       label: props.community
     },
@@ -70,15 +61,6 @@ export default function TableAllParticipants(props) {
       label: 'Nombre Completo'
     },
     {
-      name: 'fechaNac',
-      label: 'Fecha Nacimiento',
-      options: {
-        customBodyRender: (value, tableMeta, updateValue) => {
-          return <p style={{marginLeft: '35px', marginBottom:'0px'}}>{value}</p>
-        }
-      }
-    }, 
-    {
       name: 'escuela',
       label: props.community
     },
@@ -111,15 +93,6 @@ export default function TableAllParticipants(props) {
       name:'nombreCompleto',
       label: 'Nombre Completo'
     },
-    {
-      name: 'fechaNac',
-      label: 'Fecha Nacimiento',
-      options: {
-        customBodyRender: (value, tableMeta, updateValue) => {
-          return <p style={{marginLeft: '35px', marginBottom:'0px'}}>{value}</p>
-        }
-      }
-    }, 
     {
       name: 'escuela',
       label: props.community,

@@ -20,7 +20,9 @@ export default function ImportStudents() {
 
   //Manejar el cambio del archivo ingresado en el input
   const handleChange = e => {
-    handleFile(e.target.files[0])
+    console.log(e.target.files[0]);
+    handleFile(e.target.files[0]);
+    e.target.value = null;
   }
 
   //Manejar soltar el archivo csv en el input
@@ -90,7 +92,7 @@ export default function ImportStudents() {
               type='button'
               className='btn btn-success'
               data-bs-dismiss='modal'
-              onClick={handleSave}
+              onClick={handleClose}
             >
               Aceptar
             </button>

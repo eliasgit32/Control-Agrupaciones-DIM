@@ -50,14 +50,10 @@ router.get('/community', (req, res) => {
       return;
     } else if(data.length > 0) {
       const results = data.map((participant) => {
-        //Formatear fecha
-        let date =  new Date(participant.fechaNac);
-        let birthdate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
         return {
           cedula: participant.cedula,
           nombreCompleto: `${participant.primerApellido} ${participant.segundoApellido},`+ 
          ` ${participant.primerNombre} ${participant.segundoNombre}`,
-          fechaNac: birthdate,
           escuela: participant.comunidad,
           etapa: participant.etapa,
           correo: participant.email,
@@ -87,14 +83,10 @@ router.get('/personal', (req, res) => {
       return;
     } else if(data.length > 0) {
       const results = data.map((participant) => {
-        //Formatear fecha
-        let date =  new Date(participant.fechaNac);
-        let birthdate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
         return {
           cedula: participant.cedula,
           nombreCompleto: `${participant.primerApellido} ${participant.segundoApellido},`+ 
          ` ${participant.primerNombre} ${participant.segundoNombre}`,
-          fechaNac: birthdate,
           escuela: participant.comunidad,
           etapa: participant.etapa,
           correo: participant.email,
@@ -212,7 +204,6 @@ router.post('/', (req, res) => {
     segundoNombre: req.body.secondName,
     primerApellido: req.body.firstLastName,
     segundoApellido: req.body.secondLastName,
-    fechaNac: req.body.birthdate,
     tipo: req.body.type,
     comunidad: req.body.community,
     etapa: req.body.phase,
@@ -246,6 +237,45 @@ router.post('/signUp/:cedula/:groupID/:term', (req, res) => {
   }
 
   conn.query(sql, registration, error => {
+    if(error){
+      res.statusCode = 500;
+      res.send(error.sqlMessage);
+      return;
+    } else {
+      res.statusCode = 200;
+      res.send('Content Added')
+    }
+  })
+})
+
+//PETICIONES PUT
+//Actualizar participante
+router.put('/:cedula', (req, res) => {
+  const {cedula} =  req.params;
+
+  const participant = {
+    primerNombre: req.body.fName,
+    segundoNombre: req.body.sName,
+    primerApellido: req.body.fLastName,
+    segundoApellido: req.body.sLastName,
+    etapa: req.body.stage,
+    email: req.body.email,
+    telefono: req.body.tlphone,
+    emailInst: req.body.emailUCAB
+  }
+
+  const sql = `UPDATE participantes SET 
+  primerNombre = '${participant.primerNombre}', 
+  segundoNombre = '${participant.segundoNombre}', 
+  primerApellido = '${participant.primerApellido}', 
+  segundoApellido = '${participant.segundoApellido}', 
+  etapa = '${participant.etapa}', 
+  email = '${participant.email}', 
+  telefono = '${participant.telefono}', 
+  emailInst = '${participant.emailInst}' 
+  WHERE cedula = ${cedula} `;
+
+  conn.query(sql, error => {
     if(error){
       res.statusCode = 500;
       res.send(error.sqlMessage);

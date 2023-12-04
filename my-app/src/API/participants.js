@@ -52,6 +52,10 @@ conn.post('/participants', participant);
 export const registerOnGroup = ({cedula, groupID, term}) => 
 conn.post(`/participants/signUp/${cedula}/${groupID}/${term}`);
 
+//PUT
+//Actualizar info de participante
+export const updateParticipant = ({cedula, participant}) => 
+  conn.put(`/participants/${cedula}`, participant);
 
 //DELETE
 //Eliminar inscripción de participante en agrupación

@@ -25,12 +25,6 @@ export default function RegParticipant() {
     getFunction = getPersonal;
   }
 
-  // switch(params.type) {
-  //   case 'Estudiante': getFunction = getStudents; break;
-  //   case 'Docente': break; //Caso participante tipo personal
-  //   default: //Caso de participante tipo comunidad
-  // }
-
   const { isLoading, data } = useQuery(['getParticipants', community], getFunction);
 
   if (isLoading) {
