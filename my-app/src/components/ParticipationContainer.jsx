@@ -12,6 +12,7 @@ export default function ParticipationContainer(props) {
   const {selectedTerm, setSelectedTerm, groupID, activityID} = props;
   const [selectedParticipant, setSelectedParticipant] = useState(null);
   const [modalVisible, setModalVisible] =  useState(false);
+  const [participationChange, setParticipationChange] =  useState(false);
 
   //Query solicitar participantes de la agrupación
   const {isLoading, data} = useQuery(['participations', groupID, selectedTerm, activityID],
@@ -19,6 +20,14 @@ export default function ParticipationContainer(props) {
   )
 
   const queryClient = useQueryClient();
+
+  const handleCancel = () => {
+
+  }
+
+  const handleUpdate = () => {
+
+  }
 
   //Mutación borrar acompañante
   const deleteHelperMutation =  useMutation({
@@ -33,7 +42,9 @@ export default function ParticipationContainer(props) {
   >
     Cargando...
   </div>
-  
+
+  console.log(data);
+
   return (
     <>
       {/* Select de períodos académicos */}
@@ -53,12 +64,23 @@ export default function ParticipationContainer(props) {
           activityID={activityID}
           selectedTerm={selectedTerm} 
           data={data} 
+          setParticipationChange={setParticipationChange}
         />
+        {/* Botones de guardado y cancelacion */}
+        <div className='text-center mt-4' >
+          <button
+            type='button'
+            className={!participationChange ? 'btn btn-danger disabled' : 'btn btn-danger'}
+            onClick={handleCancel}>Cancelar</button>
+          <button
+            type='button'
+            className={!participationChange ? 'btn btn-success disabled' : 'btn btn-success'}
+            onClick={handleUpdate}>Guardar Cambios</button>
+        </div>
       </div>
 
       {/* Botones opciones de actividad */}
       <div className='buttons-container text-center d-flex justify-content-center'>
-        {/* <button type='button' className='btn btn-info'>Exportar Lista de Participantes</button> */}
         <button 
           type='button' 
           className='btn btn-success'
@@ -68,7 +90,7 @@ export default function ParticipationContainer(props) {
           Agregar acompañantes
         </button>
       </div>
-      {/* Modal de inscribir participante - Agregar acompañantes */}
+      {/* Modal de inscribir participante/Agregar acompañantes */}
       <AddParticipants 
         selectedTerm={selectedTerm} 
         groupID={groupID} 
