@@ -58,6 +58,10 @@ export const updateParticipant = ({cedula, participant}) =>
   conn.put(`/participants/${cedula}`, participant);
 
 //DELETE
+//Eliminar participante
+export const deleteParticipant = (cedula) => 
+conn.delete(`/participants/${cedula}`);
+
 //Eliminar inscripción de participante en agrupación
 export const deleteGroupRegistration = ({cedula, groupID, term}) => {
   conn.delete(`/participants/signUp/${cedula}/${groupID}/${term}`);

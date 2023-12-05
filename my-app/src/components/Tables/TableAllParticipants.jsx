@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 export default function TableAllParticipants(props) {
 
 
-  const { data } =  props;
+  const { data, setSelectedParticipant, setModalVisible } =  props;
 
   const darkTheme = createTheme({
     palette: {
@@ -113,11 +113,19 @@ export default function TableAllParticipants(props) {
       }
     }
   ]
+
+  const handleRowSelection = (currentRowsSelected, allRowsSelected, rowsSelected) => {
+    const selectedCedula = currentRowsSelected.map((index) => data[index.index].cedula);
+    setSelectedParticipant(selectedCedula[0])
+  }
+
   const options = {
     filterType: 'checkbox', 
     print: 'false',
-    selectableRows: 'none',
-    download: false
+    selectableRows: 'single',
+    download: false,
+    onRowSelectionChange: handleRowSelection,
+    onRowsDelete: () => setModalVisible(true)
   };
   
   return(

@@ -114,8 +114,8 @@ router.put('/', (req, res) => {
     cupos: req.body.limit,
     publico: req.body.publico,
     coordinador: req.body.coordinator,
-    periodo: req.body.term,
-    catedra: req.body.catedra
+    periodo: req.body.term
+    // catedra: req.body.catedra
   }
 
   const supervision = {
@@ -130,8 +130,7 @@ router.put('/', (req, res) => {
     `nombre='${group.nombre}', ` +
     `descripcion='${group.descripcion}', ` +
     `cupos=${group.cupos}, ` +
-    `publico='${group.publico}', ` +
-    `catedra = ${group.catedra} ` +
+    `publico='${group.publico}' ` +
     `WHERE id=${group.id}`;
 
   // Borrar asignación de coordinador

@@ -1,15 +1,30 @@
 import React from 'react';
+import { useState } from 'react';
 import NavBar from '../components/NavBar';
 import TableAllParticipants from '../components/tables/TableAllParticipants';
 import PlusButton from '../components/PlusButton';
 import { useParams } from 'react-router-dom';
 import NewParticipant from '../components/modals/NewParticipant';
-import { getComunnityMembers, getPersonal, getStudents } from '../API/participants';
-import { useQuery } from '@tanstack/react-query';
+import { deleteParticipant, getComunnityMembers, getPersonal, getStudents } from '../API/participants';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import ImportStudents from '../components/modals/ImportStudents';
+import ConfirmOperation from '../components/modals/ConfirmOperation';
 
 export default function RegParticipant() {
   const params = useParams();
+
+  const [selectedParticipant, setSelectedParticipant] = useState(null);
+  const [modalVisible, setModalVisible] =  useState(false);
+
+  const queryClient = useQueryClient();
+
+  // Mutación borrar participante
+  const deleteParticipantMutation = useMutation({
+    mutationFn: deleteParticipant,
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    }
+  })
 
   var community = '';
   var getFunction = null;
@@ -40,16 +55,34 @@ export default function RegParticipant() {
     <>
       <NavBar />
       <div className='mx-3'> 
-        <TableAllParticipants type={params.type} community={community} data={data} />
+        <TableAllParticipants 
+          type={params.type} 
+          community={community} 
+          data={data}
+          setSelectedParticipant={setSelectedParticipant}
+          setModalVisible={setModalVisible} 
+        />
       </div>
+      <ConfirmOperation 
+        operation={() => {
+          deleteParticipantMutation.mutate(selectedParticipant);
+        }}
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        selectedParticipant={selectedParticipant}
+        type='deleteParticipant'
+      />
       <div className='mb-4'></div>
       {/* Botones de registrar o importar participantes */}
-      <div className='d-flex justify-content-center'>
+      <div 
+        className='d-flex justify-content-center'  
+      >
         <button 
           type='button' 
           className='btn btn-success'
           data-bs-toggle='modal'
           data-bs-target='#modalImportStudents'
+          style={{display: (params.type === 'Comunidad' ? 'none': 'flex')}}
         >
             Importar Lista de {params.type === 'Comunidad' ? 'Miembros de Comunidad': params.type}
           </button>

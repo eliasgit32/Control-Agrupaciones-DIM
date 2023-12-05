@@ -9,8 +9,8 @@ import { createParticipation, deleteParticipation } from '../../API/participatio
 export default function TableParticipants(props) {
   //Filas seleccionadas que representen participación
   const [rowsSelected, setRowsSelected] = useState([]);
-  
-  const {groupID, activityID, selectedTerm, data, setParticipationChange} = props;
+
+  const {groupID, activityID, selectedTerm, data} = props;
 
   //Asignar filas seleccionadas en base a participaciones
   useEffect(() => {
@@ -43,6 +43,7 @@ export default function TableParticipants(props) {
       term: selectedTerm
     }
     addParticipationMutation.mutate(participation);
+    console.log(rowsSelected);
   }
 
   //Mutación borrar participación

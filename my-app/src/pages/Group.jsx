@@ -23,8 +23,8 @@ export default function Group() {
   const[limit, setLimit] = useState(null);
   const[publico, setPublico] = useState(null);
   const[coordinator, setCoordinator] = useState(null);
-  const[catedra, setCatedra] = useState(null);
-  const[teacher, setTeacher] = useState('');
+  // const[catedra, setCatedra] = useState(null);
+  // const[teacher, setTeacher] = useState('');
 
   //Funciones del manejo de inputs
   const changeName = e => setName(e.target.value) 
@@ -32,8 +32,8 @@ export default function Group() {
   const changeLimit = e => setLimit(parseInt(e.target.value))
   const changePublico = e => setPublico(e.target.value)
   const changeCoordinator =  e => setCoordinator(e.target.value)
-  const changeCatedra =  e => setCatedra(e.target.checked)
-  const changeTeacher = e => setTeacher(e.target.value)
+  // const changeCatedra =  e => setCatedra(e.target.checked)
+  // const changeTeacher = e => setTeacher(e.target.value)
 
   const groupInfoQuery = useQuery(['group', params.id, selectedTerm], 
   () => getOneGroup(params.id, selectedTerm));
@@ -69,7 +69,7 @@ export default function Group() {
   && (limit === null || limit === data[0].cupos) 
   && (publico === null || publico === data[0].publico)
   && (coordinator === null || coordinator === data[0].coordinador.toString())
-  && (catedra === null || catedra === data[0].catedra));
+  /*&& (catedra === null || catedra === data[0].catedra)*/);
 
   //Cancelar actualizar info de grupo
   const handleCancel = () => {
@@ -91,8 +91,8 @@ export default function Group() {
       limit: parseInt(document.getElementById('groupLimit').value),
       publico: document.getElementById('groupPublic').value,
       coordinator: parseInt(document.getElementById('groupCoord').value),
-      term: selectedTerm,
-      catedra: document.getElementById('isCatedra').checked
+      term: selectedTerm
+      // catedra: document.getElementById('isCatedra').checked
     }
     updateGroupMutation.mutate(group);
   }
@@ -183,7 +183,7 @@ export default function Group() {
           </div> 
         </div>
 
-        {/* Catedrá */}
+        {/* Catedrá
         <div className='mb-3 row'>
           <label htmlFor='isCatedra' className='form-label col-sm-4'>Catedrá:</label>
           <div className='col-sm-5'>
@@ -195,10 +195,10 @@ export default function Group() {
               value={catedra || data[0].catedra}
             />
           </div> 
-        </div>
+        </div> */}
 
         {/* Docente */}
-        <div className='mb-3 row' style={{display: (data[0].catedra ? 'flex' : 'none')}}>
+        {/* <div className='mb-3 row' style={{display: (data[0].catedra ? 'flex' : 'none')}}>
           <label htmlFor='teacher' className='form-label col-sm-4'>Docente:</label>
           <div className='col-sm-5'>
             <input
@@ -211,7 +211,7 @@ export default function Group() {
               value={teacher}
             />
           </div> 
-        </div>
+        </div> */}
 
         {/* Botones de guardado y cancelacion */}
         <div className='text-center'>

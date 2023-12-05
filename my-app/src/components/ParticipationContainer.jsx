@@ -12,7 +12,6 @@ export default function ParticipationContainer(props) {
   const {selectedTerm, setSelectedTerm, groupID, activityID} = props;
   const [selectedParticipant, setSelectedParticipant] = useState(null);
   const [modalVisible, setModalVisible] =  useState(false);
-  const [participationChange, setParticipationChange] =  useState(false);
 
   //Query solicitar participantes de la agrupación
   const {isLoading, data} = useQuery(['participations', groupID, selectedTerm, activityID],
@@ -20,14 +19,6 @@ export default function ParticipationContainer(props) {
   )
 
   const queryClient = useQueryClient();
-
-  const handleCancel = () => {
-
-  }
-
-  const handleUpdate = () => {
-
-  }
 
   //Mutación borrar acompañante
   const deleteHelperMutation =  useMutation({
@@ -42,8 +33,6 @@ export default function ParticipationContainer(props) {
   >
     Cargando...
   </div>
-
-  console.log(data);
 
   return (
     <>
@@ -63,20 +52,8 @@ export default function ParticipationContainer(props) {
           groupID={groupID} 
           activityID={activityID}
           selectedTerm={selectedTerm} 
-          data={data} 
-          setParticipationChange={setParticipationChange}
+          data={data}
         />
-        {/* Botones de guardado y cancelacion */}
-        <div className='text-center mt-4' >
-          <button
-            type='button'
-            className={!participationChange ? 'btn btn-danger disabled' : 'btn btn-danger'}
-            onClick={handleCancel}>Cancelar</button>
-          <button
-            type='button'
-            className={!participationChange ? 'btn btn-success disabled' : 'btn btn-success'}
-            onClick={handleUpdate}>Guardar Cambios</button>
-        </div>
       </div>
 
       {/* Botones opciones de actividad */}

@@ -34,11 +34,6 @@ export default function ActivitiesContainer(props) {
     () => getGroupActivities(group.id, selectedTerm));
 
   if (isLoading) return <div>Cargando...</div>
-  
-  queryClient.invalidateQueries({
-    queryKey: ['group', group.id, selectedTerm],
-    refetchType: 'active'
-  });
 
   return(
     <div>
@@ -79,7 +74,7 @@ export default function ActivitiesContainer(props) {
       {/* Modal de nueva actividad */}
       <AddActivity selectedTerm={selectedTerm} groupID={group.id} data={data} />
       <NewActivity groupName={group.nombre} groupID={group.id}/>
-      {/* Modal de inscribir participante - Agregar acompañantes */}
+      {/* Modal de inscribir participante/Agregar acompañantes */}
       <AddParticipants 
         selectedTerm={selectedTerm} 
         groupID={group.id} 
