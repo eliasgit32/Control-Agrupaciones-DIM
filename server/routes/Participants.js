@@ -14,14 +14,10 @@ router.get('/students', (req, res) => {
       return;
     } else if(data.length > 0) {
       const results = data.map((student) => {
-        //Formatear fecha
-        let date =  new Date(student.fechaNac);
-        let birthdate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`
         return {
           cedula: student.cedula,
-          nombreCompleto: `${student.primerApellido} ${student.segundoApellido},`+ 
-         ` ${student.primerNombre} ${student.segundoNombre}`,
-          fechaNac: birthdate,
+          nombreCompleto: `${student.apellidos}, `+ 
+         ` ${student.nombres}`,
           escuela: student.comunidad,
           etapa: student.etapa,
           correo: student.email,
@@ -52,8 +48,8 @@ router.get('/community', (req, res) => {
       const results = data.map((participant) => {
         return {
           cedula: participant.cedula,
-          nombreCompleto: `${participant.primerApellido} ${participant.segundoApellido},`+ 
-         ` ${participant.primerNombre} ${participant.segundoNombre}`,
+          nombreCompleto: `${participant.apellidos}, `+ 
+         ` ${participant.nombres}`,
           escuela: participant.comunidad,
           etapa: participant.etapa,
           correo: participant.email,
@@ -85,8 +81,8 @@ router.get('/personal', (req, res) => {
       const results = data.map((participant) => {
         return {
           cedula: participant.cedula,
-          nombreCompleto: `${participant.primerApellido} ${participant.segundoApellido},`+ 
-         ` ${participant.primerNombre} ${participant.segundoNombre}`,
+          nombreCompleto: `${participant.apellidos}, `+ 
+         ` ${participant.nombres}`,
           escuela: participant.comunidad,
           etapa: participant.etapa,
           correo: participant.email,
@@ -107,8 +103,7 @@ router.get('/personal', (req, res) => {
 
 //Solicitar info de personal de Identidad y Misión
 router.get('/personal/DIM', (req, res) => {
-  const sql = `SELECT cedula, primerNombre, segundoNombre,
-  primerApellido, segundoApellido FROM participantes 
+  const sql = `SELECT cedula, nombres, apellidos FROM participantes 
   WHERE comunidad = 'DIM'`;
 
   conn.query(sql, (error, data) => {
@@ -120,8 +115,8 @@ router.get('/personal/DIM', (req, res) => {
       const results = data.map((participant) => {
         return {
           cedula: participant.cedula,
-          nombreCompleto: `${participant.primerApellido} ${participant.segundoApellido},`+ 
-         ` ${participant.primerNombre} ${participant.segundoNombre}`
+          nombreCompleto: `${participant.apellidos}, `+ 
+         ` ${participant.nombres}`
         }
       })
       res.statusCode = 200;
@@ -162,8 +157,8 @@ router.get('/:cedula', (req, res) => {
 router.get('/signUp/:groupID/:term', (req, res) => {
   const {groupID, term} = req.params;
   
-  const sql = `SELECT p.cedula, p.primerNombre, p.segundoNombre, ` + 
-  `p.primerApellido, p.segundoApellido, p.comunidad ` + 
+  const sql = `SELECT p.cedula, p.nombres, p.apellidos, ` + 
+  `p.comunidad ` + 
   `FROM inscripciones i JOIN participantes p ON i.participante = p.cedula ` +
   `WHERE i.agrupacion = ${groupID} AND i.periodo = '${term}'`;
   
@@ -176,9 +171,8 @@ router.get('/signUp/:groupID/:term', (req, res) => {
       const results = data.map((participant) => {
         return {
           cedula: participant.cedula,
-          nombreCompleto: `${participant.primerApellido} ` + 
-          `${participant.segundoApellido}, ` +
-          `${participant.primerNombre} ${participant.segundoNombre}`,
+          nombreCompleto: `${participant.apellidos}, ` +
+          `${participant.nombres}`,
           comunidad: participant.comunidad
         }
       })
@@ -200,10 +194,8 @@ router.post('/', (req, res) => {
 
   const participant = {
     cedula: req.body.cedula,
-    primerNombre: req.body.firstName,
-    segundoNombre: req.body.secondName,
-    primerApellido: req.body.firstLastName,
-    segundoApellido: req.body.secondLastName,
+    nombres: req.body.firstNames,
+    apellidos: req.body.lastNames,
     tipo: req.body.type,
     comunidad: req.body.community,
     etapa: req.body.phase,
@@ -220,6 +212,33 @@ router.post('/', (req, res) => {
     } else {
       res.statusCode = 200;
       res.send('Content Added')
+    }
+  })
+})
+
+//Importar listado de participantes
+router.post('/import', (req, res) => {
+  const participants =  req.body;
+  //Lógica de insert con muchos values
+  const values =  participants.map((participant) => {
+    return `(${participant.cedula}, '${participant.community}', 
+      '${participant.firstNames}', '${participant.lastNames}', 
+      '${participant.emailUCAB}', '${participant.type}', '${participant.stage}')`
+  })
+
+  const sql = `INSERT INTO participantes 
+  (cedula, comunidad, nombres, apellidos, emailInst, tipo, etapa) 
+  VALUES ${values}`;
+
+  conn.query(sql, error => {
+    if (error) {
+      res.statusCode = 500;
+      res.send(error.sqlMessage);
+      return;
+    } else {
+      res.statusCode = 200;
+      res.send('Content Added');
+      return;
     }
   })
 })
@@ -254,10 +273,8 @@ router.put('/:cedula', (req, res) => {
   const {cedula} =  req.params;
 
   const participant = {
-    primerNombre: req.body.fName,
-    segundoNombre: req.body.sName,
-    primerApellido: req.body.fLastName,
-    segundoApellido: req.body.sLastName,
+    nombres: req.body.firstNames,
+    apellidos: req.body.lastNames,
     etapa: req.body.stage,
     email: req.body.email,
     telefono: req.body.tlphone,
@@ -265,10 +282,8 @@ router.put('/:cedula', (req, res) => {
   }
 
   const sql = `UPDATE participantes SET 
-  primerNombre = '${participant.primerNombre}', 
-  segundoNombre = '${participant.segundoNombre}', 
-  primerApellido = '${participant.primerApellido}', 
-  segundoApellido = '${participant.segundoApellido}', 
+  nombres = '${participant.nombres}', 
+  apellidos = '${participant.apellidos}',  
   etapa = '${participant.etapa}', 
   email = '${participant.email}', 
   telefono = '${participant.telefono}', 

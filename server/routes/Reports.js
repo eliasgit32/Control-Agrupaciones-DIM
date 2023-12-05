@@ -7,8 +7,8 @@ const conn = require('../connection');
 router.get('/TotalRegistrations/:startTerm/:endTerm', (req, res) => {
   const { startTerm, endTerm } = req.params;
 
-  const sql = `SELECT p.primerNombre, p.segundoNombre, p.primerApellido, 
-  p.segundoApellido, i.participante, a.nombre AS agrupacion, 
+  const sql = `SELECT p.nombres, 
+  p.apellidos, i.participante, a.nombre AS agrupacion, 
   p.comunidad, i.periodo FROM inscripciones i 
   JOIN participantes p ON i.participante = p.cedula 
   JOIN agrupaciones a ON i.agrupacion = a.id 
@@ -23,9 +23,8 @@ router.get('/TotalRegistrations/:startTerm/:endTerm', (req, res) => {
       //Organizar datos
       const results = data.map((participante) => {
         return {
-          nombreCompleto: `${participante.primerApellido} ` +
-            `${participante.segundoApellido}, ${participante.primerNombre} ` +
-            `${participante.segundoNombre}`,
+          nombreCompleto: `${participante.apellidos}, ` +
+          `${participante.nombres}`,
           cedula: participante.participante,
           agrupacion: participante.agrupacion,
           comunidad: participante.comunidad,

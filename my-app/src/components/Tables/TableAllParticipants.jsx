@@ -31,16 +31,7 @@ export default function TableAllParticipants(props) {
       name: 'escuela',
       label: props.community
     },
-     'etapa', 'correo', 
-    {
-      name: 'telefono',
-      label: 'Teléfono',
-      options: {
-        customBodyRender: (value, tableMeta, updateValue) => {
-          return <p style={{marginLeft: '25px', marginBottom:'0px'}}>{value}</p>
-        }
-      }
-    },
+     'etapa',
     {
       name:'correoUCAB',
       label: 'Correo UCAB'

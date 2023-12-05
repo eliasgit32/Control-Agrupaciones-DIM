@@ -8,8 +8,8 @@ router.get('/:groupID/:term/:activityID', (req, res) => {
   const {groupID, term, activityID} = req.params;
 
   //Pedir lista de inscritos
-  const sql1 = `SELECT p.cedula, p.primerNombre, p.segundoNombre, ` + 
-  `p.primerApellido, p.segundoApellido, p.comunidad ` + 
+  const sql1 = `SELECT p.cedula, p.nombres, ` + 
+  `p.apellidos, p.comunidad ` + 
   `FROM inscripciones i JOIN participantes p ON i.participante = p.cedula ` +
   `WHERE i.agrupacion = ${groupID} AND i.periodo = '${term}'`;
 
@@ -30,7 +30,6 @@ router.get('/:groupID/:term/:activityID', (req, res) => {
         if (error) {
           res.statusCode = 500;
           res.send(error.sqlMessage);
-          console.log('error en sql2')
           return;
         } else if (data2.length > 0) {
           //Reordenar datos
@@ -46,9 +45,8 @@ router.get('/:groupID/:term/:activityID', (req, res) => {
             }
             return {
               cedula: participant.cedula,
-              nombreCompleto: `${participant.primerApellido} ` + 
-              `${participant.segundoApellido}, ` +
-              `${participant.primerNombre} ${participant.segundoNombre}`,
+              nombreCompleto: `${participant.apellidos}, ` +
+              `${participant.nombres}`,
               comunidad: participant.comunidad,
               participacion: participacion
             }
@@ -61,9 +59,8 @@ router.get('/:groupID/:term/:activityID', (req, res) => {
           const results = data1.map((participant) => {
             return {
               cedula: participant.cedula,
-              nombreCompleto: `${participant.primerApellido} ` + 
-              `${participant.segundoApellido}, ` +
-              `${participant.primerNombre} ${participant.segundoNombre}`,
+              nombreCompleto: `${participant.apellidos}, ` +
+              `${participant.nombres}`,
               comunidad: participant.comunidad,
               participacion: 0
             }
@@ -158,8 +155,8 @@ router.get('/AllParticipations/:groupID/:startTerm/:endTerm', (req, res) => {
   `WHERE id = ${groupID}`;
 
   //Solicitar datos de todas las participaciones
-  const sql2 = `SELECT a.nombre AS nombreAct, a.id AS idAct, p.primerNombre, ` +
-  `p.segundoNombre, p.primerApellido, p.segundoApellido, p.cedula, p.comunidad, ` +
+  const sql2 = `SELECT a.nombre AS nombreAct, a.id AS idAct, p.nombres, ` +
+  `p.apellidos, p.cedula, p.comunidad, ` +
   `participacion.periodo FROM participaciones participacion ` +
   `JOIN actividades a ON participacion.actividad = a.id ` +
   `JOIN participantes p ON participacion.participante = p.cedula ` +
@@ -183,9 +180,7 @@ router.get('/AllParticipations/:groupID/:startTerm/:endTerm', (req, res) => {
             return {
               nombre: actividad.nombreAct,
               idAct: actividad.idAct,
-              nombreCompleto: `${actividad.primerApellido} ` +
-              `${actividad.segundoApellido}, ${actividad.primerNombre} ` +
-              `${actividad.segundoNombre}`,
+              nombreCompleto: `${actividad.apellidos}, ${actividad.nombres}`,
               cedula: actividad.cedula,
               comunidad: actividad.comunidad,
               periodo: actividad.periodo

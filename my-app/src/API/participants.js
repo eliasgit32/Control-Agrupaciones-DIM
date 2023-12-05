@@ -48,6 +48,10 @@ export const getComunnityMembers = async () => {
 export const createParticipant = (participant) => 
 conn.post('/participants', participant);
 
+//Importar Listado de estudiantes
+export const importParticipants = (students) => 
+conn.post('/participants/import', students);
+
 //Inscribir participante en una agrupación
 export const registerOnGroup = ({cedula, groupID, term}) => 
 conn.post(`/participants/signUp/${cedula}/${groupID}/${term}`);

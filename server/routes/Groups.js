@@ -35,13 +35,7 @@ router.get('/:id/:term', (req, res) => {
   FROM agrupaciones a LEFT JOIN supervisiones s ON (s.agrupacion = ${id} AND s.periodo = '${term}') 
   WHERE id = ${id}`;
 
-  //Query de coordinador
-  const sql2 = `SELECT p.primerNombre, p.segundoNombre, p.primerApellido, p.segundoApellido
-  FROM supervisiones s JOIN participantes p ON s.coordinador = p.cedula 
-  WHERE s.agrupacion = ${id} AND s.periodo = ${term}`;
-
   conn.query(sql1, (error, data1) => {
-    let nombreCoord = '';
     if (error) {
       res.statusCode = 500;
       res.send(error.sqlMessage);
@@ -52,25 +46,6 @@ router.get('/:id/:term', (req, res) => {
       res.statusCode = 200;
       res.send(data1);
       return;
-      // conn.query(sql2, (error, data2) => {
-      //   if (error) {
-      //     res.statusCode = 500;
-      //     res.send(error.sqlMessage);
-      //     return;
-      //   } else if (data2.length > 0) {
-      //     nombreCoord =  `${data2[0].primerApellido} ${data2[0].segundoApellido}, ` +
-      //     `${data2[0].primerNombre} ${data2[0].segundoNombre}`;
-      //   } else {
-      //     nombreCoord = 'N/A';
-      //   }
-      //   const results = [{
-      //     ...data1[0],
-      //     coordinador: nombreCoord
-      //   }]
-      //   res.statusCode = 200;
-      //   res.send(results);
-      //   return;
-      // })
     } else {
       res.statusCode = 204;
       res.send('No content');
@@ -88,8 +63,7 @@ router.post('/', (req, res) => {
     nombre: req.body.name,
     descripcion: req.body.description,
     cupos: req.body.limit,
-    publico: req.body.publico,
-    catedra: req.body.academic,
+    publico: req.body.publico
   }
 
   conn.query(sql, group, error => {

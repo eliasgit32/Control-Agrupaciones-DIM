@@ -178,8 +178,8 @@ router.get('/singleAct/:idGroup/:idAct/:term', (req, res) => {
 router.get('/helper/:groupID/:activity/:term', (req, res) => {
   const { groupID, activity, term } =  req.params;
 
-  const sql = `SELECT p.cedula, p.primerNombre, p.segundoNombre, ` + 
-  `p.primerApellido, p.segundoApellido, p.comunidad ` + 
+  const sql = `SELECT p.cedula, p.nombres, p.apellidos, ` + 
+  `p.comunidad ` + 
   `FROM acompannantes a JOIN participantes p ON a.acompannante = p.cedula ` +
   `WHERE a.agrupacion = ${groupID} AND a.periodo = '${term}' 
   AND actividad = ${activity}`;
@@ -193,9 +193,8 @@ router.get('/helper/:groupID/:activity/:term', (req, res) => {
       const results = data.map((participant) => {
         return {
           cedula: participant.cedula,
-          nombreCompleto: `${participant.primerApellido} ` + 
-          `${participant.segundoApellido}, ` +
-          `${participant.primerNombre} ${participant.segundoNombre}`,
+          nombreCompleto: `${participant.apellidos}, ` +
+          `${participant.nombres}`,
           comunidad: participant.comunidad
         }
       })

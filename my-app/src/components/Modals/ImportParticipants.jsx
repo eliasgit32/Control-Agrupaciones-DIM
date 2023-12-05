@@ -3,9 +3,20 @@ import { useState } from 'react';
 import '../../stylesheets/ImportStudents.css';
 import Papa from 'papaparse';
 import TableImport from '../tables/TambleImport';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { importParticipants } from '../../API/participants';
 
-export default function ImportStudents() {
+export default function ImportParticipants() {
   const[data, setData] = useState([]);
+
+  //Traducción de códigos de carrera al nombre de la carrera
+  const traductionMajor = {
+    ACA: 'Administración Empresas',
+    CSB: 'Com. Social',
+    DCR: 'Derecho',
+    ICI: 'Ing. Civil',
+    IIN: 'Ingeniería'
+  }
 
   //Manejar los datos del archivo con Papa.parse()
   const handleFile = file => {
@@ -20,7 +31,6 @@ export default function ImportStudents() {
 
   //Manejar el cambio del archivo ingresado en el input
   const handleChange = e => {
-    console.log(e.target.files[0]);
     handleFile(e.target.files[0]);
     e.target.value = null;
   }
@@ -35,8 +45,37 @@ export default function ImportStudents() {
     setData([]);
   }
 
-  const handleSave = () => {
+  const queryClient = useQueryClient();
 
+  const importParticipantsMutation = useMutation({
+    mutationFn: importParticipants,
+    onSuccess: () => {
+      queryClient.invalidateQueries();
+    }
+  })
+
+  const handleSave = () => {
+    const newParticipants = data.map((participant) => {
+      const newMajor = traductionMajor[participant.MAJOR.slice(0, 3)];
+
+      //Descomponer nombre completo
+      const nameParts = participant.NOMBRE_ESTUDIANTE.split(', ');
+      const firstNames = nameParts[1];
+      const lastNames =  nameParts[0]; 
+
+      return {
+        cedula: participant.CEDULA,
+        community: newMajor,
+        firstNames: firstNames,
+        lastNames: lastNames,
+        emailUCAB: participant.ESTU_EMAIL_ADDRESS,
+        type: 'Estudiante',
+        stage: 'Familiarización'
+      }
+    })
+    importParticipantsMutation.mutate(newParticipants);
+    queryClient.invalidateQueries();
+    setData([]);
   }
 
   return(
@@ -81,6 +120,7 @@ export default function ImportStudents() {
             <div style={{display: (data.length < 1 ? 'none' : 'block')}}>
               <TableImport data={data} />
             </div>
+            <p></p>
           </div>
           <div className='modal-footer'>
           <button
@@ -92,7 +132,7 @@ export default function ImportStudents() {
               type='button'
               className='btn btn-success'
               data-bs-dismiss='modal'
-              onClick={handleClose}
+              onClick={handleSave}
             >
               Aceptar
             </button>

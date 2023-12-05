@@ -7,8 +7,8 @@ import { useParams } from 'react-router-dom';
 import NewParticipant from '../components/modals/NewParticipant';
 import { deleteParticipant, getComunnityMembers, getPersonal, getStudents } from '../API/participants';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import ImportStudents from '../components/modals/ImportStudents';
 import ConfirmOperation from '../components/modals/ConfirmOperation';
+import ImportParticipants from '../components/modals/ImportParticipants';
 
 export default function RegParticipant() {
   const params = useParams();
@@ -50,7 +50,7 @@ export default function RegParticipant() {
       </>
     )
   } 
-
+  
   return(
     <>
       <NavBar />
@@ -92,7 +92,7 @@ export default function RegParticipant() {
           />
       </div>
       <NewParticipant participant={params.type} community={community} />
-      <ImportStudents />
+      <ImportParticipants type={params.type} />
     </>
   )
 }

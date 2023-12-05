@@ -6,11 +6,8 @@ import CommunityList from '../lists/CommunityList';
 export default function NewParticipant(props) {
   //Inputs
   const [cedula, setCedula] = useState('');
-  const [fName, setFName] = useState('');
-  const [sName, setSName] = useState('');
-  const [fLastName, setFLastName] = useState('');
-  const [sLastName, setSLastName] = useState('');
-  const [birthdate, setBirthdate] = useState(new Date().toISOString().substr(0, 10));
+  const [firstNames, setFirstNames] = useState('');
+  const [lastNames, setLastNames] = useState('');
   const [type, setType] = useState(props.participant);
   const [community, setCommunity] = useState(0);
   const [email, setEmail] = useState('');
@@ -20,11 +17,8 @@ export default function NewParticipant(props) {
 
   //Funciones del manejo de inputs
   const changeCedula = e => setCedula(e.target.value)
-  const changeFName = e => setFName(e.target.value)
-  const changeSName = e => setSName(e.target.value)
-  const changeFLastName = e => setFLastName(e.target.value)
-  const changeSLastName = e => setSLastName(e.target.value)
-  const changeBirthdate = e => setBirthdate(e.target.value)
+  const changeFirstNames = e => setFirstNames(e.target.value)
+  const changeLastNames = e => setLastNames(e.target.value)
   const changeType = e => setType(e.target.value)
   const changeCommunity = e => setCommunity(e.target.value)
   const changeEmail = e => setEmail(e.target.value)
@@ -34,11 +28,8 @@ export default function NewParticipant(props) {
 
   const handleClose = () => {
     setCedula('');
-    setFName('');
-    setSName('');
-    setFLastName('');
-    setSLastName('');
-    setBirthdate(new Date().toISOString().substr(0, 10));
+    setFirstNames('');
+    setLastNames('');
     setType(props.participant);
     // setCommunity(null);
     setEmail('');
@@ -61,11 +52,8 @@ export default function NewParticipant(props) {
   const handleSave = () => {
     const newParticipant = {
       cedula: cedula,
-      firstName: fName,
-      secondName: sName,
-      firstLastName: fLastName,
-      secondLastName: sLastName,
-      birthdate: birthdate,
+      firstNames: firstNames,
+      lastNames: lastNames,
       type: type,
       community: community,
       phase: (props.participant === 'Estudiante' ? 'Familiarización' : null),
@@ -114,30 +102,30 @@ export default function NewParticipant(props) {
                 />
               </div>
             </div>
-            {/* Nombres */}
+            {/* Nombres y apellidos*/}
             <div className='input-group mb-3'>
               <span className='input-group-text' part-field='true'>
-                1er y 2do Nombre
+                Nombres y apellidos
               </span>
               <input
                 type="text"
                 aria-label="First name"
                 className="form-control"
                 part-field='true'
-                value={fName}
-                onChange={changeFName}
+                value={firstNames}
+                onChange={changeFirstNames}
               />
               <input
                 type="text"
                 aria-label="Last name"
                 className="form-control"
                 part-field='true'
-                value={sName}
-                onChange={changeSName}
+                value={lastNames}
+                onChange={changeLastNames}
               />
             </div>
             {/* 1er y 2do apellido */}
-            <div className='input-group mb-3'>
+            {/* <div className='input-group mb-3'>
               <span className="input-group-text" part-field='true'>1er y 2do Apellido</span>
               <input
                 type="text"
@@ -153,23 +141,9 @@ export default function NewParticipant(props) {
                 value={sLastName}
                 onChange={changeSLastName}
               />
-            </div>
-            {/* Fecha nacimiento */}
+            </div> */}
             <div className='mb-3 row'>
-              <label htmlFor='newUCABbirthdate'
-                className='form-label col-sm-3 col align-self-center' part-field='true'>
-                Fecha Nacimiento:
-              </label>
-              <div className='col-sm-3'>
-                <input
-                  type="date"
-                  className='form-control'
-                  id='newUCABbirthdate'
-                  value={birthdate}
-                  onChange={changeBirthdate}
-                  style={{ marginLeft: '-40px' }}
-                />
-              </div>
+              
               {/* Escuela/Unidad */}
               <label
                 htmlFor='newPartCommunity'
