@@ -36,6 +36,9 @@ export default function Participant() {
     mutationFn: updateParticipant,
     onSuccess: () => {
       queryClient.invalidateQueries();
+    },
+    onError: () => {
+      queryClient.invalidateQueries();
     }
   })
   
@@ -143,28 +146,6 @@ export default function Participant() {
           </div>
           
         </div>
-        {/* 1er y 2do apellido */}
-        {/* <div className='input-group mb-2'>
-          <span className="input-group-text" part-field='true'>1er y 2do Apellido</span>
-          <input
-            type="text"
-            className="form-control"
-            dark='true'
-            part-field='true' 
-            id='fLastName'
-            onChange={changeFLastName}
-            value={fLastName || (fLastName !== '' ? data[0].primerApellido : '')} 
-          />
-          <input
-            type="text"
-            className="form-control"
-            dark='true'
-            part-field='true' 
-            id='sLastName'
-            onChange={changeSLastName}
-            value={sLastName || (sLastName !== '' ? data[0].segundoApellido : '')} 
-          />
-        </div> */}
         {/* Tipo de participante */}
         <div className='mb-2 row'>
           <label htmlFor='partType'
@@ -233,7 +214,7 @@ export default function Participant() {
               part-field='true'
               id='email' 
               onChange={changeEmail}
-              value={email || (email !== '' ? data[0].email : '')}
+              value={email || (email !== '' ? (!data[0].email ? '' : data[0].email) : '')}
             />
           </div>
         </div>
@@ -259,14 +240,14 @@ export default function Participant() {
           <label htmlFor='partEmailInst' className='form-label col-sm-5 col align-self-center' part-field='true'>
             Correo UCAB:
           </label>
-          <div className='col-sm-6'>
+          <div className='col-sm-7'>
             <input
               type="text"
               className='form-control'
               dark='true'
               part-field='true'
               id='emailInst' 
-              onChange={changeEmailUCAB} //(data[0].emailInst ? data[0].emailInst : '')
+              onChange={changeEmailUCAB}
               value={emailUCAB || (emailUCAB !== '' ? data[0].emailInst : '')}  
             />
           </div>

@@ -17,6 +17,7 @@ export default function TableAllParticipants(props) {
   const columnsStudents = [ 
     {
       name:'cedula',
+      label: 'Cédula',
       options: {
         customBodyRender: (value, tableMeta, updateValue) => {
           return <Link to={`/participant/${value}`}>{value}</Link>
@@ -31,7 +32,10 @@ export default function TableAllParticipants(props) {
       name: 'escuela',
       label: props.community
     },
-     'etapa',
+    {
+      name: 'etapa',
+      label: 'Etapa'
+    },
     {
       name:'correoUCAB',
       label: 'Correo UCAB'

@@ -43,7 +43,6 @@ export default function TableParticipants(props) {
       term: selectedTerm
     }
     addParticipationMutation.mutate(participation);
-    console.log(rowsSelected);
   }
 
   //Mutación borrar participación
@@ -61,7 +60,6 @@ export default function TableParticipants(props) {
       cedula: cedula,
       term: selectedTerm
     }
-    // console.log(participation);
     deleteParticipationMutation.mutate(participation);
   }
 

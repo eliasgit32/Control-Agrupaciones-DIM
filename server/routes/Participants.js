@@ -133,7 +133,7 @@ router.get('/personal/DIM', (req, res) => {
 //Solicitar toda la info de un participante
 router.get('/:cedula', (req, res) => {
   const {cedula} =  req.params;
-  const sql = `SELECT * FROM participantes WHERE cedula = ${cedula}`;
+  const sql = `SELECT * FROM participantes WHERE cedula = '${cedula}'`;
 
   conn.query(sql, (error, results) => {
     if(error) {
@@ -221,7 +221,7 @@ router.post('/import', (req, res) => {
   const participants =  req.body;
   //Lógica de insert con muchos values
   const values =  participants.map((participant) => {
-    return `(${participant.cedula}, '${participant.community}', 
+    return `('${participant.cedula}', '${participant.community}', 
       '${participant.firstNames}', '${participant.lastNames}', 
       '${participant.emailUCAB}', '${participant.type}', '${participant.stage}')`
   })
@@ -285,10 +285,10 @@ router.put('/:cedula', (req, res) => {
   nombres = '${participant.nombres}', 
   apellidos = '${participant.apellidos}',  
   etapa = '${participant.etapa}', 
-  email = '${participant.email}', 
+  email = ${participant.email === '' ? null : `'${participant.email}'`}, 
   telefono = '${participant.telefono}', 
   emailInst = '${participant.emailInst}' 
-  WHERE cedula = ${cedula} `;
+  WHERE cedula = '${cedula}' `;
 
   conn.query(sql, error => {
     if(error){
@@ -308,16 +308,16 @@ router.delete('/:cedula', (req, res) => {
   const {cedula} = req.params;
 
   const sql1 = `DELETE FROM participaciones 
-  WHERE participante = ${cedula}`;
+  WHERE participante = '${cedula}'`;
 
   const sql2 = `DELETE FROM inscripciones 
-  WHERE participante = ${cedula}`;
+  WHERE participante = '${cedula}'`;
 
   const sql3 = `DELETE FROM acompannantes
-  WHERE acompannante = ${cedula}`;
+  WHERE acompannante = '${cedula}'`;
 
   const sql4 = `DELETE FROM participantes
-  WHERE cedula = ${cedula}`;
+  WHERE cedula = '${cedula}'`;
 
   conn.beginTransaction((error) => {
     if (error) console.log(error);
@@ -381,12 +381,12 @@ router.delete('/signUp/:cedula/:groupID/:term', (req, res) => {
 
   const sql1 = 'DELETE FROM participaciones ' +
   `WHERE agrupacion = ${groupID} ` +
-  `AND participante = ${cedula} `+
+  `AND participante = '${cedula}' `+
   `AND periodo = '${term}'`;
 
   const sql2 = 'DELETE FROM inscripciones ' +
   `WHERE agrupacion = ${groupID} ` +
-  `AND participante = ${cedula} `+
+  `AND participante = '${cedula}' `+
   `AND periodo = '${term}'`;
 
   conn.beginTransaction((error) => {

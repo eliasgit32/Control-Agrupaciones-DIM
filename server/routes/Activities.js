@@ -385,7 +385,7 @@ router.delete('/helper', (req, res) => {
   }
 
   const sql = `DELETE FROM acompannantes WHERE agrupacion = ${helper.agrupacion} 
-  AND actividad = ${helper.actividad} AND acompannante = ${helper.acompannante} 
+  AND actividad = ${helper.actividad} AND acompannante = '${helper.acompannante}' 
   AND periodo = '${helper.periodo}'`;
 
   conn.query(sql, error => {
