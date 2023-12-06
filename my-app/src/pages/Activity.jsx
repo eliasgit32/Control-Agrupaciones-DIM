@@ -17,6 +17,8 @@ export default function Activity() {
   const params = useParams();
 
   const [selectedTerm, setSelectedTerm] =  useState(params.selectedTerm);
+  const [noRegistered, setNoRegistered] = useState(0);
+  const [noParticipants, setNoParticipants] = useState(0);
 
   //Inputs
   const[name, setName] = useState(null);
@@ -126,13 +128,10 @@ export default function Activity() {
           <label className='form-label col-sm-5 col align-self-center' act-label='true'>
             Cant. Esperada:
           </label>
-          <div className='col-sm-5'>
-            <input 
-            type="text"
-            className='form-control'
-            readOnly={true}
-            dark='true'
-            defaultValue='*Nro inscritos*'/>
+          <div className='col-sm-3'>
+            <p style={{marginBottom: '0', fontSize: '18px'}}>
+              {noRegistered}
+            </p>
           </div>
         </div>
         {/* Cant. Total */}
@@ -140,13 +139,10 @@ export default function Activity() {
           <label className='form-label col-sm-4 col align-self-center' act-label='true'>
             Cant. Total:
           </label>
-          <div className='col-sm-6'>
-            <input 
-            type="text"
-            className='form-control'
-            readOnly={true}
-            dark='true'
-            defaultValue='*Nro participantes*'/>
+          <div className='col-sm-3'>
+          <p style={{marginBottom: '0', fontSize: '18px'}}>
+              {noParticipants}
+            </p>
           </div>
         </div>
         {/* Fecha inicio */}
@@ -194,6 +190,8 @@ export default function Activity() {
         setSelectedTerm={setSelectedTerm} 
         groupID={params.id}
         activityID={params.idAct}
+        setRegistered={(number) => setNoRegistered(number)}
+        setParticipants={(number) => setNoParticipants(number)}
       />
     </div>
   )

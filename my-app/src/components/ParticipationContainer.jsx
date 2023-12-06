@@ -9,7 +9,14 @@ import { useState } from 'react';
 import { deleteHelper } from '../API/activities';
 
 export default function ParticipationContainer(props) {
-  const {selectedTerm, setSelectedTerm, groupID, activityID} = props;
+  const {
+    selectedTerm, 
+    setSelectedTerm, 
+    groupID, 
+    activityID,
+    setRegistered,
+    setParticipants
+  } = props;
   const [selectedParticipant, setSelectedParticipant] = useState(null);
   const [modalVisible, setModalVisible] =  useState(false);
 
@@ -17,6 +24,14 @@ export default function ParticipationContainer(props) {
   const {isLoading, data} = useQuery(['participations', groupID, selectedTerm, activityID],
     () => getParticipations(groupID, selectedTerm, activityID)
   )
+
+  React.useEffect(() => {
+    if (data) {
+      setRegistered(data.length);
+      const participants = data.filter(item => item.participacion === 1);
+      setParticipants(participants.length); 
+    }
+  }, [data, setRegistered, setParticipants]);
 
   const queryClient = useQueryClient();
 

@@ -159,9 +159,6 @@ router.get('/singleAct/:idGroup/:idAct/:term', (req, res) => {
               res.statusCode = 200;
               res.send(infoActivity);
               return;
-              // res.statusCode = 204;
-              // res.send('No Content');
-              // return; 
             }
           })
         }

@@ -124,30 +124,12 @@ export default function NewParticipant(props) {
                 onChange={changeLastNames}
               />
             </div>
-            {/* 1er y 2do apellido */}
-            {/* <div className='input-group mb-3'>
-              <span className="input-group-text" part-field='true'>1er y 2do Apellido</span>
-              <input
-                type="text"
-                className="form-control"
-                part-field='true'
-                value={fLastName}
-                onChange={changeFLastName}
-              />
-              <input
-                type="text"
-                className="form-control"
-                part-field='true'
-                value={sLastName}
-                onChange={changeSLastName}
-              />
-            </div> */}
             <div className='mb-3 row'>
               
               {/* Escuela/Unidad */}
               <label
                 htmlFor='newPartCommunity'
-                className={`form-label ${props.community === 'Escuela' ? 'col-sm-1' : 'col-sm-2'} col align-self-center`}
+                className={`form-label col-sm-2 col align-self-center`}
                 part-field='true'
               >
                 {props.community}
@@ -243,8 +225,8 @@ export default function NewParticipant(props) {
                   onChange={changeType}
                 >
                   <option value="Docente">Docente</option>
-                  <option value="Administrativo">Administrativo</option>
-                  <option value="Obrero">Obrero</option>
+                  <option value="Profesional">Profesional</option>
+                  <option value="Empleado">Empleado</option>
                 </select>
               </div>
 
