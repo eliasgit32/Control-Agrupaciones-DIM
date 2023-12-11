@@ -226,7 +226,7 @@ router.post('/import', (req, res) => {
       '${participant.emailUCAB}', '${participant.type}', '${participant.stage}')`
   })
 
-  const sql = `INSERT INTO participantes 
+  const sql = `INSERT IGNORE INTO participantes 
   (cedula, comunidad, nombres, apellidos, emailInst, tipo, etapa) 
   VALUES ${values}`;
 

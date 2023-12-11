@@ -33,7 +33,7 @@ export default function RegParticipant() {
     community = 'Comunidad';
     getFunction =  getComunnityMembers;
   } else if(params.type === 'Estudiante') {
-    community = 'Carrera';
+    community = 'Escuela';
     getFunction = getStudents;
   } else {
     community = 'Escuela/Unidad';

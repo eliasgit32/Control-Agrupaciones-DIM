@@ -166,7 +166,7 @@ export default function Participant() {
         <div className='mb-2 row'>
           <label htmlFor='partCommunity'
             className='form-label col-sm-4' part-field='true'>Comunidad:</label>
-          <div className='col-sm-5'>
+          <div className='col-sm-8'>
             <input
               type="text"
               className='form-control text-center'

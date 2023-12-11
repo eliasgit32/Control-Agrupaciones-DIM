@@ -7,7 +7,7 @@ export default function CommunityList(props) {
 
   switch(props.type) {
     case 'Escuela/Unidad': getFunction = getUnitsFaculties; break;
-    case 'Carrera': getFunction = getFaculties; break;
+    case 'Escuela': getFunction = getFaculties; break;
     default: getFunction = getExternalCommunities; break;
   }
   

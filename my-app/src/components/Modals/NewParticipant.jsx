@@ -224,9 +224,9 @@ export default function NewParticipant(props) {
                   value={type}
                   onChange={changeType}
                 >
-                  <option value="Docente">Docente</option>
-                  <option value="Profesional">Profesional</option>
-                  <option value="Empleado">Empleado</option>
+                  <option value="Docentes Pregrado">Docentes Pregrado</option>
+                  <option value="Profesionales">Profesionales</option>
+                  <option value="Empleados">Empleados</option>
                 </select>
               </div>
 

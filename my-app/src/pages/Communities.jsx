@@ -16,7 +16,6 @@ export default function Communities() {
 
   const handleReset = () => {
     setName('');
-    setType('Escuela');
   }
 
   const queryClient = useQueryClient();
@@ -57,7 +56,7 @@ export default function Communities() {
                 className='form-control' 
                 id='newCommName'
                 onChange={changeName}
-                defaultValue={name}
+                value={name}
               />
             </div>
           </div>
