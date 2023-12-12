@@ -24,10 +24,10 @@ export default function CommunityList(props) {
 
   return(
     <>
-      <option value={0}>Seleccione Comunidad</option>
+      <option value={'N/A'}>Seleccione Comunidad</option>
       {data.map((community) => {
         return <option 
-          key={community.id}
+          key={community.nombre}
           value={community.nombre}
         >
           {community.nombre}

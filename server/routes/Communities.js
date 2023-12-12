@@ -36,7 +36,7 @@ router.get('/', (req, res) => {
 
 //Solicitar info de las escuelas y unidades
 router.get('/units-faculties', (req, res) => {
-  const sql = 'SELECT id, nombre, tipo FROM comunidades ' + 
+  const sql = 'SELECT nombre, tipo FROM comunidades ' + 
               `WHERE tipo = 'Escuela' OR tipo = 'Unidad' 
               ORDER BY nombre ASC`;
 
@@ -67,7 +67,7 @@ router.get('/units-faculties', (req, res) => {
 
 //Solicitar info de solo las escuelas
 router.get('/faculties', (req, res) => {
-  const sql = `SELECT id, nombre FROM comunidades 
+  const sql = `SELECT nombre FROM comunidades 
   WHERE tipo = 'Escuela' ORDER BY nombre ASC`;
 
   conn.query(sql, (error, results) => {

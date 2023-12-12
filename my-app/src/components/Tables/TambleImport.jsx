@@ -7,22 +7,27 @@ export default function TableImport(props) {
 
   //Conversión de datos en array más ligero
   const lighterData = data.map((participant) => {
-    if(type === 'Estudiante') {
-      const newMajor = traductionMajor[participant.MAJOR.slice(0, 3)];
-      return {
-        CEDULA: participant.CEDULA,
-        MAJOR: newMajor,
-        NOMBRE_ESTUDIANTE: participant.NOMBRE_ESTUDIANTE,
-        ESTU_EMAIL_ADDRESS: participant.ESTU_EMAIL_ADDRESS
+    try {
+      if(type === 'Estudiante') {
+        const newMajor = traductionMajor[participant.MAJOR.slice(0, 3)];
+        return {
+          CEDULA: participant.CEDULA,
+          MAJOR: newMajor,
+          NOMBRE_ESTUDIANTE: participant.NOMBRE_ESTUDIANTE,
+          ESTU_EMAIL_ADDRESS: participant.ESTU_EMAIL_ADDRESS
+        }
+      } else if (type === 'Personal') {
+        return {
+          CEDULA: participant['CI'],
+          UnidadEscuela: participant['DEPENDENCIA'],
+          NOMBRE: participant['APELLIDOS Y NOMBRES'],
+          EMAIL_ADDRESS: participant['CORREOS']
+        } 
       }
-    } else if (type === 'Personal') {
-      return {
-        CEDULA: participant['CI'],
-        UnidadEscuela: participant['DEPENDENCIA'],
-        NOMBRE: participant['APELLIDOS Y NOMBRES'],
-        EMAIL_ADDRESS: participant['CORREOS']
-      } 
+    } catch (e) {
+
     }
+    
     return null;
   })
 

@@ -56,18 +56,12 @@ export default function TableAllParticipants(props) {
       label: 'Nombre Completo'
     },
     {
+      name:'tipo',
+      label: 'Nómina'
+    },
+    {
       name: 'escuela',
       label: props.community
-    },
-     'correo', 
-    {
-      name: 'telefono',
-      label: 'Teléfono',
-      options: {
-        customBodyRender: (value, tableMeta, updateValue) => {
-          return <p style={{marginLeft: '25px', marginBottom:'0px'}}>{value}</p>
-        }
-      }
     },
     {
       name:'correoUCAB',

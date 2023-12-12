@@ -87,7 +87,8 @@ router.get('/personal', (req, res) => {
           etapa: participant.etapa,
           correo: participant.email,
           telefono: participant.telefono,
-          correoUCAB: participant.emailInst
+          correoUCAB: participant.emailInst,
+          tipo: participant.tipo
         }
       })
       res.statusCode = 200;
@@ -104,7 +105,7 @@ router.get('/personal', (req, res) => {
 //Solicitar info de personal de Identidad y Misión
 router.get('/personal/DIM', (req, res) => {
   const sql = `SELECT cedula, nombres, apellidos FROM participantes 
-  WHERE comunidad = 'DIM'`;
+  WHERE comunidad = 'Dirección de Identidad y Misión'`;
 
   conn.query(sql, (error, data) => {
     if(error) {

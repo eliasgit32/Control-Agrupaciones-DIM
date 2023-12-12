@@ -24,7 +24,7 @@ export default function TableStatisticsRegistration(props) {
     },
     {
       name: 'participantes',
-      label: 'Participantes',
+      label: 'Participaciones',
       options: {
         customBodyRender: (value, tableMeta, updateValue) => {
           return <p style={{marginLeft: '25px', marginBottom:'0px'}}>{value}</p>
