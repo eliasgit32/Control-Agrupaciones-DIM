@@ -298,6 +298,62 @@ router.post('/', (req, res) => {
   })
 })
 
+//PETICIONES PUT
+//Actualizar lista de participantes en actividad
+router.put('/:groupID/:activityID/:term', (req, res) => {
+  const  {groupID, activityID, term} = req.params;
+
+  const cedulas = req.body.participants;
+
+  const values = cedulas.map((cedula) => {
+    return `(${groupID}, ${activityID}, '${cedula}', '${term}')`
+  })
+
+  const sql1 = `DELETE FROM participaciones WHERE 
+  agrupacion = ${groupID} AND actividad = ${activityID} 
+  AND periodo = '${term}'`;
+
+  const sql2 = `INSERT INTO participaciones 
+  (agrupacion, actividad, participante, periodo) ${values}`;
+
+  conn.beginTransaction((error) => {
+    if (error) console.log(error);
+
+    //Borrado de participaciones
+    conn.query(sql1, error => {
+      if(error) {
+        return conn.rollback(() => {
+          console.log(error);
+        })
+      }
+    })
+
+    //Registro de nuevas participaciones
+    conn.query(sql2, error => {
+      if(error) {
+        return conn.rollback(() => {
+          console.log(error);
+        })
+      }
+    })
+    
+    // Confirmación de transacción
+    conn.commit((error) => {
+      if (error) {
+        return conn.rollback(() => {
+          res.statusCode = 500;
+          res.send(error.sqlMessage);
+          return;
+        })
+      } else {
+        res.statusCode = 200;
+        res.send('Content Updated');
+        return;
+      }
+    });
+  })
+})
+
 //PETICIONES DELETE
 router.delete('/', (req, res) => {
 

@@ -23,6 +23,8 @@ export default function TableParticipants(props) {
 
     setRowsSelected(NewRowsSelected);
   }, [data])
+  // console.log(data);
+  // console.log(rowsSelected);
 
   //Query client para insertar o eliminar participación
   const queryClient = useQueryClient();
@@ -67,13 +69,14 @@ export default function TableParticipants(props) {
   //se selecciona una fila
   const handleRowSelection = (currentRowsSelected, allRowsSelected, rowsSelected) => {
     const selectedCedula = currentRowsSelected.map((index) => data[index.index].cedula);
+    console.log(rowsSelected);
     for(let i = 0; i < rowsSelected.length; i++) {
       if(currentRowsSelected[0].index === rowsSelected[i]){
-        handleAddParticipation(selectedCedula);
+        // handleAddParticipation(selectedCedula);
         return;
       };
     }
-    handleDeleteParticipation(selectedCedula[0]); 
+    // handleDeleteParticipation(selectedCedula[0]); 
   };
 
   const darkTheme = createTheme({
