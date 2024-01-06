@@ -35,8 +35,9 @@ export const createParticipation = (participation) => conn.post('/participations
 
 //PUT
 //Actualizar registro de participaciones
-export const updateParticipation = (groupID, activityID, term, participants) =>
+export const updateParticipation = ({groupID, activityID, term, participants}) => {
   conn.put(`/participations/${groupID}/${activityID}/${term}`, participants);
+}
 
 //DELETE
 //Eliminar participación

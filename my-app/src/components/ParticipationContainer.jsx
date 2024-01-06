@@ -19,8 +19,6 @@ export default function ParticipationContainer(props) {
   } = props;
   const [selectedParticipant, setSelectedParticipant] = useState(null);
   const [modalVisible, setModalVisible] =  useState(false);
-  const [participationChange, setParticipationChange] = useState(false);
-  const [newData, setNewData] = useState([]);
 
   //Query solicitar participantes de la agrupación
   const {isLoading, data} = useQuery(['participations', groupID, selectedTerm, activityID],
@@ -31,8 +29,7 @@ export default function ParticipationContainer(props) {
     if (data) {
       setRegistered(data.length);
       const participants = data.filter(item => item.participacion === 1);
-      setParticipants(participants.length); 
-      setNewData(data);
+      setParticipants(participants.length);
     }
   }, [data, setRegistered, setParticipants]);
 
@@ -82,23 +79,6 @@ export default function ParticipationContainer(props) {
           selectedTerm={selectedTerm} 
           data={data}
         />
-        {/* botones guardar cambios registro de participación */}
-        <div className='text-center'>
-          <button
-            type='button'
-            className={newData !== data ? 'btn btn-danger' : 'btn btn-danger disabled'}
-            onClick={handleCancel}
-          >
-            Cancelar
-          </button>
-          <button
-            type='button'
-            className={newData !== data ? 'btn btn-success' : 'btn btn-success disabled'}
-            onClick={handleSave}
-          >
-            Guardar Cambios
-          </button>
-        </div>
       </div>
 
     

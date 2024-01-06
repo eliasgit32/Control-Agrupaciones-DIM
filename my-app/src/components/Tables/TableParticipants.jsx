@@ -4,11 +4,14 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createParticipation, deleteParticipation } from '../../API/participations';
+import { updateParticipation } from '../../API/participations';
+
+var newRowsSelected = [];
 
 export default function TableParticipants(props) {
   //Filas seleccionadas que representen participación
-  const [rowsSelected, setRowsSelected] = useState([]);
+  const [rowsSelectedData, setRowsSelectedData] = useState([]);
+  const [dataChanged, setDataChanged] = useState(false);
 
   const {groupID, activityID, selectedTerm, data} = props;
 
@@ -21,62 +24,45 @@ export default function TableParticipants(props) {
       return null;
     }).filter((index) => index !== null);
 
-    setRowsSelected(NewRowsSelected);
+    setRowsSelectedData(NewRowsSelected);
+    setDataChanged(false);
   }, [data])
-  // console.log(data);
-  // console.log(rowsSelected);
 
   //Query client para insertar o eliminar participación
   const queryClient = useQueryClient();
 
   //Mutación insertar participación
-  const addParticipationMutation =  useMutation({
-    mutationFn: createParticipation,
+  const updateParticipationMutation =  useMutation({
+    mutationFn: updateParticipation,
     onSuccess: () => {
       queryClient.invalidateQueries();
     }
   })
 
-  const handleAddParticipation = (cedula) => {
-    const participation = {
-      groupID: groupID,
-      activityID: activityID,
-      cedula: cedula,
-      term: selectedTerm
-    }
-    addParticipationMutation.mutate(participation);
-  }
+  const handleCancel = () => {
+    newRowsSelected = [];
+    setDataChanged(false);
+  };
 
-  //Mutación borrar participación
-  const deleteParticipationMutation =  useMutation({
-    mutationFn: deleteParticipation,
-    onSuccess: () => {
-      queryClient.invalidateQueries();
-    }
-  })
+  const handleSave = () => {
+    const participants = newRowsSelected.map(index => {
+      return data[index].cedula;
+    })
 
-  const handleDeleteParticipation = (cedula) => {
-    const participation = {
-      groupID: groupID,
-      activityID: activityID,
-      cedula: cedula,
-      term: selectedTerm
-    }
-    deleteParticipationMutation.mutate(participation);
-  }
+    updateParticipationMutation.mutate({groupID, activityID, term: selectedTerm, participants});
+    // newRowsSelected = [];
+    // setDataChanged(false);
+    // handleCancel();
+  };
 
-  //Ejecutar inserción de participación cada vez que 
-  //se selecciona una fila
   const handleRowSelection = (currentRowsSelected, allRowsSelected, rowsSelected) => {
-    const selectedCedula = currentRowsSelected.map((index) => data[index.index].cedula);
-    console.log(rowsSelected);
-    for(let i = 0; i < rowsSelected.length; i++) {
-      if(currentRowsSelected[0].index === rowsSelected[i]){
-        // handleAddParticipation(selectedCedula);
-        return;
-      };
-    }
-    // handleDeleteParticipation(selectedCedula[0]); 
+    // Asignar nuevo arreglo de filas seleccionadas
+    newRowsSelected = [...rowsSelected];    
+
+    //Se ordenan los elementos de ambos arreglos para comparar adecuadamente
+    if(JSON.stringify(rowsSelectedData.sort()) === JSON.stringify(newRowsSelected.sort())) 
+      setDataChanged(false);
+    else setDataChanged(true);
   };
 
   const darkTheme = createTheme({
@@ -109,20 +95,44 @@ export default function TableParticipants(props) {
     filterType: 'checkbox',
     selectableRowsHeader: false,
     selectToolbarPlacement: 'none',
-    rowsSelected: rowsSelected,
+    rowsSelected: (!dataChanged ? 
+      rowsSelectedData : newRowsSelected),
     onRowSelectionChange: handleRowSelection,
     print: 'false',
     download: false
   };
   
   return(
-    <ThemeProvider theme={darkTheme}>
-      <MUIDataTable 
-      title={'Participantes'}
-      data={data}
-      columns={columns}
-      options={options}
-      />
-    </ThemeProvider>
+    <>
+      <ThemeProvider theme={darkTheme}>
+        <MUIDataTable 
+        title={'Participantes'}
+        data={data}
+        columns={columns}
+        options={options}
+        />
+      </ThemeProvider>
+
+       {/* botones guardar cambios registro de participación */}
+      <div className='text-center'>
+        <button
+          type='button'
+          className={!dataChanged ?
+            'btn btn-danger disabled' : 'btn btn-danger'}
+          onClick={handleCancel}
+        >
+          Cancelar
+        </button>
+        <button
+          type='button'
+          className={!dataChanged ?
+            'btn btn-success disabled' : 'btn btn-success'}
+          onClick={handleSave}
+        >
+          Guardar Cambios
+        </button>
+      </div>
+    </>
+    
   );
 }

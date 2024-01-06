@@ -303,7 +303,7 @@ router.post('/', (req, res) => {
 router.put('/:groupID/:activityID/:term', (req, res) => {
   const  {groupID, activityID, term} = req.params;
 
-  const cedulas = req.body.participants;
+  const cedulas = req.body;
 
   const values = cedulas.map((cedula) => {
     return `(${groupID}, ${activityID}, '${cedula}', '${term}')`
@@ -313,8 +313,8 @@ router.put('/:groupID/:activityID/:term', (req, res) => {
   agrupacion = ${groupID} AND actividad = ${activityID} 
   AND periodo = '${term}'`;
 
-  const sql2 = `INSERT INTO participaciones 
-  (agrupacion, actividad, participante, periodo) ${values}`;
+  const sql2 = `INSERT INTO participaciones
+  (agrupacion, actividad, participante, periodo) VALUES ${values}`;
 
   conn.beginTransaction((error) => {
     if (error) console.log(error);
@@ -329,13 +329,15 @@ router.put('/:groupID/:activityID/:term', (req, res) => {
     })
 
     //Registro de nuevas participaciones
-    conn.query(sql2, error => {
-      if(error) {
-        return conn.rollback(() => {
-          console.log(error);
-        })
-      }
-    })
+    if(cedulas.length > 0) {
+      conn.query(sql2, error => {
+        if(error) {
+          return conn.rollback(() => {
+            console.log(error);
+          })
+        }
+      })
+    }
     
     // Confirmación de transacción
     conn.commit((error) => {
