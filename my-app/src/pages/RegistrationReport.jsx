@@ -30,7 +30,7 @@ export default function RegistrationReport() {
   return(
     <>
       <NavBar />
-      <div className='title-container text-center mb-4'>
+      <div className='title-container text-center mb-4' style={{color: '#343434'}}>
         <h2>Reporte de inscripciones</h2>
       </div>
 

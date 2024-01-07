@@ -4,7 +4,7 @@ export default function PageHeader(props) {
   return(
     <div className='page-header text-center'>
       <div className='text-center'>
-        <h1 style={{padding: 0, width: '100%'}}>{props.pageTitle}</h1>
+        <h1 style={{padding: 0, width: '100%', color: '#343434'}}>{props.pageTitle}</h1>
       </div>
     </div>
   );

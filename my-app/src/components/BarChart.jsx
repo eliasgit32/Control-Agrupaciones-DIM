@@ -23,30 +23,32 @@ export default function BarChart(props) {
   // Asignar arreglos de datos
   const {labels, registration, participation} =  props;
 
+  const legendColor = '#343434';
+
   const options = {
     maintainAspectRatio: false,
     scales: {
       x: {
         ticks: {
-          color: '#fff'
+          color: legendColor
         },
         grid: {
-          color: '#fff'
+          color: legendColor
         }
       },
       y: {
         ticks: {
-          color: '#fff'
+          color: legendColor
         },
         grid: {
-          color: '#fff'
+          color: legendColor
         }
       }
     },
     plugins: {
       legend: {
         labels: {
-          color: '#fff'
+          color: legendColor
         }
       }
     }

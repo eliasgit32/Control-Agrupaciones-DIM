@@ -25,12 +25,14 @@ export default function LineChart(props) {
   // Asignar arreglos de datos
   const { labels, registration, participation } = props;
 
+  const legendColor = '#343434';
+
   const options = {
     maintainAspectRatio: false,
     scales: {
       x: {
         ticks: {
-          color: '#fff'
+          color: legendColor
         },
         grid: {
           color: '#fff'
@@ -38,17 +40,17 @@ export default function LineChart(props) {
       },
       y: {
         ticks: {
-          color: '#fff'
+          color: legendColor
         },
         grid: {
-          color: '#fff'
+          color: legendColor
         }
       }
     },
     plugins: {
       legend: {
         labels: {
-          color: '#fff'
+          color: legendColor
         }
       },
     },

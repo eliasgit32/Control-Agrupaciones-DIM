@@ -4,10 +4,11 @@ export default function PlusButton(props) {
   const fontSize = {fontSize: props.font};
   const iconStyle = {transform: 'scale(2.5)'};
   return(
-    <div className={props.styleClass}>
+    <div className={props.styleClass} >
       <button
         type='button'
-        className='btn btn-primary'
+        className='btn'
+        style={{background: '#787878'}}
         aria-label='Add New'
         data-bs-toggle='modal'
         data-bs-target={`#modal${props.type}`}>

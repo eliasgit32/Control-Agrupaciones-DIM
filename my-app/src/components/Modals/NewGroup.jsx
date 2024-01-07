@@ -53,7 +53,7 @@ export default function NewGroup() {
   return(
     <div className='modal fade' id='modalNewGroup' aria-hidden='true' tabIndex='-1'>
       <div className='modal-dialog'>
-        <div className='modal-content'>
+        <div className='modal-content' style={{background: '#4f4e4e'}}>
           <div className='modal-header'>
             <h5 className='modal-title'>Nueva Agrupación</h5>
             <button 

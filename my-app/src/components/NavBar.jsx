@@ -5,7 +5,7 @@ import BackForwardArrows from './BackForwardArrows';
 export default function NavBar() {
   
   return(
-    <div className='navbar navbar-expand-lg fixed-top bg-primary' data-bs-theme='dark'>
+    <div className='navbar navbar-expand-lg fixed-top' data-bs-theme='dark' style={{background: '#787878'}}>
       <BackForwardArrows />
       <div className='container'>
         <NavLink to={'/homepage'} className='navbar-brand'>Dirección de Identidad y Misión -Guayana</NavLink>

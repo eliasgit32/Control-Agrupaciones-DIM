@@ -22,18 +22,23 @@ export default function GroupCard(props) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave} 
       style={{width: '18rem'}}>
-        <div className='card-header text-info'>{props.publico}</div>
-        <div className='card-body'>
+        <div 
+          className='card-header' 
+          style={{background: '#787878', color: '#fff'}}
+        >
+          {props.publico}
+        </div>
+        <div className='card-body' style={{background: '#fff'}}>
           <Link to={`/group/${props.id}/${props.term}`} className='link'>
-            <h4 className='card-title'>{props.name}</h4>
+            <h4 className='card-title' style={{color: '#787878'}}>{props.name}</h4>
             <p 
-            className='card-text' >
+            className='card-text' style={{color: '#343434'}} >
               {props.description}
             </p>
           </Link>
           <div className='text-center'>
             <Link to={`/ChartsReport/${props.id}`}>
-              <button className='btn btn-primary' >
+              <button className='btn' style={{background: '#40b4e5'}}>
                   Generar gráfica
               </button>
             </Link>

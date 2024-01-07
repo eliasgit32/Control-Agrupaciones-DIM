@@ -65,7 +65,9 @@ export default function ChartsReport() {
       <NavBar />
 
       <div className='title-container text-center mb-4'>
-        <h2 className='mb-3'>{`Gráfica de participación de ${BarChartQuery.data.agrupacion}`}</h2>
+        <h2 className='mb-3' style={{color: '#343434'}}>
+          {`Gráfica de participación de ${BarChartQuery.data.agrupacion}`}
+        </h2>
       </div>
 
       {/* Contenedor de selectores de periodos */}

@@ -55,8 +55,8 @@ export default function HomePage() {
       <Link to={'/RegistrationReport'}>
         <button 
           type='button' 
-          className='position-fixed bottom-0 py-3 mb-3 btn btn-info'
-          style={{left: '50%', transform: 'translateX(-50%)'}}
+          className='position-fixed bottom-0 py-3 mb-3 btn'
+          style={{left: '50%', transform: 'translateX(-50%)', background: '#40b4e5'}}
         >
           Reporte Inscripción en Agrupaciones
         </button>
