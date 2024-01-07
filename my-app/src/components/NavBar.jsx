@@ -35,7 +35,7 @@ export default function NavBar() {
               >
                 Participantes
               </NavLink>
-              <div className='dropdown-menu'>
+              <div className='dropdown-menu' style={{background: '#787878'}}>
                 <Link className='dropdown-item' to={'/RegParticipant/Estudiante'}>Estudiantes</Link>
                 <Link className='dropdown-item' to={'/RegParticipant/Personal'}>Personal</Link>
                 <Link className='dropdown-item' to={'/RegParticipant/Comunidad'}>Miembros de comunidad</Link>

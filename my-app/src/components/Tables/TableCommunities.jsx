@@ -1,16 +1,9 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import MUIDataTable from 'mui-datatables';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { getCommunities } from '../../API/communities';
 
 export default function TableCommunities() {
-  
-  const darkTheme = createTheme({
-    palette: {
-      mode: 'dark'
-    }
-  })
 
   const { isLoading, data } = useQuery(['communities'], getCommunities);
 
@@ -46,25 +39,21 @@ export default function TableCommunities() {
 
   if (data === '') {
     return(
-      <ThemeProvider theme={darkTheme}>
-        <MUIDataTable 
-          title={'Actividades de la agrupación'}
-          data={[]}
-          columns={columns}
-          options={options}
-        />
-      </ThemeProvider>
+      <MUIDataTable 
+        title={'Actividades de la agrupación'}
+        data={[]}
+        columns={columns}
+        options={options}
+      />
     )
   }
   
   return(
-    <ThemeProvider theme={darkTheme}>
-      <MUIDataTable 
-      title={'Escuelas/Unidades/Comunidades'}
-      data={data}
-      columns={columns}
-      options={options}
-      />
-    </ThemeProvider>
+    <MUIDataTable 
+    title={'Escuelas/Unidades/Comunidades'}
+    data={data}
+    columns={columns}
+    options={options}
+    />
   )
 }

@@ -56,15 +56,15 @@ export default function AcademicTerms() {
       <NavBar />
       <PageHeader pageTitle='Períodos Académicos' />
       <div className='container mt-4 d-flex justify-content-around' style={{width: '40rem'}}>
-        <div className='card' style={{height: '400px', width: '20rem'}}>
+        <div className='card' style={{height: '400px', width: '20rem', background: '#787878'}}>
           <div className='card-body' style={{overflowY: 'auto'}}>
             <TermList data={data} />
           </div>
         </div>
         <div className='d-flex align-items-center' style={{heigth: '400px'}}>
           <button 
-            className='btn btn-primary' 
-            style={{fontSize: '2rem', width: '20rem', height: '150px'}}
+            className='btn' 
+            style={{fontSize: '2rem', width: '20rem', height: '150px', background: '#40b4e5'}}
             onClick={handleSave}
           >
             Agregar Nuevo Período Académico

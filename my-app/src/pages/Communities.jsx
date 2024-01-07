@@ -46,7 +46,10 @@ export default function Communities() {
           <TableCommunities />
         </div>
         {/* Formulario de registro de comunidades */}
-        <div className='col-md-5 container position-fixed' style={{right: '60px'}}>
+        <div 
+          className='col-md-5 container position-fixed' 
+          style={{right: '60px', color: '#343434'}}
+        >
           {/* Input de nombre */}
           <div className='mb-3 d-flex'>
             <label htmlFor="newCommName" className='form-label col-sm-2 me-1'>Nombre:</label>
