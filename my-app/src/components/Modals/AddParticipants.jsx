@@ -77,7 +77,7 @@ export default function AddParticipants(props) {
   return (
     <div className='modal modal-lg fade' id='modalAddParticipants' aria-hidden='true' tabIndex='-1'>
       <div className='modal-dialog'>
-        <div className='modal-content'>
+        <div className='modal-content' style={{background: '#4f4e4e'}}>
           <div className='modal-header'>
             <h5 className='modal-title'>{type === 'SignUp' ? `Inscribir participantes ${selectedTerm}`
               : `Asignar acompañantes ${selectedTerm}`}</h5>

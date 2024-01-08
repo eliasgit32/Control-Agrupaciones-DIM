@@ -1,18 +1,11 @@
 import React from 'react';
 import MUIDataTable from 'mui-datatables';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState, useEffect } from 'react';
 
 export default function TableActivities(props) {
   const [rowsSelected, setRowsSelected] = useState([]);
 
   const {changeSelectedAct, data} = props;
-  
-  const darkTheme = createTheme({
-    palette: {
-      mode: 'dark'
-    }
-  })
 
   const columns = [{name: 'nombre'}, 
     {
@@ -41,14 +34,12 @@ export default function TableActivities(props) {
 
   if (data === '') {
     return(
-      <ThemeProvider theme={darkTheme}>
-        <MUIDataTable 
-          title={'Actividades de la agrupación'}
-          data={[]}
-          columns={columns}
-          options={options1}
-        />
-      </ThemeProvider>
+      <MUIDataTable 
+        title={'Actividades de la agrupación'}
+        data={[]}
+        columns={columns}
+        options={options1}
+      />
     )
   }
 
@@ -65,17 +56,49 @@ export default function TableActivities(props) {
     rowsSelected: rowsSelected,
     selectToolbarPlacement: 'none',
     onRowSelectionChange: handleRowSelection,
-    download: false
+    download: false,
+    rowsPerPageOptions: [10],
+    textLabels: {
+      body: {
+        noMatch: 'Registros no encontrados',
+        toolTip: 'Filtrar'
+      },
+      pagination: {
+        next: "Siguiente",
+        previous: "Anterior",
+        rowsPerPage: "Filas por página:",
+        displayRows: "de",
+      },
+      toolbar: {
+        search: "Buscar",
+        downloadCsv: "Descargar CSV",
+        print: "Imprimir",
+        viewColumns: "Ver Columnas",
+        filterTable: "Filtrar tabla",
+      },
+      filter: {
+        all: "TODOS",
+        title: "FILTROS",
+        reset: "RESET",
+      },
+      viewColumns: {
+        title: "Mostrar Columnas",
+        titleAria: "Mostrar/Ocultar Columnas",
+      },
+      selectedRows: {
+        text: "fila(s) seleccionadas",
+        delete: "Eliminar",
+        deleteAria: "Eliminar filas seleccionadas",
+      },
+    }
   };
 
   return(
-    <ThemeProvider theme={darkTheme}>
-      <MUIDataTable 
-        title={'Actividades de la agrupación'}
-        data={data}
-        columns={columns}
-        options={options2}
-      />
-    </ThemeProvider>
+    <MUIDataTable 
+      title={'Actividades de la agrupación'}
+      data={data}
+      columns={columns}
+      options={options2}
+    />
   )
 }

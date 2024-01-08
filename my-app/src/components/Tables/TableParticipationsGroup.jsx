@@ -1,17 +1,9 @@
 import React from 'react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MUIDataTable from 'mui-datatables';
 import { Link } from 'react-router-dom';
 
 export default function TableParticipationsGroup(props) {
   const {data, groupID} = props;
-  
-  //Aplicar tema oscuro a la tabla
-  const darkTheme = createTheme({
-    palette: {
-      mode: 'dark'
-    }
-  })
 
   const columns = [
     {
@@ -60,17 +52,49 @@ export default function TableParticipationsGroup(props) {
     filterType: 'checkbox',
     selectableRows: 'none',
     print: 'false',
-    download: false
+    download: false,
+    rowsPerPageOptions: [10, 15, 20],
+    textLabels: {
+      body: {
+        noMatch: 'Registros no encontrados',
+        toolTip: 'Filtrar'
+      },
+      pagination: {
+        next: "Siguiente",
+        previous: "Anterior",
+        rowsPerPage: "Filas por página:",
+        displayRows: "de",
+      },
+      toolbar: {
+        search: "Buscar",
+        downloadCsv: "Descargar CSV",
+        print: "Imprimir",
+        viewColumns: "Ver Columnas",
+        filterTable: "Filtrar tabla",
+      },
+      filter: {
+        all: "TODOS",
+        title: "FILTROS",
+        reset: "RESET",
+      },
+      viewColumns: {
+        title: "Mostrar Columnas",
+        titleAria: "Mostrar/Ocultar Columnas",
+      },
+      selectedRows: {
+        text: "fila(s) seleccionadas",
+        delete: "Eliminar",
+        deleteAria: "Eliminar filas seleccionadas",
+      },
+    }
   }
   
   return(
-    <ThemeProvider theme={darkTheme}>
-      <MUIDataTable 
-        title={'Participación en actividades'}
-        data={data}
-        columns={columns}
-        options={options}
-      />
-    </ThemeProvider>
+    <MUIDataTable 
+      title={'Participación en actividades'}
+      data={data}
+      columns={columns}
+      options={options}
+    />
   )
 }

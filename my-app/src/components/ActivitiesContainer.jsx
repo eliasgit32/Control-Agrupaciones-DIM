@@ -51,7 +51,10 @@ export default function ActivitiesContainer(props) {
       <ActList groupID={group.id} data={data} selectedTerm={selectedTerm} />
 
       {/* Botones opciones de agrupación */}
-      <div className='buttons-container text-center d-flex justify-content-center'>
+      <div 
+        className='buttons-container text-center d-flex justify-content-center'
+        style={{background: '#cdcdcd'}}  
+      >
         <button 
         type='button' 
         className='btn btn-success'

@@ -36,9 +36,21 @@ export default function ParticipationHistory(props) {
       <div className='accordion' id="accordionFlush">
         {data.map((group) => {
           return (
-            <div className='accordion-item' key={group.idAgrupacion}>
+            <div 
+              className='accordion-item' 
+              key={group.idAgrupacion} 
+              style={{background: '#fff', color: '#343434'}}
+            >
               <h2 className='accordion-header'>
-                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={`#flush-collapse${group.idAgrupacion}`} aria-expanded="false" aria-controls="flush-collapseOne">
+                <button 
+                  className="accordion-button collapsed" 
+                  type="button" 
+                  data-bs-toggle="collapse" 
+                  data-bs-target={`#flush-collapse${group.idAgrupacion}`} 
+                  aria-expanded="false" 
+                  aria-controls="flush-collapseOne"
+                  style={{background: '#40b4e5', color: '#343434'}}
+                >
                   {group.nombreAgrupacion}
                 </button>
               </h2>

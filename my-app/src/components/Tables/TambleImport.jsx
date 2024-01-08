@@ -1,5 +1,4 @@
 import React from 'react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MUIDataTable from 'mui-datatables';
 
 export default function TableImport(props) {
@@ -29,13 +28,6 @@ export default function TableImport(props) {
     }
     
     return null;
-  })
-
-  //Aplicar tema oscuro a la tabla
-  const darkTheme = createTheme({
-    palette: {
-      mode: 'dark'
-    }
   })
 
   const columnStudent = [
@@ -79,17 +71,48 @@ export default function TableImport(props) {
     filterType: 'checkbox',
     selectableRows: 'none',
     print: 'false',
-    download: false
+    download: false,
+    textLabels: {
+      body: {
+        noMatch: 'Registros no encontrados',
+        toolTip: 'Filtrar'
+      },
+      pagination: {
+        next: "Siguiente",
+        previous: "Anterior",
+        rowsPerPage: "Filas por página:",
+        displayRows: "de",
+      },
+      toolbar: {
+        search: "Buscar",
+        downloadCsv: "Descargar CSV",
+        print: "Imprimir",
+        viewColumns: "Ver Columnas",
+        filterTable: "Filtrar tabla",
+      },
+      filter: {
+        all: "TODOS",
+        title: "FILTROS",
+        reset: "RESET",
+      },
+      viewColumns: {
+        title: "Mostrar Columnas",
+        titleAria: "Mostrar/Ocultar Columnas",
+      },
+      selectedRows: {
+        text: "fila(s) seleccionadas",
+        delete: "Eliminar",
+        deleteAria: "Eliminar filas seleccionadas",
+      },
+    }
   }
   
   return(
-    <ThemeProvider theme={darkTheme}>
-      <MUIDataTable 
-        title={'Datos a importar'}
-        data={lighterData}
-        columns={type === 'Estudiante' ? columnStudent : columnPersonal}
-        options={options}
-      />
-    </ThemeProvider>
+    <MUIDataTable 
+      title={'Datos a importar'}
+      data={lighterData}
+      columns={type === 'Estudiante' ? columnStudent : columnPersonal}
+      options={options}
+    />
   )
 }

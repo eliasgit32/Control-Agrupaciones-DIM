@@ -43,16 +43,6 @@ export default function ParticipationContainer(props) {
     }
   })
 
-  //Cancelar actualización de participaciones
-  const handleCancel = () => {
-
-  }
-
-  //Guardar actualización de participación
-  const handleSave = () => {
-
-  }
-
   if (isLoading) return <div 
     style={{position: 'absolute', top: '150px', left: '355px'}}
   >
@@ -83,7 +73,10 @@ export default function ParticipationContainer(props) {
 
     
       {/* Botones opciones de actividad */}
-      <div className='buttons-container text-center d-flex justify-content-center'>
+      <div 
+        className='buttons-container text-center d-flex justify-content-center'
+        style={{background: '#cdcdcd'}}
+      >
         <button 
           type='button' 
           className='btn btn-success'

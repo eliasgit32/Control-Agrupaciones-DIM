@@ -34,7 +34,40 @@ export default function TableCommunities() {
     selectableRowsHeader: false,
     selectableRows: 'none',
     print: 'false',
-    download: false
+    download: false,
+    textLabels: {
+      body: {
+        noMatch: 'Registros no encontrados',
+        toolTip: 'Filtrar'
+      },
+      pagination: {
+        next: "Siguiente",
+        previous: "Anterior",
+        rowsPerPage: "Filas por página:",
+        displayRows: "de",
+      },
+      toolbar: {
+        search: "Buscar",
+        downloadCsv: "Descargar CSV",
+        print: "Imprimir",
+        viewColumns: "Ver Columnas",
+        filterTable: "Filtrar tabla",
+      },
+      filter: {
+        all: "TODOS",
+        title: "FILTROS",
+        reset: "RESET",
+      },
+      viewColumns: {
+        title: "Mostrar Columnas",
+        titleAria: "Mostrar/Ocultar Columnas",
+      },
+      selectedRows: {
+        text: "fila(s) seleccionadas",
+        delete: "Eliminar",
+        deleteAria: "Eliminar filas seleccionadas",
+      },
+    }
   };
 
   if (data === '') {

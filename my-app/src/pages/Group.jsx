@@ -144,7 +144,7 @@ export default function Group() {
           <p 
             className='col-sm-4' 
             id='groupTotalSigned' 
-            style={{marginBottom: '0', fontSize: '22px'}}
+            style={{marginBottom: '0', fontSize: '22px', color: '#181818'}}
           >
             {data[0].inscritos}
           </p>
@@ -182,36 +182,6 @@ export default function Group() {
             </select>
           </div> 
         </div>
-
-        {/* Catedrá
-        <div className='mb-3 row'>
-          <label htmlFor='isCatedra' className='form-label col-sm-4'>Catedrá:</label>
-          <div className='col-sm-5'>
-            <input
-              type='checkbox'
-              id="isCatedra"
-              style={{marginTop: '12px', transform: 'scale(1.5)'}}
-              onChange={changeCatedra}
-              value={catedra || data[0].catedra}
-            />
-          </div> 
-        </div> */}
-
-        {/* Docente */}
-        {/* <div className='mb-3 row' style={{display: (data[0].catedra ? 'flex' : 'none')}}>
-          <label htmlFor='teacher' className='form-label col-sm-4'>Docente:</label>
-          <div className='col-sm-5'>
-            <input
-              type='text'
-              id='teacher'
-              // style={{marginTop: '12px', transform: 'scale(1.5)'}}
-              className='form-control'
-              dark='true'
-              onChange={changeTeacher}
-              value={teacher}
-            />
-          </div> 
-        </div> */}
 
         {/* Botones de guardado y cancelacion */}
         <div className='text-center'>

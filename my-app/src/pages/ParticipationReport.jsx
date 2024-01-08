@@ -35,7 +35,9 @@ export default function ParticipationReport() {
     <div>
       <NavBar />
       <div className='title-container text-center mb-4'>
-        <h2>Reporte de participaciones de la agrupación {AllParticipationsQuery.data.nombreAgrupacion}</h2>
+        <h2 style={{color: '#343434'}}>
+          Reporte de participaciones de la agrupación {AllParticipationsQuery.data.nombreAgrupacion}
+        </h2>
       </div>
 
       {/* Contenedor de selectores de periodos */}

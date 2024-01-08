@@ -8,9 +8,8 @@ export default function FinishedActivities(props) {
   return(
     <div className='modal modal-lg fade' id='modalFinishedActivities' aria-hidden='true' tabIndex='-1'>
       <div className='modal-dialog'>
-        <div className='modal-content'>
+        <div className='modal-content' style={{background: '#4f4e4e'}}>
           <div className='modal-header'>
-            <h5 className='modal-title'>Actividades Finalizadas</h5>
             <button 
               type='button' 
               className='btn-close' 

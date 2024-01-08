@@ -1,18 +1,11 @@
 import React from 'react';
 import MUIDataTable from 'mui-datatables';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function TableFinishedAct(props) {
 
   const { data } = props;
   const navigate =  useNavigate();
-
-  const darkTheme = createTheme({
-    palette: {
-      mode: 'dark'
-    }
-  })
 
   const columns = [
     {
@@ -61,16 +54,49 @@ export default function TableFinishedAct(props) {
     filterType: 'checkbox', 
     print: 'false',
     selectableRows: 'none',
-    download: false
+    download: false,
+    rowsPerPageOptions: [10],
+    textLabels: {
+      body: {
+        noMatch: 'Registros no encontrados',
+        toolTip: 'Filtrar'
+      },
+      pagination: {
+        next: "Siguiente",
+        previous: "Anterior",
+        rowsPerPage: "Filas por página:",
+        displayRows: "de",
+      },
+      toolbar: {
+        search: "Buscar",
+        downloadCsv: "Descargar CSV",
+        print: "Imprimir",
+        viewColumns: "Ver Columnas",
+        filterTable: "Filtrar tabla",
+      },
+      filter: {
+        all: "TODOS",
+        title: "FILTROS",
+        reset: "RESET",
+      },
+      viewColumns: {
+        title: "Mostrar Columnas",
+        titleAria: "Mostrar/Ocultar Columnas",
+      },
+      selectedRows: {
+        text: "fila(s) seleccionadas",
+        delete: "Eliminar",
+        deleteAria: "Eliminar filas seleccionadas",
+      },
+    }
   }
   
   return(
-    <ThemeProvider theme={darkTheme}>
-      <MUIDataTable 
-          data={data}
-          columns={columns}
-          options={options}
-        />
-    </ThemeProvider>
+    <MUIDataTable 
+      data={data}
+      columns={columns}
+      options={options}
+      title={'Actividades Finalizadas'}
+    />
   )
 }

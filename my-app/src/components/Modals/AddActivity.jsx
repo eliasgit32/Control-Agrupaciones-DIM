@@ -5,8 +5,6 @@ import PlusButton from '../PlusButton';
 import TableActivities from '../tables/TableActivities';
 
 export default function AddActivity(props) {
-  //Actividades seleccionadas en la tabla
-  // const [selectedAct, setSelectedAct] =  useState([]);
 
   var selectedAct = [];
 
@@ -39,7 +37,7 @@ export default function AddActivity(props) {
   return(
     <div className='modal fade' id='modalAddActivity' aria-hidden='true' tabIndex='-1'>
       <div className='modal-dialog'>
-        <div className='modal-content'>
+        <div className='modal-content' style={{background: '#4f4e4e'}}>
           <div className='modal-header'>
             <h5 className='modal-title'>Añadir Actividad</h5>
             <button 

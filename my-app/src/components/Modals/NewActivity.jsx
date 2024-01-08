@@ -41,7 +41,7 @@ export default function NewActivity(props) {
   return(
     <div className='modal fade' id='modalNewActivity' aria-hidden='true' tabIndex='-1'>
       <div className='modal-dialog'>
-        <div className='modal-content'>
+        <div className='modal-content' style={{background: '#4f4e4e'}}>
           <div className='modal-header'>
             <h5 className='modal-title'>Nueva Actividad</h5>
             <button 

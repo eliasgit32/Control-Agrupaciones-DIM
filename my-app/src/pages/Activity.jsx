@@ -106,7 +106,7 @@ export default function Activity() {
           </label>
           <div className='col-sm-5'>
             <Link to={`/group/${params.id}/${selectedTerm}`} className='link'>
-              <p>{data.nombreAgrupacion}</p>
+              <p style={{color: '#181818'}}>{data.nombreAgrupacion}</p>
             </Link>
           </div>
         </div>
@@ -129,7 +129,7 @@ export default function Activity() {
             Cant. Esperada:
           </label>
           <div className='col-sm-3'>
-            <p style={{marginBottom: '0', fontSize: '18px'}}>
+            <p style={{marginBottom: '0', fontSize: '18px', color: '#181818'}}>
               {noRegistered}
             </p>
           </div>
@@ -140,7 +140,7 @@ export default function Activity() {
             Cant. Total:
           </label>
           <div className='col-sm-3'>
-          <p style={{marginBottom: '0', fontSize: '18px'}}>
+          <p style={{marginBottom: '0', fontSize: '18px', color: '#181818'}}>
               {noParticipants}
             </p>
           </div>

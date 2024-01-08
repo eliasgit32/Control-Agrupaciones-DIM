@@ -1,6 +1,6 @@
 input[dark='true'], textarea[dark='true'], select[dark='true'] {
-  background-color: #303030;
-  color: #fff;
+  background-color: #787878;
+  color: #181818;
 }
 
 #groupName {
@@ -8,8 +8,9 @@ input[dark='true'], textarea[dark='true'], select[dark='true'] {
   text-align: center;
 }
 
-.form-label {
+.info-bar .form-label {
   font-size: 17px;
+  color: #181818;
 }
 
 .term-container {

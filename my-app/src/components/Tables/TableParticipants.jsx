@@ -1,6 +1,5 @@
 import React from 'react';
 import MUIDataTable from 'mui-datatables';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -50,9 +49,6 @@ export default function TableParticipants(props) {
     })
 
     updateParticipationMutation.mutate({groupID, activityID, term: selectedTerm, participants});
-    // newRowsSelected = [];
-    // setDataChanged(false);
-    // handleCancel();
   };
 
   const handleRowSelection = (currentRowsSelected, allRowsSelected, rowsSelected) => {
@@ -64,12 +60,6 @@ export default function TableParticipants(props) {
       setDataChanged(false);
     else setDataChanged(true);
   };
-
-  const darkTheme = createTheme({
-    palette: {
-      mode: 'dark'
-    }
-  })
 
   const columns = [
     {
@@ -99,19 +89,52 @@ export default function TableParticipants(props) {
       rowsSelectedData : newRowsSelected),
     onRowSelectionChange: handleRowSelection,
     print: 'false',
-    download: false
+    download: false,
+    rowsPerPageOptions: [10, 15, 20],
+    textLabels: {
+      body: {
+        noMatch: 'Registros no encontrados',
+        toolTip: 'Filtrar'
+      },
+      pagination: {
+        next: "Siguiente",
+        previous: "Anterior",
+        rowsPerPage: "Filas por página:",
+        displayRows: "de",
+      },
+      toolbar: {
+        search: "Buscar",
+        downloadCsv: "Descargar CSV",
+        print: "Imprimir",
+        viewColumns: "Ver Columnas",
+        filterTable: "Filtrar tabla",
+      },
+      filter: {
+        all: "TODOS",
+        title: "FILTROS",
+        reset: "RESET",
+      },
+      viewColumns: {
+        title: "Mostrar Columnas",
+        titleAria: "Mostrar/Ocultar Columnas",
+      },
+      selectedRows: {
+        text: "fila(s) seleccionadas",
+        delete: "Eliminar",
+        deleteAria: "Eliminar filas seleccionadas",
+      },
+    }
   };
   
   return(
     <>
-      <ThemeProvider theme={darkTheme}>
-        <MUIDataTable 
-        title={'Participantes'}
-        data={data}
-        columns={columns}
-        options={options}
-        />
-      </ThemeProvider>
+    <div className='mt-3'></div>
+      <MUIDataTable 
+      title={'Participantes'}
+      data={data}
+      columns={columns}
+      options={options}
+      />
 
        {/* botones guardar cambios registro de participación */}
       <div className='text-center'>
