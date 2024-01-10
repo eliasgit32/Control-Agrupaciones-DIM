@@ -89,7 +89,7 @@ router.get('/faculties', (req, res) => {
 
 //Solicitar info de solo las comunidades externas
 router.get('/externalCommunities', (req, res) => {
-  const sql = `SELECT id, nombre FROM comunidades 
+  const sql = `SELECT nombre FROM comunidades 
   WHERE tipo = 'Comunidad' ORDER BY nombre ASC`;
 
   conn.query(sql, (error, results) => {

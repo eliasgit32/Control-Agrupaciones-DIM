@@ -1,19 +1,11 @@
 import React from 'react';
 import ActCard from '../ActCard';
 import '../../stylesheets/ActList.css';
-// import { useQuery } from '@tanstack/react-query';
-// import { getGroupActivities } from '../API/activities';
 
 export default function ActList(props) {
   const {groupID, selectedTerm, data,} =  props;
-  
 
-  // const {isLoading, data} = useQuery(['activities', groupID, selectedTerm],
-  // () => getGroupActivities(groupID, selectedTerm));
-
-  // if( isLoading) return <div>Cargando...</div>;
-
-  if (data === '') return <div>No se encuentran registros</div>
+  if (data === '') return <div style={{color: '#343434'}}>No se encuentran registros</div>
 
   return(
     <div className='act-container'>

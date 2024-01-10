@@ -7,7 +7,7 @@ export default function GroupList() {
   const { isLoading, data } = useQuery(['groups'], getGroups);
 
   if (isLoading) {
-    return <div>Cargando...</div>;
+    return <div style={{color: '#343434'}}>Cargando...</div>;
   }
 
   // Si no hay grupos registrados en la bd

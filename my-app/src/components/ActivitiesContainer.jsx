@@ -33,7 +33,7 @@ export default function ActivitiesContainer(props) {
   const {isLoading, data} =  useQuery(['activities', group.id, selectedTerm], 
     () => getGroupActivities(group.id, selectedTerm));
 
-  if (isLoading) return <div>Cargando...</div>
+  if (isLoading) return <div style={{color: '343434'}}>Cargando...</div>
 
   return(
     <div>

@@ -31,7 +31,7 @@ export default function HomePage() {
 
 
   if (isLoading) {
-    return <div>Cargando...</div>;
+    return <div style={{color: '#343434'}}>Cargando...</div>;
   }
 
   if (data.length > 0) showNotification = 'show';

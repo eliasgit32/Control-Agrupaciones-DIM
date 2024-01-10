@@ -24,7 +24,7 @@ export default function ChartsReport() {
     return (
       <>
         <NavBar />
-        <div>Cargando...</div>
+        <div style={{color: '#343434'}}>Cargando...</div>
       </>
     )
   }

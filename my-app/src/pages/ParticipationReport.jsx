@@ -24,7 +24,7 @@ export default function ParticipationReport() {
     return(
       <>
         <NavBar />
-        <div>
+        <div style={{color: '#343434'}}>
           Cargando...
         </div>
       </>

@@ -45,7 +45,7 @@ export default function AcademicTerms() {
 
   //Query para solicitar períodos
   const { isLoading, data } = useQuery(['terms'], getTerms)
-  if (isLoading) return <div>Cargando...</div>
+  if (isLoading) return <div style={{color: '#343434'}}>Cargando...</div>
 
   if (data === '') return <div>No data</div>
   

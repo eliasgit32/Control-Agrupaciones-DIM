@@ -18,7 +18,7 @@ export default function ImportParticipants(props) {
     CSB: 'Escuela de Comunicación Social',
     DCR: 'Escuela de Derecho',
     ICI: 'Escuela de Ingeniería Civil',
-    IIN: 'Ingeniería'
+    IIN: 'Escuela de Ingeniería Informática'
   }
 
   //Formetear Apellidos y nombres del listado de personal
@@ -139,7 +139,7 @@ export default function ImportParticipants(props) {
   return(
     <div className='modal modal-lg fade' id='modalImportStudents' aria-hidden='true' tabIndex='-1'>
       <div className='modal-dialog'>
-        <div className='modal-content'>
+        <div className='modal-content' style={{background: '#4f4e4e'}}>
           <div className='modal-header'>
             <h5 className='modal-title'>
               Importar {type}

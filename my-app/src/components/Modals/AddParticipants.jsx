@@ -68,7 +68,13 @@ export default function AddParticipants(props) {
 
   if (isLoading) {
     return (
-      <div className='modal modal-lg fade' id='modalSignUpParticipants' aria-hidden='true' tabIndex='-1'>
+      <div 
+        className='modal modal-lg fade' 
+        id='modalSignUpParticipants' 
+        aria-hidden='true' 
+        tabIndex='-1'
+        style={{color: '#343434'}}
+      >
         Cargando...
       </div>
     )

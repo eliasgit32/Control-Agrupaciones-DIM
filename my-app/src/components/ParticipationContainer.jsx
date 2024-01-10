@@ -44,7 +44,7 @@ export default function ParticipationContainer(props) {
   })
 
   if (isLoading) return <div 
-    style={{position: 'absolute', top: '150px', left: '355px'}}
+    style={{position: 'absolute', top: '150px', left: '355px', color: '#343434'}}
   >
     Cargando...
   </div>

@@ -10,7 +10,7 @@ export default function TermSelect(props) {
 
   const { isLoading, data } = useQuery(['terms'], getTerms);
   
-  if (isLoading) return <div>Cargando...</div>;
+  if (isLoading) return <div style={{color: '#343434'}}>Cargando...</div>;
   
   // Si no hay períodos registrados en la bd
   if (data === '') return <div>No data</div>

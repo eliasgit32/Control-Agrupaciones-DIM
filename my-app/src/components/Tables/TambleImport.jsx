@@ -72,6 +72,7 @@ export default function TableImport(props) {
     selectableRows: 'none',
     print: 'false',
     download: false,
+    rowsPerPageOptions: [10],
     textLabels: {
       body: {
         noMatch: 'Registros no encontrados',

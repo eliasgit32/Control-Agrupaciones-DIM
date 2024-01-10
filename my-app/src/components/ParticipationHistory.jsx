@@ -15,7 +15,7 @@ export default function ParticipationHistory(props) {
   const { isLoading, data } = useQuery(['history', cedula, startTerm, endTerm], 
   () => getParticipationHistory(cedula, startTerm, endTerm));
 
-  if (isLoading) return <div>Cargando...</div>
+  if (isLoading) return <div style={{color: '#343434'}}>Cargando...</div>
 
   return (
     <>

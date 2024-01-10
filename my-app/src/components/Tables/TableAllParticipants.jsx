@@ -108,7 +108,7 @@ export default function TableAllParticipants(props) {
     download: false,
     onRowSelectionChange: handleRowSelection,
     onRowsDelete: () => setModalVisible(true),
-    rowsPerPageOptions: [10],
+    rowsPerPageOptions: [10, 20, 30],
     textLabels: {
       body: {
         noMatch: 'Registros no encontrados',

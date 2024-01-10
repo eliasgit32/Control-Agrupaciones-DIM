@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import BackForwardArrows from './BackForwardArrows';
+import '../stylesheets/Logo.css';
 
 export default function NavBar() {
   
@@ -8,7 +9,10 @@ export default function NavBar() {
     <div className='navbar navbar-expand-lg fixed-top' data-bs-theme='dark' style={{background: '#787878'}}>
       <BackForwardArrows />
       <div className='container'>
-        <NavLink to={'/homepage'} className='navbar-brand'>Dirección de Identidad y Misión -Guayana</NavLink>
+        <NavLink to={'/homepage'} className='navbar-brand' style={{marginLeft: '-20px'}}>
+         <img src={process.env.PUBLIC_URL + "/img/Logo_UCAB_blanco_2.png"} alt="logo" className="logo-UCAB" />
+          Dirección de Identidad y Misión -Guayana
+        </NavLink>
         {/* Boton en caso de colapso de navbar */}
         <button 
           // Propiedades de configuracion bootstrap

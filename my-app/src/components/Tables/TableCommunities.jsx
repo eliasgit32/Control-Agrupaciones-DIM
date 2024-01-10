@@ -7,7 +7,7 @@ export default function TableCommunities() {
 
   const { isLoading, data } = useQuery(['communities'], getCommunities);
 
-  if (isLoading) return <div>Cargando...</div>;
+  if (isLoading) return <div style={{color: '#343434'}}>Cargando...</div>;
 
   const columns = [
     {
@@ -35,6 +35,7 @@ export default function TableCommunities() {
     selectableRows: 'none',
     print: 'false',
     download: false,
+    rowsPerPageOptions: [10, 15, 20],
     textLabels: {
       body: {
         noMatch: 'Registros no encontrados',

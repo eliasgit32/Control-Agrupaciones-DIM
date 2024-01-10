@@ -68,7 +68,7 @@ export default function NewParticipant(props) {
   return (
     <div className='modal modal-lg fade' id='modalNewParticipant' aria-hidden='true' tabIndex='-1'>
       <div className='modal-dialog'>
-        <div className='modal-content'>
+        <div className='modal-content' style={{background: '#4f4e4e'}}>
           <div className='modal-header'>
             <h5 className='modal-title'>
               {props.participant === 'Comunidad' ? 'Registrar Miembro de Comunidad' : `Registrar ${props.participant}`}
