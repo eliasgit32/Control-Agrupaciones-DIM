@@ -15,3 +15,5 @@ export async function connection(username, password){
     return(error)
   }
 }
+
+export const quitServer = () => conn.post('/shutdown');

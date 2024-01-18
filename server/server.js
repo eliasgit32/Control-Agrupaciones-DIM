@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const cors = require('cors');
+// const conn = require('/Users/Elias Peñalver/Documents/Trabajos/Pasantía/Control-Agrupaciones-DIM/server/connection');
 
 app.set('port', process.env.port || 5000)
 
@@ -24,6 +25,14 @@ app.use('/participations', require('./routes/Participations'));
 app.use('/reports', require('./routes/Reports'));
 
 
-app.listen(5000, () =>{
+const server = app.listen(5000, () =>{
   console.log(`Server on port ${app.get('port')}`)
 });
+
+app.post('/shutdown', (req, res) => {
+  console.log('shutdown received')
+  res.statusCode = 200;
+  res.send('Server Closed')
+  server.close();
+  process.exit(0);
+})

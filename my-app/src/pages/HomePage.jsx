@@ -44,6 +44,7 @@ export default function HomePage() {
         <GroupList />
         <PlusButton type='NewGroup' styleClass={buttonStyle} font='50px'/>
         <NewGroup />
+
       </div>
 
       {/* Notificación de actividades sin participación */}
