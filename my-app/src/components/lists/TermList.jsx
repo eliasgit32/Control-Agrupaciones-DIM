@@ -55,7 +55,7 @@ export default function TermList(props) {
               checked={ selectedTerm === term.id }
               style={{transform: 'scale(1.7)'}}
             />
-            <label htmlFor={term.id} style={{marginLeft: '2rem'}}>{term.id}</label>
+            <label htmlFor={term.id} style={{marginLeft: '2rem', fontSize: '28px'}}>{term.id}</label>
           </div>
         )
       })}
